@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgxPendoComponent } from './ngx-pendo.component';
-import { NGX_PENDO_API_KEY_TOKEN } from './tokens/ngx-pendo-api-key-token';
+import { NGX_PENDO_API_KEY_TOKEN, NGX_PENDO_INITIALIZER_PROVIDER } from './ngx-pendo.injectors';
 
 @NgModule({
   declarations: [NgxPendoComponent],
@@ -15,8 +15,11 @@ export class NgxPendoModule {
       providers: [
         {
           provide: NGX_PENDO_API_KEY_TOKEN,
-          useValue: pendoApiKey
-        }
+          useValue: {
+            pendoApiKey
+          }
+        },
+        NGX_PENDO_INITIALIZER_PROVIDER,
       ]
     };
   }
