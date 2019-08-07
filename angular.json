@@ -124,6 +124,41 @@
           }
         }
       }
+    },
+    "ngx-pendo": {
+      "projectType": "library",
+      "root": "projects/ngx-pendo",
+      "sourceRoot": "projects/ngx-pendo/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-pendo/tsconfig.lib.json",
+            "project": "projects/ngx-pendo/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-pendo/src/test.ts",
+            "tsConfig": "projects/ngx-pendo/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-pendo/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-pendo/tsconfig.lib.json",
+              "projects/ngx-pendo/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "ngx-pendo-demo"
 }
