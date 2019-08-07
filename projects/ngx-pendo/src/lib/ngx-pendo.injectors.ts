@@ -1,4 +1,5 @@
 import { APP_INITIALIZER, InjectionToken, isDevMode, Provider } from '@angular/core';
+import { interval } from 'rxjs';
 import { IPendoSettings } from './ngx-pendo.interfaces';
 
 export const NGX_PENDO_API_KEY_TOKEN = new InjectionToken<IPendoSettings>('ngx-pendo-settings', {
@@ -24,6 +25,21 @@ export function pendoInitializer($settings: IPendoSettings) {
       return;
     }
 
-    console.log($settings);
+    await new Promise(resolve => {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://cdn.pendo.io/agent/static/${$settings.pendoApiKey}/pendo.js`;
+      document.head.appendChild(script);
+      script.onload = async () => {
+        // when enableDebugging should load extra js
+        const sub = interval(100).subscribe(() => {
+          // tslint:disable-next-line: no-string-literal
+          if (window['pendo']) {
+            sub.unsubscribe();
+            resolve();
+          }
+        });
+      };
+    });
   };
 }
