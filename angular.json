@@ -129,7 +129,7 @@
       "projectType": "library",
       "root": "projects/ngx-pendo",
       "sourceRoot": "projects/ngx-pendo/src",
-      "prefix": "lib",
+      "prefix": "ngx-pendo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
