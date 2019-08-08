@@ -1,27 +1,71 @@
-# NgxPendoDemo
+# Ngx Pendo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
+An easy implementation pendo on angular6+ apps.
 
-## Development server
+## Install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
+npm install ngx-pendo
+```
 
-## Code scaffolding
+## Feedbacks
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+https://github.com/yociduo/ngx-pendo/issues
 
-## Build
+## Simple Configuration
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```ts
+import { NgxPendoModule } from 'ngx-pendo';
 
-## Running unit tests
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgxPendoModule.forRoot('pendo-api-key')
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Call Initialization
 
-## Running end-to-end tests
+```ts
+import { Component, OnInit } from '@angular/core';
+import { NgxPendoService } from 'ngx-pendo';
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+@Component( ... )
+export class AppComponent implements OnInit {
 
-## Further help
+  constructor(protected ngxPendoService: NgxPendoService) {
+  }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  ngOnInit() {
+    this.ngxPendoService.initialize({
+      id: 'PUT_VISITOR_ID_HERE',
+      name: 'Neo',
+      email: 'neo@thematrix.io',
+      role: 'godlike'
+    }, {
+      id: 'PUT_ACCOUNT_ID_HERE',
+      name: 'CorpSchmorp'
+    });
+  }
+
+}
+```
+
+## Pendo Directives
+
+You can use angular directives to add pendo id.
+
+### Simple directive use
+
+```js
+<div ngx-pendo-section="section">
+  <button ngx-pendo-id="click_test">Click Test</button>
+</div>
+```

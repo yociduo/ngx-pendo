@@ -8,8 +8,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-pkg": "ng build ngx-pendo"
+    "build-pkg": "ng build ngx-pendo",
+    "cp": "cp ./README.md ./dist/ngx-pendo/README.md",
+    "publish": "npm run build-pkg && npm run cp && npm publish dist/ngx-pendo"
   },
+  "author": "Eden Wang",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.0",

@@ -1,8 +1,27 @@
 {
   "name": "ngx-pendo",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "A simple wrapper to load Pendo by angular way",
+  "contributors": [
+    {
+      "name": "Eden Wang",
+      "email": "yociduo@vip.qq.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yociduo/ngx-pendo.git"
+  },
+  "keywords": [
+    "angular",
+    "pendo",
+    "typescript"
+  ],
+  "author": "Eden Wang",
+  "license": "MIT",
+  "homepage": "https://github.com/yociduo/ngx-pendo",
   "peerDependencies": {
-    "@angular/common": "^8.2.0",
-    "@angular/core": "^8.2.0"
+    "@angular/common": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+    "@angular/core": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   }
 }
