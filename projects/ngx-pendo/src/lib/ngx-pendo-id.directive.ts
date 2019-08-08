@@ -1,15 +1,12 @@
 import { AfterViewInit, Directive, ElementRef, HostBinding, Input, ChangeDetectorRef } from '@angular/core';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
   selector: '[ngx-pendo-id]'
 })
 export class NgxPendoIdDirective implements AfterViewInit {
 
-  // tslint:disable-next-line: variable-name
   private _pendoSections: string[] = [];
 
-  // tslint:disable-next-line: variable-name
   private _pendoId: string;
 
   @Input('ngx-pendo-id')

@@ -4,8 +4,8 @@
     "directive-selector": [
       true,
       "attribute",
-      "lib",
-      "camelCase"
+      "ngx-pendo",
+      "kebab-case"
     ],
     "component-selector": [
       true,

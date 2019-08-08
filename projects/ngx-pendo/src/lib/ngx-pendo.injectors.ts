@@ -13,7 +13,7 @@ export const NGX_PENDO_INITIALIZER_PROVIDER: Provider = {
   deps: [
     NGX_PENDO_API_KEY_TOKEN
   ]
-}
+};
 
 export function pendoInitializer($settings: IPendoSettings) {
   return async () => {
