@@ -2,6 +2,8 @@
 
 An easy implementation pendo on angular6+ apps.
 
+[![npm version](https://img.shields.io/npm/v/ngx-pendo.svg)](https://www.npmjs.com/package/ngx-pendo)
+
 ## Install
 
 ```
