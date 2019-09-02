@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "lts/*"
+dist: xenial
+
+services:
+  - xvfb
+
+addons:
+  chrome: stable
+
+script:
+   - npm run lint ngx-pendo
+  #  - npm run test ngx-pendo
+   - npm run build ngx-pendo
