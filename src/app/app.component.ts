@@ -8,6 +8,8 @@ import { NgxPendoService } from 'ngx-pendo';
 })
 export class AppComponent implements OnInit {
   title = 'ngx-pendo-demo';
+  id = 'variable-id';
+  section = 'variable-section';
 
   constructor(private ngxPendoService: NgxPendoService) {
   }

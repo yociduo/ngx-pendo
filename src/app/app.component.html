@@ -18,4 +18,10 @@
   </li>
 </ul>
 
-<router-outlet></router-outlet>
+<div ngx-pendo-section="app">
+  <div [ngx-pendo-id]="id">variable id</div>
+  <div [ngx-pendo-section]="section">
+    <p [ngx-pendo-id]="id">variable id with variable section</p>
+  </div>
+  <router-outlet></router-outlet>
+</div>
