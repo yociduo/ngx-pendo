@@ -18,15 +18,17 @@ export class NgxPendoIdDirective implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._pendoSections = [];
-    let ele = this.el.nativeElement as HTMLElement;
-    while (ele) {
-      if (ele.hasAttribute('ngx-pendo-section')) {
-        this._pendoSections.unshift(ele.getAttribute('ngx-pendo-section'));
+    setTimeout(() => {
+      this._pendoSections = [];
+      let ele = this.el.nativeElement as HTMLElement;
+      while (ele) {
+        if (ele.hasAttribute('ngx-pendo-section')) {
+          this._pendoSections.unshift(ele.getAttribute('ngx-pendo-section'));
+        }
+        ele = ele.parentElement;
       }
-      ele = ele.parentElement;
-    }
-    this.cdr.detectChanges();
+      this.cdr.detectChanges();
+    });
   }
 
 }
