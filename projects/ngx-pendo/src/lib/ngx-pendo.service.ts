@@ -3,9 +3,7 @@ import { IAccount, IVisitor } from './ngx-pendo.interfaces';
 
 declare var pendo: any;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NgxPendoService {
 
   constructor() { }

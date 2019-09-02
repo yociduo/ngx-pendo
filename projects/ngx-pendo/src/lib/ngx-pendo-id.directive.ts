@@ -22,7 +22,7 @@ export class NgxPendoIdDirective implements AfterViewInit {
     let ele = this.el.nativeElement as HTMLElement;
     while (ele) {
       if (ele.hasAttribute('ngx-pendo-section')) {
-        this._pendoSections.push(ele.getAttribute('ngx-pendo-section'));
+        this._pendoSections.unshift(ele.getAttribute('ngx-pendo-section'));
       }
       ele = ele.parentElement;
     }

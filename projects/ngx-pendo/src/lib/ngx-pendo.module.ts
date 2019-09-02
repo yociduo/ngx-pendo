@@ -3,6 +3,7 @@ import { NgxPendoComponent } from './ngx-pendo.component';
 import { NGX_PENDO_API_KEY_TOKEN, NGX_PENDO_INITIALIZER_PROVIDER } from './ngx-pendo.injectors';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
+import { NgxPendoService } from './ngx-pendo.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,16 @@ export class NgxPendoModule {
           }
         },
         NGX_PENDO_INITIALIZER_PROVIDER,
+        NgxPendoService,
+      ]
+    };
+  }
+
+  static forChild(): ModuleWithProviders {
+    return {
+      ngModule: NgxPendoModule,
+      providers: [
+        NgxPendoService
       ]
     };
   }
