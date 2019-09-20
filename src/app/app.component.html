@@ -18,10 +18,29 @@
   </li>
 </ul>
 
-<div ngx-pendo-section="app">
+<div ngx-pendo-section="variable">
   <div [ngx-pendo-id]="id">variable id</div>
   <div [ngx-pendo-section]="section">
     <p [ngx-pendo-id]="id">variable id with variable section</p>
   </div>
   <router-outlet></router-outlet>
+</div>
+
+<div ngx-pendo-section="dynamic">
+  <div ngx-pendo-section="test">
+    <div ngx-pendo-id="1">dynamic.test.1</div>
+  </div>
+  <div ngx-pendo-section="nest">
+    <div ngx-pendo-id="1">dynamic.nest.1</div>
+    <div ngx-pendo-section="nest-inner">
+      <div ngx-pendo-id="1">dynamic.nest.nest-inner.1</div>
+    </div>
+  </div>
+  <div ngx-pendo-section="list">
+    <div *ngFor="let item of list; let i = index;" [ngx-pendo-section]="i">
+      <div [ngx-pendo-id]="i">dynamic.list.{{i}}.{{i}}</div>
+    </div>
+    <button (click)="addItem()">add</button>
+    <button (click)="removeItem()">remove</button>
+  </div>
 </div>

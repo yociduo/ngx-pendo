@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   title = 'ngx-pendo-demo';
   id = 'variable-id';
   section = 'variable-section';
+  list = new Array(5).fill(null);
 
   constructor(private ngxPendoService: NgxPendoService) {
   }
@@ -20,5 +21,13 @@ export class AppComponent implements OnInit {
     }, {
       id: '1-package'
     });
+  }
+
+  addItem() {
+    this.list.push(6);
+  }
+
+  removeItem() {
+    this.list.pop();
   }
 }
