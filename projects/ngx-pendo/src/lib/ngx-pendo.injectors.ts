@@ -2,7 +2,7 @@ import { APP_INITIALIZER, InjectionToken, isDevMode, Provider } from '@angular/c
 import { interval } from 'rxjs';
 import { IPendoSettings } from './ngx-pendo.interfaces';
 
-export const NGX_PENDO_API_KEY_TOKEN = new InjectionToken<IPendoSettings>('ngx-pendo-settings', {
+export const NGX_PENDO_SETTINGS_TOKEN = new InjectionToken<IPendoSettings>('ngx-pendo-settings', {
   factory: () => ({ pendoApiKey: '' })
 });
 
@@ -11,7 +11,7 @@ export const NGX_PENDO_INITIALIZER_PROVIDER: Provider = {
   multi: true,
   useFactory: pendoInitializer,
   deps: [
-    NGX_PENDO_API_KEY_TOKEN
+    NGX_PENDO_SETTINGS_TOKEN
   ]
 };
 

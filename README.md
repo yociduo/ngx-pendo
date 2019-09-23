@@ -27,7 +27,10 @@ import { NgxPendoModule } from 'ngx-pendo';
   ],
   imports: [
     BrowserModule,
-    NgxPendoModule.forRoot('pendo-api-key')
+    NgxPendoModule.forRoot({
+      pendoApiKey: 'pendo-api-key',
+      pendoIdFormatter: (value: any) => value.toString().toLowerCase()
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

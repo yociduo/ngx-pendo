@@ -1,5 +1,6 @@
 export interface IPendoSettings {
   pendoApiKey: string;
+  pendoIdFormatter?: (pendoId: string) => string;
 }
 
 export interface IVisitor {

@@ -1,12 +1,22 @@
-import { Injectable } from '@angular/core';
-import { IAccount, IVisitor } from './ngx-pendo.interfaces';
+import { Injectable, Inject } from '@angular/core';
+import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.injectors';
+import { IAccount, IVisitor, IPendoSettings } from './ngx-pendo.interfaces';
 
 declare var pendo: any;
 
 @Injectable()
 export class NgxPendoService {
 
-  constructor() { }
+  private pendoIdFormatter: (pendoId: string) => string;
+
+  /**
+   * Constructor
+   *
+   * @param settings IPendoSettings
+   */
+  constructor(@Inject(NGX_PENDO_SETTINGS_TOKEN) settings: IPendoSettings) {
+    this.pendoIdFormatter = settings.pendoIdFormatter;
+  }
 
   /**
    * Call initialize
@@ -16,6 +26,15 @@ export class NgxPendoService {
    */
   initialize(visitor: IVisitor, account?: IAccount): void {
     pendo.initialize({ visitor, account });
+  }
+
+  /**
+   * Format Pendo
+   *
+   * @param ids string[]
+   */
+  formatPendoId(...ids: string[]): string {
+    return (this.pendoIdFormatter ? ids.map(id => this.pendoIdFormatter(id)) : ids).join('.');
   }
 
 }

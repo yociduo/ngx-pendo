@@ -1,4 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, HostBinding, Input, ChangeDetectorRef } from '@angular/core';
+import { NgxPendoService } from './ngx-pendo.service';
 
 @Directive({
   selector: '[ngx-pendo-id]'
@@ -11,10 +12,13 @@ export class NgxPendoIdDirective implements AfterViewInit {
 
   @Input('ngx-pendo-id')
   @HostBinding('attr.data-pendo-id')
-  get pendoId() { return this._pendoSections.concat([this._pendoId]).join('.'); }
+  get pendoId() { return this.service.formatPendoId(...this._pendoSections, this._pendoId); }
   set pendoId(value: string) { this._pendoId = value; }
 
-  constructor(private el: ElementRef, private cdr: ChangeDetectorRef) {
+  @HostBinding('attr.datta-pendo-id')
+  dataPendoId: string;
+
+  constructor(private service: NgxPendoService, private el: ElementRef, private cdr: ChangeDetectorRef) {
   }
 
   ngAfterViewInit() {

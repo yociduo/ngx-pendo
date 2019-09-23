@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { param } from 'change-case';
 
 import { NgxPendoModule } from 'ngx-pendo';
 import { environment } from 'src/environments/environment';
@@ -13,7 +14,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxPendoModule.forRoot(environment.pendoApiKey),
+    NgxPendoModule.forRoot({
+      pendoApiKey: environment.pendoApiKey,
+      pendoIdFormatter: param,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
