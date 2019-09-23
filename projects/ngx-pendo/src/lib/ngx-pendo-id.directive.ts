@@ -15,9 +15,6 @@ export class NgxPendoIdDirective implements AfterViewInit {
   get pendoId() { return this.service.formatPendoId(...this._pendoSections, this._pendoId); }
   set pendoId(value: string) { this._pendoId = value; }
 
-  @HostBinding('attr.datta-pendo-id')
-  dataPendoId: string;
-
   constructor(private service: NgxPendoService, private el: ElementRef, private cdr: ChangeDetectorRef) {
   }
 
@@ -25,7 +22,7 @@ export class NgxPendoIdDirective implements AfterViewInit {
     setTimeout(() => {
       this._pendoSections = [];
       let ele = this.el.nativeElement as HTMLElement;
-      while (ele) {
+      while (ele && !ele.hasAttribute('ngx-pendo-disable-inherit')) {
         if (ele.hasAttribute('ngx-pendo-section')) {
           this._pendoSections.unshift(ele.getAttribute('ngx-pendo-section'));
         }

@@ -18,6 +18,8 @@
   </li>
 </ul>
 
+<hr />
+
 <div ngx-pendo-section="variable">
   <div [ngx-pendo-id]="id">variable id</div>
   <div [ngx-pendo-section]="section">
@@ -26,25 +28,46 @@
   <router-outlet></router-outlet>
 </div>
 
+<hr />
+
 <div ngx-pendo-section="dynamic">
   <div ngx-pendo-section="test">
-    <div ngx-pendo-id="1">dynamic.test.1</div>
+    <p ngx-pendo-id="1">dynamic.test.1</p>
   </div>
   <div ngx-pendo-section="nest">
-    <div ngx-pendo-id="1">dynamic.nest.1</div>
+    <p ngx-pendo-id="1">dynamic.nest.1</p>
     <div ngx-pendo-section="nest-inner">
-      <div ngx-pendo-id="1">dynamic.nest.nest-inner.1</div>
+      <p ngx-pendo-id="1">dynamic.nest.nest-inner.1</p>
     </div>
   </div>
   <div ngx-pendo-section="list">
     <div *ngFor="let item of list; let i = index;" [ngx-pendo-section]="i">
-      <div [ngx-pendo-id]="i">dynamic.list.{{i}}.{{i}}</div>
+      <p [ngx-pendo-id]="i">dynamic.list.{{i}}.{{i}}</p>
     </div>
     <button (click)="addItem()">add</button>
     <button (click)="removeItem()">remove</button>
   </div>
 </div>
 
+<hr />
+
 <div ngx-pendo-section="pendo format">
-  <div ngx-pendo-id="pendo id">pendo-format.pendo-id</div>
+  <p ngx-pendo-id="pendo id">pendo-format.pendo-id</p>
+  <p ngx-pendo-id="pendo_id">pendo-format.pendo-id</p>
+  <p ngx-pendo-id="PENDO_ID">pendo-format.pendo-id</p>
+</div>
+
+<hr />
+
+<div ngx-pendo-section="inherit">
+  <p ngx-pendo-id="enable" [ngx-pendo-inherit]="true">inherit.enable</p>
+  <p ngx-pendo-id="disable" [ngx-pendo-inherit]="false">disable</p>
+  <div ngx-pendo-section="section" [ngx-pendo-inherit]="true">
+    <p ngx-pendo-id="enable" [ngx-pendo-inherit]="true">inherit.section.enable</p>
+    <p ngx-pendo-id="disable" [ngx-pendo-inherit]="false">disable</p>
+  </div>
+  <div ngx-pendo-section="section-disabled" [ngx-pendo-inherit]="false">
+    <p ngx-pendo-id="enable" [ngx-pendo-inherit]="true">section-disabled.enable</p>
+    <p ngx-pendo-id="disable" [ngx-pendo-inherit]="false">disable</p>
+  </div>
 </div>
