@@ -12,3 +12,7 @@ export interface IAccount {
   id: string;
   [key: string]: string;
 }
+
+export interface IPendoDirective {
+  inherit: boolean;
+}
