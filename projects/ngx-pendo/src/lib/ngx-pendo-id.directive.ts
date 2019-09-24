@@ -34,11 +34,11 @@ export class NgxPendoIdDirective implements IPendoDirective, AfterViewInit, OnDe
     this._timer = setTimeout(() => {
       this._pendoSections = [];
       let ele = this.el.nativeElement as HTMLElement;
-      while (ele && !ele.hasAttribute('ngx-pendo-disable-inherit')) {
+      while (ele) {
         if (ele.hasAttribute('ngx-pendo-section')) {
           this._pendoSections.unshift(ele.getAttribute('ngx-pendo-section'));
         }
-        ele = ele.parentElement;
+        ele = ele.hasAttribute('ngx-pendo-disable-inherit') ? null : ele.parentElement;
       }
       this.cdr.detectChanges();
     });
