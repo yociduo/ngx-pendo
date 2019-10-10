@@ -15,4 +15,5 @@ export interface IAccount {
 
 export interface IPendoDirective {
   inherit: boolean;
+  parent?: IPendoDirective;
 }

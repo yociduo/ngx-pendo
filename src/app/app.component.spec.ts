@@ -47,10 +47,11 @@ describe('AppComponent', () => {
 
   it('should render correct pendo id', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    await new Promise(resolve => setTimeout(resolve, 300));
-    expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.title.text');
+    fixture.detectChanges();
+    await new Promise(resolve => setTimeout(resolve, 100));
+    fixture.detectChanges();
+    expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     expect(compiled.querySelector('h2').getAttribute('data-pendo-id')).toBe('tip');
     compiled.querySelectorAll('li').forEach((node: HTMLElement) =>
       expect(node.getAttribute('data-pendo-id')).toBe(`link.${node.getAttribute('ngx-pendo-id')}`));
