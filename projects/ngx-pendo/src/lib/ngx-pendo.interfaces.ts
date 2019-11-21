@@ -1,6 +1,6 @@
 export interface IPendoSettings {
   pendoApiKey: string;
-  pendoScriptHost?: string;
+  pendoScriptOrigin?: string;
   pendoIdFormatter?: (pendoId: string) => string;
 }
 
