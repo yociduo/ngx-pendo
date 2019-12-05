@@ -27,11 +27,15 @@ export function pendoInitializer($settings: IPendoSettings) {
       return;
     }
 
-    await new Promise(resolve => {
+    await new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.async = true;
       script.src = `${$settings.pendoScriptOrigin || DEFAULT_PENDO_SCRIPT_ORIGIN}/agent/static/${$settings.pendoApiKey}/pendo.js`;
       document.head.appendChild(script);
+      script.onerror = async () => {
+        // The script may have been blocked by an ad blocker
+        reject();
+      };
       script.onload = async () => {
         // when enableDebugging should load extra js
         const sub = interval(100).subscribe(() => {
