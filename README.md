@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     }, {
       id: 'PUT_ACCOUNT_ID_HERE',
       name: 'CorpSchmorp'
-    });
+    }).subscribe();
   }
 
 }

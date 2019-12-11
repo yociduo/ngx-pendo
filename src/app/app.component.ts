@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       id: '13-package'
     }, {
       id: '1-package'
-    });
+    }).subscribe();
   }
 
   addItem() {
