@@ -34,13 +34,29 @@ export class NgxPendoService {
   }
 
   /**
-   * Call initialize
+   * Completely re-initialize the Agent with new options
    *
    * @param visitor IVisitor
    * @param account IAccount
    */
   initialize(visitor: IVisitor, account?: IAccount): void {
     this.runFuncAfterLoaded(() => pendo.initialize({ visitor, account }));
+  }
+
+  /**
+   * Send an identify event and a meta event.
+   *
+   * @param visitor IVisitor | string
+   * @param account IAccount | string
+   */
+  identify(visitor: IVisitor | string, account?: IAccount | string): void {
+    this.runFuncAfterLoaded(() => {
+      if (typeof visitor === 'string') {
+        pendo.identify(visitor, account);
+      } else {
+        pendo.identify({ visitor, account });
+      }
+    });
   }
 
   /**
