@@ -34,7 +34,7 @@ export function pendoInitializer($settings: IPendoSettings) {
       document.head.appendChild(script);
       script.onerror = async () => {
         // The script may have been blocked by an ad blocker
-        reject();
+        resolve();
       };
       script.onload = async () => {
         // when enableDebugging should load extra js
