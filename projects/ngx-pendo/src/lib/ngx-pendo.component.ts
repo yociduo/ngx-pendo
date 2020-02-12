@@ -13,7 +13,7 @@ export class NgxPendoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }
