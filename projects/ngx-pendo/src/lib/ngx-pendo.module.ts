@@ -17,7 +17,7 @@ import { NgxPendoService } from './ngx-pendo.service';
     NgxPendoComponent,
     NgxPendoIdDirective,
     NgxPendoSectionDirective,
-  ]
+  ],
 })
 export class NgxPendoModule {
   static forRoot(settings: IPendoSettings): ModuleWithProviders<NgxPendoModule> {
@@ -30,7 +30,7 @@ export class NgxPendoModule {
         },
         NGX_PENDO_INITIALIZER_PROVIDER,
         NgxPendoService,
-      ]
+      ],
     };
   }
 
@@ -38,8 +38,8 @@ export class NgxPendoModule {
     return {
       ngModule: NgxPendoModule,
       providers: [
-        NgxPendoService
-      ]
+        NgxPendoService,
+      ],
     };
   }
 }

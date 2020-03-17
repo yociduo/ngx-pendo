@@ -19,7 +19,7 @@ export class NgxPendoService {
   }
 
   /**
-   * Call initialize
+   * Completely re-initialize the Agent with new options
    *
    * @param visitor IVisitor
    * @param account IAccount

@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { IPendoSettings } from './ngx-pendo.interfaces';
 
 export const NGX_PENDO_SETTINGS_TOKEN = new InjectionToken<IPendoSettings>('ngx-pendo-settings', {
-  factory: () => ({ pendoApiKey: '' })
+  factory: () => ({ pendoApiKey: '' }),
 });
 
 const DEFAULT_PENDO_SCRIPT_ORIGIN = 'https://cdn.pendo.io';
@@ -13,8 +13,8 @@ export const NGX_PENDO_INITIALIZER_PROVIDER: Provider = {
   multi: true,
   useFactory: pendoInitializer,
   deps: [
-    NGX_PENDO_SETTINGS_TOKEN
-  ]
+    NGX_PENDO_SETTINGS_TOKEN,
+  ],
 };
 
 export function pendoInitializer($settings: IPendoSettings) {
