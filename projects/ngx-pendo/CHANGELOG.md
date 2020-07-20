@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/yociduo/ngx-pendo/compare/v1.3.0...v1.4.0) (2020-07-20)
+
+
+### Features
+
+* update angular version to 10 ([222bd8c](https://github.com/yociduo/ngx-pendo/commit/222bd8c4c31ebfb3171060ff704a3470aad16b15))
+
+
+### Bug Fixes
+
+* configuring CommonJS dependencies ([123a8a4](https://github.com/yociduo/ngx-pendo/commit/123a8a4ec2a7f51fbae13abbe5578123703a8227))
+
 ## [1.3.0](https://github.com/yociduo/ngx-pendo/compare/v1.2.3...v1.3.0) (2020-03-17)
 
 
