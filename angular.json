@@ -30,7 +30,26 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "header-case",
+              "change-case",
+              "param-case",
+              "no-case",
+              "path-case",
+              "swap-case",
+              "camel-case",
+              "title-case",
+              "snake-case",
+              "dot-case",
+              "constant-case",
+              "pascal-case",
+              "is-upper-case",
+              "sentence-case",
+              "is-lower-case",
+              "lower-case-first",
+              "upper-case-first"
+            ]
           },
           "configurations": {
             "production": {
