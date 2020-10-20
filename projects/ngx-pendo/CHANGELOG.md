@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/yociduo/ngx-pendo/compare/v1.4.1...v1.5.0) (2020-10-20)
+
+
+### Features
+
+* created github actions for automated build ([7ec9ceb](https://github.com/yociduo/ngx-pendo/commit/7ec9ceb19017593afbad4b0d0d4a3bd8c800cc9a))
+
 ### [1.4.1](https://github.com/yociduo/ngx-pendo/compare/v1.4.0...v1.4.1) (2020-07-24)
 
 ## [1.4.0](https://github.com/yociduo/ngx-pendo/compare/v1.3.0...v1.4.0) (2020-07-20)
