@@ -1,11 +1,11 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { param } from 'change-case';
 import { NgxPendoModule, NGX_PENDO_SETTINGS_TOKEN } from 'ngx-pendo';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
