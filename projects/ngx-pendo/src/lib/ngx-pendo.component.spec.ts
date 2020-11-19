@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgxPendoComponent } from './ngx-pendo.component';
 
@@ -6,7 +6,7 @@ describe('NgxPendoComponent', () => {
   let component: NgxPendoComponent;
   let fixture: ComponentFixture<NgxPendoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NgxPendoComponent ]
     })
