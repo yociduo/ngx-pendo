@@ -44,8 +44,8 @@
     </div>
   </div>
   <div ngx-pendo-section="list">
-    <div *ngFor="let item of list; let i = index;" [ngx-pendo-section]="i">
-      <p [ngx-pendo-id]="i">dynamic.list.{{i}}.{{i}}</p>
+    <div *ngFor="let item of list; let i = index;" [ngx-pendo-section]="i.toString()">
+      <p [ngx-pendo-id]="i.toString()">dynamic.list.{{i}}.{{i}}</p>
     </div>
     <button (click)="addItem()">add</button>
     <button (click)="removeItem()">remove</button>

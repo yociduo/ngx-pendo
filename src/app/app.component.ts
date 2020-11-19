@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(private ngxPendoService: NgxPendoService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.ngxPendoService.initialize({
       id: '13-package'
     }, {
@@ -23,19 +23,19 @@ export class AppComponent implements OnInit {
     });
   }
 
-  addItem() {
+  addItem(): void {
     this.list.push(6);
   }
 
-  removeItem() {
+  removeItem(): void {
     this.list.pop();
   }
 
-  addId() {
+  addId(): void {
     this.id += '-id';
   }
 
-  addSection() {
+  addSection(): void {
     this.section += '-section';
   }
 

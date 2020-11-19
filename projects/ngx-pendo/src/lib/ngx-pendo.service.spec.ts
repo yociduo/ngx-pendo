@@ -3,10 +3,14 @@ import { TestBed } from '@angular/core/testing';
 import { NgxPendoService } from './ngx-pendo.service';
 
 describe('NgxPendoService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: NgxPendoService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(NgxPendoService);
+  });
 
   it('should be created', () => {
-    const service: NgxPendoService = TestBed.inject(NgxPendoService);
     expect(service).toBeTruthy();
   });
 });

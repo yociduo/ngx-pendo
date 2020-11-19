@@ -7,23 +7,26 @@ import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
   selector: '[ngx-pendo-id]'
 })
 export class NgxPendoIdDirective implements IPendoDirective {
-
-  private _parent: NgxPendoSectionDirective;
+  private _parent!: NgxPendoSectionDirective;
 
   private _pendoSections: string[] = [];
 
-  private _pendoId: string;
+  private _pendoId!: string;
 
   @Input('ngx-pendo-id')
   @HostBinding('attr.data-pendo-id')
-  get pendoId() { return this.service.formatPendoId(...this._pendoSections, this._pendoId); }
-  set pendoId(value: string) { this._pendoId = value; }
+  get pendoId(): string {
+    return this.service.formatPendoId(...this._pendoSections, this._pendoId);
+  }
+  set pendoId(value: string) {
+    this._pendoId = value;
+  }
 
   // tslint:disable-next-line: no-input-rename
   @Input('ngx-pendo-inherit')
   inherit = true;
 
-  get parent() {
+  get parent(): NgxPendoSectionDirective {
     return this._parent;
   }
   set parent(value: NgxPendoSectionDirective) {
@@ -39,11 +42,9 @@ export class NgxPendoIdDirective implements IPendoDirective {
   }
 
   @HostBinding('attr.ngx-pendo-disable-inherit')
-  get disableInherit() {
+  get disableInherit(): boolean | undefined {
     return this.inherit ? undefined : true;
   }
 
-  constructor(private service: NgxPendoService) {
-  }
-
+  constructor(private service: NgxPendoService) {}
 }

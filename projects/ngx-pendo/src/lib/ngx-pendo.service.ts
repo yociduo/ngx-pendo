@@ -4,6 +4,8 @@ import { IAccount, IVisitor, IPendoSettings } from './ngx-pendo.interfaces';
 
 declare var pendo: any;
 
+const DEFAULT_PENDO_ID_FORMATTER: (pendoId: string) => string = pendoId => pendoId;
+
 @Injectable()
 export class NgxPendoService {
 
@@ -15,7 +17,7 @@ export class NgxPendoService {
    * @param settings IPendoSettings
    */
   constructor(@Inject(NGX_PENDO_SETTINGS_TOKEN) settings: IPendoSettings) {
-    this.pendoIdFormatter = settings.pendoIdFormatter;
+    this.pendoIdFormatter = settings.pendoIdFormatter || DEFAULT_PENDO_ID_FORMATTER;
   }
 
   /**

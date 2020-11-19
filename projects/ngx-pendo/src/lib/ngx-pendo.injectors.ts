@@ -2,6 +2,8 @@ import { APP_INITIALIZER, InjectionToken, isDevMode, Provider } from '@angular/c
 import { interval } from 'rxjs';
 import { IPendoSettings } from './ngx-pendo.interfaces';
 
+declare var pendo: any;
+
 export const NGX_PENDO_SETTINGS_TOKEN = new InjectionToken<IPendoSettings>('ngx-pendo-settings', {
   factory: () => ({ pendoApiKey: '' }),
 });
@@ -17,7 +19,7 @@ export const NGX_PENDO_INITIALIZER_PROVIDER: Provider = {
   ],
 };
 
-export function pendoInitializer($settings: IPendoSettings) {
+export function pendoInitializer($settings: IPendoSettings): () => Promise<void> {
   return async () => {
     if (!$settings.pendoApiKey) {
       if (isDevMode()) {
@@ -39,8 +41,7 @@ export function pendoInitializer($settings: IPendoSettings) {
       script.onload = async () => {
         // when enableDebugging should load extra js
         const sub = interval(100).subscribe(() => {
-          // tslint:disable-next-line: no-string-literal
-          if (window['pendo']) {
+          if (pendo) {
             sub.unsubscribe();
             resolve();
           }
