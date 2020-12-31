@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/projects/ngx-pendo/schematics/dist
 /tmp
 /out-tsc
 # Only exists if Bazel was run
