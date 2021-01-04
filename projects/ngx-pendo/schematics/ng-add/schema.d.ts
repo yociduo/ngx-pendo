@@ -3,12 +3,12 @@
  * Generate a file of JavaScript
  */
 declare interface NgxPednoNgAddSchema {
-    /**
-     * Name of the project.
-     */
-    project?: string;
-    /**
-     * Pendo Api Key
-     */
-    pendoApiKey?: string;
+  /**
+   * Name of the project.
+   */
+  project?: string;
+  /**
+   * Pendo Api Key
+   */
+  pendoApiKey?: string;
 }

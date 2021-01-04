@@ -1,14 +1,14 @@
-import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
 import { ProjectDefinition, WorkspaceDefinition } from '@angular-devkit/core/src/workspace';
 import { SchematicsException } from '@angular-devkit/schematics';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
 import { ProjectType } from '@schematics/angular/utility/workspace-models';
-import { InsertChange } from "@schematics/angular/utility/change";
+import { InsertChange } from '@schematics/angular/utility/change';
 
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
-export default function (options: NgxPednoNgAddSchema): Rule {
+export default function(options: NgxPednoNgAddSchema): Rule {
   return async (_host: Tree, _context: SchematicContext) => {
     const workspace = await getWorkspace(_host);
     const project = getProjectFromWorkspace(workspace, options.project);
@@ -19,7 +19,7 @@ export default function (options: NgxPednoNgAddSchema): Rule {
   };
 }
 
-function addNgxPendoModule(project: ProjectDefinition, _host: Tree, options: NgxPednoNgAddSchema) {
+function addNgxPendoModule(project: ProjectDefinition, _host: Tree, options: NgxPednoNgAddSchema): void {
   const appModulePath = buildDefaultPath(project) + '/app.module.ts';
   const sourceFile = readIntoSourceFile(_host, appModulePath);
   const importPath = 'ngx-pendo';
@@ -44,7 +44,8 @@ function addNgxPendoModule(project: ProjectDefinition, _host: Tree, options: Ngx
 
 function getProjectFromWorkspace(
   workspace: WorkspaceDefinition,
-  projectName = workspace.extensions.defaultProject as string): ProjectDefinition {
+  projectName = workspace.extensions.defaultProject as string
+): ProjectDefinition {
   const project = workspace.projects.get(projectName);
 
   if (!project) {
@@ -65,9 +66,10 @@ function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
 }
 
 function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree {
-
   if (host.exists('package.json')) {
     const sourceText = host.read('package.json')!.toString('utf-8');
+
+
     const json = JSON.parse(sourceText);
 
     if (!json.dependencies) {
@@ -85,6 +87,8 @@ function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree
   return host;
 }
 
-function sortObjectByKeys(obj: any) {
-  return Object.keys(obj).sort().reduce((result: any, key: any) => (result[key] = obj[key]) && result, {});
+function sortObjectByKeys(obj: any): any {
+  return Object.keys(obj)
+    .sort()
+    .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {});
 }
