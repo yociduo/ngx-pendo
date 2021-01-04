@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/yociduo/ngx-pendo/compare/v1.6.0...v1.7.0) (2021-01-04)
+
+
+### Features
+
+* **schematics:** provide ng add schema ([#16](https://github.com/yociduo/ngx-pendo/issues/16)) ([13d232d](https://github.com/yociduo/ngx-pendo/commit/13d232d840e0cd44163690c6d1b3263e2319b9c1))
+
+
+### Bug Fixes
+
+* **lint:** resolve lint issues ([bc5efd1](https://github.com/yociduo/ngx-pendo/commit/bc5efd1cd86f0bdf4f4956eb70dd6281d51453a1))
+
 ## [1.6.0](https://github.com/yociduo/ngx-pendo/compare/v1.5.1...v1.6.0) (2020-11-19)
 
 
