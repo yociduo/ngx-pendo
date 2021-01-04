@@ -8,9 +8,41 @@ An easy implementation pendo on angular6+ apps.
 
 ## Install
 
+### npm
+
+If you use npm:
+
 ```
 npm install ngx-pendo
 ```
+
+### yarn
+
+If you use yarn:
+
+```
+yarn add ngx-pendo
+```
+
+### schematics
+
+Use the Angular CLI's install [schematics](https://angular.io/guide/schematics) to set up [ngx-pendo](https://www.npmjs.com/package/ngx-pendo) by running the following command:
+
+```
+ng add ngx-pendo
+```
+
+The `ng add` command will install [ngx-pendo](https://www.npmjs.com/package/ngx-pendo) and ask you the following question:
+
+1. Please enter Pendo Api Key: <br/> You must enter Pendo Api Key
+
+The `ng add` command will additionally perform the following configurations:
+
+* Add `ngx-pendo` to *package.json*
+* Auto import `NgxPendoModule` with *pendoApiKey* into `AppModule`
+
+
+> This feature need angular 11+.
 
 ## Feedbacks
 
