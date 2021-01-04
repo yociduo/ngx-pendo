@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "ngx-pedno-ng-add-schema",
+  "title": "Ngx Pedno ng-add schematic",
+  "description": "Generate a file of JavaScript",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "pendoApiKey": {
+      "type": "string",
+      "description": "Pendo Api Key",
+      "x-promp": "Please enter Pendo Api Key"
+    }
+  },
+  "required": []
+}
