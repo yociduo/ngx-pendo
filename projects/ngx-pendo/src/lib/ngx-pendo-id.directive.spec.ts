@@ -1,8 +1,37 @@
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
+import { NgxPendoService } from './ngx-pendo.service';
+
+@Component({
+  template: '<button ngx-pendo-id="click_test">Click Test</button>'
+})
+class TestComponent {
+
+  constructor() { }
+}
 
 describe('NgxPendoIdDirective', () => {
-  // it('should create an instance', () => {
-  //   const directive = new NgxPendoIdDirective();
-  //   expect(directive).toBeTruthy();
-  // });
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
+
+  beforeEach(() => {
+    fixture = TestBed.configureTestingModule({
+      declarations: [TestComponent, NgxPendoIdDirective],
+      providers: [NgxPendoService],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .createComponent(TestComponent);
+    fixture.detectChanges(); // initial binding
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create an instance', () => {
+    expect(component).toBeDefined();
+  });
 });
