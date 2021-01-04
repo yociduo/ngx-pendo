@@ -15,8 +15,10 @@
     "pendoApiKey": {
       "type": "string",
       "description": "Pendo Api Key",
-      "x-promp": "Please enter Pendo Api Key"
+      "x-prompt": "Please enter Pendo Api Key"
     }
   },
-  "required": []
+  "required": [
+    "pendoApiKey"
+  ]
 }
