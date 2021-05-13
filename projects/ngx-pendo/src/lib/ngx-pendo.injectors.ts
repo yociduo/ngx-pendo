@@ -29,7 +29,7 @@ export function pendoInitializer($settings: IPendoSettings): () => Promise<void>
       return;
     }
 
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const script = document.createElement('script');
       script.async = true;
       script.src = `${$settings.pendoScriptOrigin || DEFAULT_PENDO_SCRIPT_ORIGIN}/agent/static/${$settings.pendoApiKey}/pendo.js`;
