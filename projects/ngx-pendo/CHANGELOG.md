@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/yociduo/ngx-pendo/compare/v1.7.1...v1.8.0) (2021-11-10)
+
+### Features
+
+*  bump angular@12 ([a318f5ec](https://github.com/yociduo/ngx-pendo/commit/a318f5ec4e437fb6096b5ec34a2b7067cef0e77a))
+
+### Bug Fixes
+
+* **schematics:** ng add commaend will install 1.7.x, not 1.6.0 ([8d92ad3](https://github.com/yociduo/ngx-pendo/commit/8d92ad35837e208298abde8b7be5ee441aad1051))
+
 ### [1.7.1](https://github.com/yociduo/ngx-pendo/compare/v1.7.0...v1.7.1) (2021-01-04)
 
 ## [1.7.0](https://github.com/yociduo/ngx-pendo/compare/v1.6.0...v1.7.0) (2021-01-04)
