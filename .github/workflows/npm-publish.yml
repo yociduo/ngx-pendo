@@ -18,7 +18,9 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm run lint ngx-pendo
-      - run: npm run build ngx-pendo
+      - run: npm run test-schematics
+      - run: npm run build-pkg
+      - run: npm run build-schematics
 
   publish-npm:
     needs: tests
