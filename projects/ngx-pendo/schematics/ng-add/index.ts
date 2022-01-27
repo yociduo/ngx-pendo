@@ -16,7 +16,7 @@ export default function(options: NgxPednoNgAddSchema): Rule {
     const projectName = options.project || workspace.extensions.defaultProject!.toString();
     const project = workspace.projects.get(projectName);
     if (!project) {
-      throw new Error(`can not find ${projectName} angular project`)
+      throw new Error(`can not find ${projectName} angular project`);
     }
     if (project.extensions.projectType === ProjectType.Application) {
       addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
@@ -92,6 +92,7 @@ function sortObjectByKeys(obj: any): any {
     .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {});
 }
 
+// tslint:disable-next-line:typedef
 function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTarget: string) {
   if (project?.targets?.get(buildTarget)?.options) {
     return project!.targets!.get(buildTarget)!.options;
