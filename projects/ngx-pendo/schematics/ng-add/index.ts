@@ -1,6 +1,8 @@
+import { workspaces } from '@angular-devkit/core';
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
-import { ProjectDefinition, WorkspaceDefinition } from '@angular-devkit/core/src/workspace';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
+import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { SchematicsException } from '@angular-devkit/schematics';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
 import { ProjectType } from '@schematics/angular/utility/workspace-models';
@@ -11,16 +13,25 @@ import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeSc
 export default function(options: NgxPednoNgAddSchema): Rule {
   return async (_host: Tree, _context: SchematicContext) => {
     const workspace = await getWorkspace(_host);
-    const project = getProjectFromWorkspace(workspace, options.project);
-    if (project.extensions.projectType === ProjectType.Application) {
-      addNgxPendoModule(project, _host, options);
+    const projectName = options.project || workspace.extensions.defaultProject!.toString();
+    const project = workspace.projects.get(projectName);
+    if (!project) {
+      throw new Error(`can not find ${projectName} angular project`)
     }
-    addPackageToPackageJson(_host, 'ngx-pendo', '～1.7.0');
+    if (project.extensions.projectType === ProjectType.Application) {
+      addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
+    }
+    addPackageToPackageJson(_host, 'ngx-pendo', '～1.8.0');
+    _context.logger.log('info', '✅️ Added "ngx-pendo');
+    _context.addTask(new NodePackageInstallTask());
   };
 }
 
-function addNgxPendoModule(project: ProjectDefinition, _host: Tree, options: NgxPednoNgAddSchema): void {
-  const appModulePath = buildDefaultPath(project) + '/app.module.ts';
+function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, options: NgxPednoNgAddSchema): void {
+  if (!project) {
+    return;
+  }
+  const appModulePath = getAppModulePath(_host, getProjectMainFile(project));
   const sourceFile = readIntoSourceFile(_host, appModulePath);
   const importPath = 'ngx-pendo';
   const recorder = _host.beginUpdate(appModulePath);
@@ -42,18 +53,6 @@ function addNgxPendoModule(project: ProjectDefinition, _host: Tree, options: Ngx
   _host.commitUpdate(recorder);
 }
 
-function getProjectFromWorkspace(
-  workspace: WorkspaceDefinition,
-  projectName = workspace.extensions.defaultProject as string
-): ProjectDefinition {
-  const project = workspace.projects.get(projectName);
-
-  if (!project) {
-    throw new SchematicsException(`Could not find project in workspace: ${projectName}`);
-  }
-
-  return project;
-}
 
 function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
   const text = host.read(modulePath);
@@ -91,4 +90,22 @@ function sortObjectByKeys(obj: any): any {
   return Object.keys(obj)
     .sort()
     .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {});
+}
+
+function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTarget: string) {
+  if (project?.targets?.get(buildTarget)?.options) {
+    return project!.targets!.get(buildTarget)!.options;
+  }
+
+  throw new Error(`Cannot determine project target configuration for: ${buildTarget}.`);
+}
+
+function getProjectMainFile(project: workspaces.ProjectDefinition): string {
+  const buildOptions = getProjectTargetOptions(project, 'build');
+  if (!buildOptions || !buildOptions.main) {
+    throw new SchematicsException(`Could not find the project main file inside of the ` +
+      `workspace config (${project.sourceRoot})`);
+  }
+
+  return buildOptions.main.toString();
 }

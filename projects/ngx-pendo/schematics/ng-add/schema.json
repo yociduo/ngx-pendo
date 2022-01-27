@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "ngx-pedno-ng-add-schema",
+  "$id": "ngx-pedno-ng-add-schema",
   "title": "Ngx Pedno ng-add schematic",
   "description": "Generate a file of JavaScript",
   "type": "object",
