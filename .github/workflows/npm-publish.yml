@@ -18,7 +18,9 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm run lint ngx-pendo
-      - run: npm run build ngx-pendo
+      - run: npm run test-schematics
+      - run: npm run build-pkg
+      - run: npm run build-schematics
 
   publish-npm:
     needs: tests
@@ -36,3 +38,22 @@ jobs:
       - run: npm publish dist/ngx-pendo
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+  release:
+    needs: publish-npm
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/yociduo/ngx-pendo/blob/master/projects/ngx-pendo/CHANGELOG.md) for details.
+          draft: false
+          prerelease: false
