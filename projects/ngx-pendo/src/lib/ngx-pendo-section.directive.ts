@@ -22,7 +22,7 @@ export class NgxPendoSectionDirective implements IPendoDirective, AfterContentIn
   @HostBinding('attr.ngx-pendo-section')
   pendoSection!: string;
 
-  // tslint:disable-next-line: no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ngx-pendo-inherit')
   inherit = true;
 

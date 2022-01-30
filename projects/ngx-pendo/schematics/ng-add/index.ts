@@ -92,7 +92,7 @@ function sortObjectByKeys(obj: any): any {
     .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {});
 }
 
-// tslint:disable-next-line:typedef
+// eslint-disable-next-line
 function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTarget: string) {
   if (project?.targets?.get(buildTarget)?.options) {
     return project!.targets!.get(buildTarget)!.options;

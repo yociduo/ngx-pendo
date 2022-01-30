@@ -22,7 +22,7 @@ export class NgxPendoIdDirective implements IPendoDirective {
     this._pendoId = value;
   }
 
-  // tslint:disable-next-line: no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ngx-pendo-inherit')
   inherit = true;
 
