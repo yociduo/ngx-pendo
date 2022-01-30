@@ -21,7 +21,7 @@
           {
             "type": "attribute",
             "prefix": "ngx-pendo",
-            "style": "camelCase"
+            "style": "kebab-case"
           }
         ],
         "@angular-eslint/component-selector": [
