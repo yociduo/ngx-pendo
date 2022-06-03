@@ -85,13 +85,13 @@
     ]
   },
   "lint-staged": {
-    "{src}/**/*.{js,jsx,ts,tsx}": [
+    "src|projects/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ],
-    "{src}/**/*.{scss,less,css}": [
+    "src|projects/**/*.{scss,less,css}": [
       "stylelint --fix"
     ],
-    "{src}/**/*.{ts,js,json,md,scss,less,css}": [
+    "src|projects/**/*.{ts,js,json,md,scss,less,css}": [
       "prettier --write --config .prettierrc"
     ]
   }
