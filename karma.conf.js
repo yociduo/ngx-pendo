@@ -19,7 +19,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/MomentumERP11'),
+      dir: require('path').join(__dirname, './coverage/ngx-pendo-demo'),
       subdir: '.',
       reporters: [
         { type: 'html' },
