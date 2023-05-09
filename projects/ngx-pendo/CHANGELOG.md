@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.11.0) (2023-05-08)
+
+### Features
+
+- bump angular 15 ([#60](https://github.com/yociduo/ngx-pendo/issues/60)) ([f6d0a22](https://github.com/yociduo/ngx-pendo/commit/f6d0a222f2392639c9d2a1a0a60b8dad42cb8039))
+
 ## [1.11.0-beta.0](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.11.0-beta.0) (2023-02-11)
 
 ### Features
