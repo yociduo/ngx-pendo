@@ -22,18 +22,16 @@ describe('ng add ngx pedno', () => {
     skipTests: false,
     skipPackageJson: false
   };
-  let appTree: UnitTestTree;
+  let appTree: UnitTestTree | undefined;
 
   beforeEach(async () => {
-    appTree = await runner.runExternalSchematicAsync('@schematics/angular', 'workspace', workspaceOptions).toPromise();
-    appTree = await runner
-      .runExternalSchematicAsync('@schematics/angular', 'application', appOptions, appTree)
-      .toPromise();
+    appTree = await runner.runExternalSchematic('@schematics/angular', 'workspace', workspaceOptions);
+    appTree = await runner.runExternalSchematic('@schematics/angular', 'application', appOptions, appTree);
   });
 
   it('add NgxPendoModule in angular project', async () => {
     const options = { project: 'ngx-pedno', pendoApiKey: 'test1' };
-    const tree = await runner.runSchematicAsync('ng-add', options, appTree).toPromise();
+    const tree = await runner.runSchematic('ng-add', options, appTree);
     const appmodule = tree.readContent('/projects/ngx-pedno/src/app/app.module.ts');
     console.log(appmodule);
   });
