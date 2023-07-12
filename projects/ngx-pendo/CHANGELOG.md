@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/yociduo/ngx-pendo/compare/v1.11.0...v1.12.0) (2023-06-16)
+
+### Features
+
+- bump angular 16 ([#73](https://github.com/yociduo/ngx-pendo/issues/73)) ([d0c0047](https://github.com/yociduo/ngx-pendo/commit/d0c0047d07b459b3e68b422499acc6f669a939e4))
+- **schematic:** ng-add schematic will support angular 16 ([0c777bb](https://github.com/yociduo/ngx-pendo/commit/0c777bb4d87ebdbb3c5d6e0bb961ce4d8f9a5ad3))
+
 ## [1.11.0](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.11.0) (2023-05-08)
 
 ### Features

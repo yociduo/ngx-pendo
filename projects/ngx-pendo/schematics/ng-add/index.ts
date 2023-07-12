@@ -21,7 +21,7 @@ export default function(options: NgxPednoNgAddSchema): Rule {
     if (project.extensions.projectType === ProjectType.Application) {
       addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
     }
-    addPackageToPackageJson(_host, 'ngx-pendo', '～1.8.0');
+    addPackageToPackageJson(_host, 'ngx-pendo', '～1.12.0');
     _context.logger.log('info', '✅️ Added "ngx-pendo');
     _context.addTask(new NodePackageInstallTask());
   };
@@ -53,7 +53,6 @@ function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, o
   _host.commitUpdate(recorder);
 }
 
-
 function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
   const text = host.read(modulePath);
   if (text === null) {
@@ -67,7 +66,6 @@ function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
 function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree {
   if (host.exists('package.json')) {
     const sourceText = host.read('package.json')!.toString('utf-8');
-
 
     const json = JSON.parse(sourceText);
 
@@ -104,8 +102,9 @@ function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTar
 function getProjectMainFile(project: workspaces.ProjectDefinition): string {
   const buildOptions = getProjectTargetOptions(project, 'build');
   if (!buildOptions || !buildOptions.main) {
-    throw new SchematicsException(`Could not find the project main file inside of the ` +
-      `workspace config (${project.sourceRoot})`);
+    throw new SchematicsException(
+      `Could not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
+    );
   }
 
   return buildOptions.main.toString();

@@ -18,6 +18,9 @@
     "cp-collection": "copyfiles -f ./projects/ngx-pendo/schematics/collection.json ./dist/ngx-pendo/schematics",
     "cp": "npm run cp-readme && npm run cp-schema && npm run cp-collection",
     "release": "cd ./projects/ngx-pendo && standard-version",
+    "release:patch": "cd ./projects/ngx-pendo && standard-version --release-as patch",
+    "release:minor": "cd ./projects/ngx-pendo && standard-version --release-as minor",
+    "release:major": "cd ./projects/ngx-pendo && standard-version --release-as major",
     "publish": "npm run build-pkg && npm run build-schematics && npm run cp && npm publish dist/ngx-pendo",
     "prepare": "husky install"
   },
