@@ -35,7 +35,7 @@ jobs:
       - run: npm run build-pkg
       - run: npm run build-schematics
       - run: npm run cp
-      - run: npm publish dist/ngx-pendo
+      - run: cd dist/ngx-pendo && npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   release:
