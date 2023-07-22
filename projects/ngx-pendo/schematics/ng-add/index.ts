@@ -10,6 +10,11 @@ import { InsertChange } from '@schematics/angular/utility/change';
 
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
+interface NgxPednoNgAddSchema {
+  project?: string;
+  pendoApiKey?: string;
+}
+
 export default function(options: NgxPednoNgAddSchema): Rule {
   return async (_host: Tree, _context: SchematicContext) => {
     const workspace = await getWorkspace(_host);
@@ -41,9 +46,9 @@ function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, o
     recorder.insertLeft(importChange.pos, importChange.toAdd);
   }
   const ngModuleName = `NgxPendoModule.forRoot({
-        pendoApiKey: ${options.pendoApiKey},
-        pendoIdFormatter: (value: any) => value.toString().toLowerCase()
-      })`;
+  pendoApiKey: ${options.pendoApiKey},
+  pendoIdFormatter: (value: any) => value.toString().toLowerCase()
+})`;
   const ngModuleChanges = addSymbolToNgModuleMetadata(sourceFile, appModulePath, 'imports', ngModuleName, null);
   for (const change of ngModuleChanges) {
     if (change instanceof InsertChange) {

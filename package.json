@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test-schematics": "tsc -p ./projects/ngx-pendo/schematics/tsconfig.json && jasmine ./projects/ngx-pendo/schematics/**/*.spec.js",
+    "test-schematics": "ts-node --project ./projects/ngx-pendo/schematics/tsconfig.json node_modules/jasmine/bin/jasmine.js ./projects/ngx-pendo/schematics/**/*.spec.ts",
     "lint": "ng lint",
     "build-pkg": "ng build ngx-pendo --configuration production",
     "build-schematics": "tsc -p ./projects/ngx-pendo/schematics/tsconfig.json --outDir dist/ngx-pendo/schematics",

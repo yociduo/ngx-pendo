@@ -4,7 +4,7 @@ import * as path from 'path';
 import { Schema as ApplicationOptions, Style } from '@schematics/angular/application/schema';
 import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
 
-const collectionPath = path.join(__dirname, '../../collection-test.json');
+const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('ng add ngx pedno', () => {
   const runner = new SchematicTestRunner('schematics', collectionPath);
