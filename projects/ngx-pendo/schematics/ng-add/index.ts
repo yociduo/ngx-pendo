@@ -46,7 +46,7 @@ function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, o
     recorder.insertLeft(importChange.pos, importChange.toAdd);
   }
   const ngModuleName = `NgxPendoModule.forRoot({
-  pendoApiKey: ${options.pendoApiKey},
+  pendoApiKey: '${options.pendoApiKey}',
   pendoIdFormatter: (value: any) => value.toString().toLowerCase()
 })`;
   const ngModuleChanges = addSymbolToNgModuleMetadata(sourceFile, appModulePath, 'imports', ngModuleName, null);
