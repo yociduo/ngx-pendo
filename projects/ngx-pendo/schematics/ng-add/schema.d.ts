@@ -1,8 +1,8 @@
 /**
- * Ngx Pedno ng-add schematic
+ * Ngx Pendo ng-add schematic
  * Generate a file of JavaScript
  */
-declare interface NgxPednoNgAddSchema {
+declare interface NgxPendoNgAddSchema {
   /**
    * Name of the project.
    */
