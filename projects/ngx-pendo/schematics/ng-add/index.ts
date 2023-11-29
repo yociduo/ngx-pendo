@@ -1,4 +1,4 @@
-import { workspaces } from '@angular-devkit/core';
+import { Path, workspaces } from '@angular-devkit/core';
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
@@ -106,11 +106,20 @@ function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTar
 
 function getProjectMainFile(project: workspaces.ProjectDefinition): string {
   const buildOptions = getProjectTargetOptions(project, 'build');
-  if (!buildOptions || !buildOptions.main) {
+  if (!buildOptions) {
     throw new SchematicsException(
       `Could not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
     );
   }
 
-  return buildOptions.main.toString();
+  // `browser` is for the `@angular-devkit/build-angular:application` builder
+  // main is for `@angular-devkit/build-angular:browser` builder
+  const mainPath = (buildOptions['browser'] || buildOptions['main']) as Path | undefined;
+
+  if (!mainPath) {
+    throw new SchematicsException(
+      `Cloud not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
+    );
+  }
+  return mainPath;
 }
