@@ -6,7 +6,7 @@ import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
-describe('ng add ngx pedno', () => {
+describe('ng add ngx pendo', () => {
   const runner = new SchematicTestRunner('schematics', collectionPath);
   const workspaceOptions: WorkspaceOptions = {
     name: 'workspace',
@@ -14,7 +14,7 @@ describe('ng add ngx pedno', () => {
     version: '0.0.1'
   };
   const appOptions: ApplicationOptions = {
-    name: 'ngx-pedno',
+    name: 'ngx-pendo',
     inlineStyle: false,
     inlineTemplate: false,
     routing: false,
@@ -31,9 +31,9 @@ describe('ng add ngx pedno', () => {
   });
 
   it('add NgxPendoModule in angular project', async () => {
-    const options = { project: 'ngx-pedno', pendoApiKey: 'test1' };
+    const options = { project: 'ngx-pendo', pendoApiKey: 'test1' };
     const tree = await runner.runSchematic('ng-add', options, appTree);
-    const appmodule = tree.readContent('/projects/ngx-pedno/src/app/app.module.ts');
+    const appmodule = tree.readContent('/projects/ngx-pendo/src/app/app.module.ts');
     console.log(appmodule);
   });
 });
