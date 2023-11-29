@@ -26,7 +26,7 @@ export default function(options: NgxPendoNgAddSchema): Rule {
     if (project.extensions.projectType === ProjectType.Application) {
       addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
     }
-    addPackageToPackageJson(_host, 'ngx-pendo', '～1.12.0');
+    // addPackageToPackageJson(_host, 'ngx-pendo', '～1.12.0');
     _context.logger.log('info', '✅️ Added "ngx-pendo');
     _context.addTask(new NodePackageInstallTask());
   };
