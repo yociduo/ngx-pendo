@@ -10,12 +10,12 @@ import { InsertChange } from '@schematics/angular/utility/change';
 
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
-interface NgxPednoNgAddSchema {
+interface NgxPendoNgAddSchema {
   project?: string;
   pendoApiKey?: string;
 }
 
-export default function(options: NgxPednoNgAddSchema): Rule {
+export default function(options: NgxPendoNgAddSchema): Rule {
   return async (_host: Tree, _context: SchematicContext) => {
     const workspace = await getWorkspace(_host);
     const projectName = options.project || workspace.extensions.defaultProject!.toString();
@@ -32,7 +32,7 @@ export default function(options: NgxPednoNgAddSchema): Rule {
   };
 }
 
-function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, options: NgxPednoNgAddSchema): void {
+function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, options: NgxPendoNgAddSchema): void {
   if (!project) {
     return;
   }
