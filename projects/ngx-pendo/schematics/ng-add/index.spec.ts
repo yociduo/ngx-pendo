@@ -20,7 +20,8 @@ describe('ng add ngx pedno', () => {
     routing: false,
     style: Style.Scss,
     skipTests: false,
-    skipPackageJson: false
+    skipPackageJson: false,
+    standalone: true
   };
   let appTree: UnitTestTree | undefined;
 
