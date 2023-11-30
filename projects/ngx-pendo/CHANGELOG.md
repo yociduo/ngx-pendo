@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.13.0) (2023-11-30)
+
+### Features
+
+- bump angular 15 ([#60](https://github.com/yociduo/ngx-pendo/issues/60)) ([f6d0a22](https://github.com/yociduo/ngx-pendo/commit/f6d0a222f2392639c9d2a1a0a60b8dad42cb8039))
+- bump angular 16 ([#73](https://github.com/yociduo/ngx-pendo/issues/73)) ([d0c0047](https://github.com/yociduo/ngx-pendo/commit/d0c0047d07b459b3e68b422499acc6f669a939e4))
+- bump angular 17 ([#88](https://github.com/yociduo/ngx-pendo/issues/88)) ([a6e3b3a](https://github.com/yociduo/ngx-pendo/commit/a6e3b3ac5383a96aecaa5889315696e3da2feedd)), closes [#90](https://github.com/yociduo/ngx-pendo/issues/90)
+
+### Bug Fixes
+
+- typo for pedno to pendo ([#90](https://github.com/yociduo/ngx-pendo/issues/90)) ([70f25f5](https://github.com/yociduo/ngx-pendo/commit/70f25f59875d466b4a099878d7174e7d85960f70))
+- update angular package ([06d71f6](https://github.com/yociduo/ngx-pendo/commit/06d71f6271829c2589654f447748983acd6c7ee4))
+
 ## [1.12.0](https://github.com/yociduo/ngx-pendo/compare/v1.11.0...v1.12.0) (2023-06-16)
 
 ### Features
