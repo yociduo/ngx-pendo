@@ -20,7 +20,8 @@ describe('ng add ngx pendo', () => {
     routing: false,
     style: Style.Scss,
     skipTests: false,
-    skipPackageJson: false
+    skipPackageJson: false,
+    standalone: false
   };
   let appTree: UnitTestTree | undefined;
 

@@ -1,4 +1,4 @@
-import { workspaces } from '@angular-devkit/core';
+import { Path, workspaces } from '@angular-devkit/core';
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
@@ -26,7 +26,7 @@ export default function(options: NgxPendoNgAddSchema): Rule {
     if (project.extensions.projectType === ProjectType.Application) {
       addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
     }
-    addPackageToPackageJson(_host, 'ngx-pendo', '～1.12.0');
+    // addPackageToPackageJson(_host, 'ngx-pendo', '～1.12.0');
     _context.logger.log('info', '✅️ Added "ngx-pendo');
     _context.addTask(new NodePackageInstallTask());
   };
@@ -46,7 +46,7 @@ function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, o
     recorder.insertLeft(importChange.pos, importChange.toAdd);
   }
   const ngModuleName = `NgxPendoModule.forRoot({
-  pendoApiKey: ${options.pendoApiKey},
+  pendoApiKey: '${options.pendoApiKey}',
   pendoIdFormatter: (value: any) => value.toString().toLowerCase()
 })`;
   const ngModuleChanges = addSymbolToNgModuleMetadata(sourceFile, appModulePath, 'imports', ngModuleName, null);
@@ -106,11 +106,20 @@ function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTar
 
 function getProjectMainFile(project: workspaces.ProjectDefinition): string {
   const buildOptions = getProjectTargetOptions(project, 'build');
-  if (!buildOptions || !buildOptions.main) {
+  if (!buildOptions) {
     throw new SchematicsException(
       `Could not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
     );
   }
 
-  return buildOptions.main.toString();
+  // `browser` is for the `@angular-devkit/build-angular:application` builder
+  // main is for `@angular-devkit/build-angular:browser` builder
+  const mainPath = (buildOptions['browser'] || buildOptions['main']) as Path | undefined;
+
+  if (!mainPath) {
+    throw new SchematicsException(
+      `Cloud not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
+    );
+  }
+  return mainPath;
 }
