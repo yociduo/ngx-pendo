@@ -6,9 +6,10 @@ declare var pendo: any;
 
 const DEFAULT_PENDO_ID_FORMATTER: (pendoId: string) => string = pendoId => pendoId;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NgxPendoService {
-
   private pendoIdFormatter: (pendoId: string) => string;
 
   /**
@@ -38,5 +39,4 @@ export class NgxPendoService {
   formatPendoId(...ids: string[]): string {
     return (this.pendoIdFormatter ? ids.map(id => this.pendoIdFormatter(id)) : ids).join('.');
   }
-
 }

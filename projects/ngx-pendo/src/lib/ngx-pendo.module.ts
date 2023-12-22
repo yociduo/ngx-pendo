@@ -4,20 +4,11 @@ import { NGX_PENDO_SETTINGS_TOKEN, NGX_PENDO_INITIALIZER_PROVIDER } from './ngx-
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
 import { IPendoSettings } from './ngx-pendo.interfaces';
-import { NgxPendoService } from './ngx-pendo.service';
 
 @NgModule({
-  declarations: [
-    NgxPendoComponent,
-    NgxPendoIdDirective,
-    NgxPendoSectionDirective,
-  ],
+  declarations: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective],
   imports: [],
-  exports: [
-    NgxPendoComponent,
-    NgxPendoIdDirective,
-    NgxPendoSectionDirective,
-  ],
+  exports: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective]
 })
 export class NgxPendoModule {
   static forRoot(settings: IPendoSettings): ModuleWithProviders<NgxPendoModule> {
@@ -28,18 +19,14 @@ export class NgxPendoModule {
           provide: NGX_PENDO_SETTINGS_TOKEN,
           useValue: settings
         },
-        NGX_PENDO_INITIALIZER_PROVIDER,
-        NgxPendoService,
-      ],
+        NGX_PENDO_INITIALIZER_PROVIDER
+      ]
     };
   }
 
   static forChild(): ModuleWithProviders<NgxPendoModule> {
     return {
-      ngModule: NgxPendoModule,
-      providers: [
-        NgxPendoService,
-      ],
+      ngModule: NgxPendoModule
     };
   }
 }
