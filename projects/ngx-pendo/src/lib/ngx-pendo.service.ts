@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.injectors';
+import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 import { IAccount, IVisitor, IPendoSettings } from './ngx-pendo.interfaces';
 
 declare var pendo: any;

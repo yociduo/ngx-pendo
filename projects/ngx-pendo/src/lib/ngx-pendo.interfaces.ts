@@ -4,6 +4,8 @@ export interface IPendoSettings {
   pendoIdFormatter?: (pendoId: string) => string;
 }
 
+export interface IPendo {}
+
 export interface IVisitor {
   id: string;
   [key: string]: string;

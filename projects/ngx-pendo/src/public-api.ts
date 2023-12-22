@@ -9,3 +9,5 @@ export * from './lib/ngx-pendo.component';
 export * from './lib/ngx-pendo.injectors';
 export * from './lib/ngx-pendo.interfaces';
 export * from './lib/ngx-pendo.module';
+export * from './lib/ngx-pendo.tokens';
+export * from './lib/ngx-pendo.types';
