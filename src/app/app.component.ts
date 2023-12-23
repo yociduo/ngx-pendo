@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxPendoService } from 'ngx-pendo';
+import { Component, Inject, OnInit } from '@angular/core';
+import { IAccount, IPendo, IPendoOptions, IVisitor, NGX_PENDO_CONTEXT, NgxPendoService } from 'ngx-pendo';
+declare var pendo: IPendo;
 
 @Component({
   selector: 'app-root',
@@ -11,16 +12,23 @@ export class AppComponent implements OnInit {
   id = 'variable-id';
   section = 'variable-section';
   list = new Array(1).fill(null);
+  visitor: IVisitor = {
+    id: '13-package'
+  };
+  account: IAccount = {
+    id: '1-package'
+  };
 
-  constructor(private ngxPendoService: NgxPendoService) {
+  public get options(): IPendoOptions {
+    return { visitor: this.visitor, account: this.account };
   }
 
+  constructor(@Inject(NGX_PENDO_CONTEXT) private pendo: IPendo, private ngxPendoService: NgxPendoService) {}
+
   ngOnInit(): void {
-    this.ngxPendoService.initialize({
-      id: '13-package'
-    }, {
-      id: '1-package'
-    });
+    if (this.pendo) {
+      this.initializeWithService();
+    }
   }
 
   addItem(): void {
@@ -39,4 +47,37 @@ export class AppComponent implements OnInit {
     this.section += '-section';
   }
 
+  teardown(): void {
+    this.ngxPendoService.teardown();
+  }
+
+  identify(): void {
+    this.ngxPendoService.identify(this.visitor, this.account);
+  }
+
+  enableDebugging(): void {
+    this.ngxPendoService.enableDebugging();
+  }
+
+  disableDebugging(): void {
+    this.ngxPendoService.disableDebugging();
+  }
+
+  updateOptions(): void {
+    this.ngxPendoService.updateOptions(this.options);
+  }
+
+  initializeWithService() {
+    this.ngxPendoService.initialize(this.options);
+    // previous initialize function
+    // this.ngxPendoService.initialize(this.visitor, this.account);
+  }
+
+  initializeWithContext() {
+    this.pendo.initialize(this.options);
+  }
+
+  initializeWithGlobal() {
+    pendo.initialize(this.options);
+  }
 }

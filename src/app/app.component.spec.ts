@@ -1,4 +1,5 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { param } from 'change-case';
 import { NgxPendoModule, NGX_PENDO_SETTINGS_TOKEN } from 'ngx-pendo';
@@ -9,6 +10,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        FormsModule,
         NgxPendoModule.forChild(),
       ],
       declarations: [
@@ -53,9 +55,9 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     expect(compiled.querySelector('h2').getAttribute('data-pendo-id')).toBe('tip');
-    compiled.querySelectorAll('li').forEach((node: HTMLElement) =>
+    compiled.querySelectorAll('li[data-pendo-id]').forEach((node: HTMLElement) =>
       expect(node.getAttribute('data-pendo-id')).toBe(`link.${node.getAttribute('ngx-pendo-id')}`));
-    compiled.querySelectorAll('p').forEach((node: HTMLElement) =>
+    compiled.querySelectorAll('p[data-pendo-id]').forEach((node: HTMLElement) =>
       expect(node.getAttribute('data-pendo-id')).toBe(node.textContent));
   });
 });

@@ -72,6 +72,8 @@ export class AppModule { }
 
 ## Call Initialization
 
+#### Using Service
+
 ```ts
 import { Component, OnInit } from '@angular/core';
 import { NgxPendoService } from 'ngx-pendo';
@@ -79,7 +81,7 @@ import { NgxPendoService } from 'ngx-pendo';
 @Component( ... )
 export class AppComponent implements OnInit {
 
-  constructor(protected ngxPendoService: NgxPendoService) {
+  constructor(private ngxPendoService: NgxPendoService) {
   }
 
   ngOnInit() {
@@ -97,13 +99,74 @@ export class AppComponent implements OnInit {
 }
 ```
 
+#### Using Context
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { NGX_PENDO_CONTEXT, IPendo } from 'ngx-pendo';
+
+@Component( ... )
+export class AppComponent implements OnInit {
+
+  constructor(@Inject(NGX_PENDO_CONTEXT) private pendo: IPendo) {
+  }
+
+  ngOnInit() {
+    this.pendo.initialize({
+      visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "John Doe",
+        email: "user@acme.com",
+        role: "Viewer"
+      },
+      account: {
+        id: "PUT_ACCOUNT_ID_HERE",
+        name: "Acme Co"
+      },
+      apiKey: 'PUT_API_KEY_HERE'
+    });
+  }
+
+}
+```
+
+#### Using Pendo
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { IPendo } from 'ngx-pendo';
+
+declare var pendo: IPendo;
+
+@Component( ... )
+export class AppComponent implements OnInit {
+
+  ngOnInit() {
+    pendo.initialize({
+      visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "John Doe",
+        email: "user@acme.com",
+        role: "Viewer"
+      },
+      account: {
+        id: "PUT_ACCOUNT_ID_HERE",
+        name: "Acme Co"
+      },
+      apiKey: 'PUT_API_KEY_HERE'
+    });
+  }
+
+}
+```
+
 ## Pendo Directives
 
 You can use angular directives to add pendo id.
 
 ### Simple directive use
 
-```js
+```html
 <div ngx-pendo-section="section">
   <button ngx-pendo-id="click_test">Click Test</button>
 </div>

@@ -20,12 +20,30 @@
 
 <hr />
 
+<div>
+  <p>Shuts down the agent and cleans up all timers and listeners. (This needs to wait for Pendo isReady.)</p>
+  <button (click)="teardown()">teardown</button>
+  <p>Initialize Pendo in 3 ways. (Please try it after call teardown.)</p>
+  <button (click)="initializeWithService()">with service</button>&nbsp;
+  <button (click)="initializeWithContext()">with context</button>&nbsp;
+  <button (click)="initializeWithGlobal()">with global</button>
+  <p>Other functions</p>
+  <label>Visitor Id</label>&nbsp;&nbsp;<input [(ngModel)]="visitor.id" /><br />
+  <label>Account Id</label>&nbsp;&nbsp;<input [(ngModel)]="account.id" /><br />
+  <button (click)="enableDebugging()">enableDebugging</button>&nbsp;
+  <button (click)="disableDebugging()">disableDebugging</button>&nbsp;
+  <button (click)="identify()">identify</button>&nbsp;
+  <button (click)="updateOptions()">updateOptions</button>&nbsp;
+</div>
+
+<hr />
+
 <div ngx-pendo-section="variable">
   <p [ngx-pendo-id]="id">variable.variable-id</p>
   <div [ngx-pendo-section]="section">
     <p [ngx-pendo-id]="id">variable.variable-section.variable-id</p>
   </div>
-  <button (click)="addId()">id</button>
+  <button (click)="addId()">id</button>&nbsp;
   <button (click)="addSection()">section</button>
 </div>
 
@@ -47,7 +65,7 @@
     <div *ngFor="let item of list; let i = index;" [ngx-pendo-section]="i.toString()">
       <p [ngx-pendo-id]="i.toString()">dynamic.list.{{i}}.{{i}}</p>
     </div>
-    <button (click)="addItem()">add</button>
+    <button (click)="addItem()">add</button>&nbsp;
     <button (click)="removeItem()">remove</button>
   </div>
 </div>
