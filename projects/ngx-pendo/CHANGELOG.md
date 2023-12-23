@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/yociduo/ngx-pendo/compare/v1.13.0...v1.14.0) (2023-12-23)
+
+### Features
+
+- **functions:** support pendo public functions ([ec539a9](https://github.com/yociduo/ngx-pendo/commit/ec539a9a7675882480c9b556af744137c977cd08))
+
 ## [1.13.0](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.13.0) (2023-11-30)
 
 ### Features
