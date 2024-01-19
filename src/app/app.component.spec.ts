@@ -1,7 +1,7 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { param } from 'change-case';
+import { kebabCase } from 'change-case';
 import { NgxPendoModule, NGX_PENDO_SETTINGS_TOKEN } from 'ngx-pendo';
 import { AppComponent } from './app.component';
 
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
           provide: NGX_PENDO_SETTINGS_TOKEN,
           useValue: {
             pendoApiKey: 'pendo-api-key',
-            pendoIdFormatter: param,
+            pendoIdFormatter: kebabCase,
           }
         }
       ]

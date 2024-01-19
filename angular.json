@@ -24,13 +24,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/ngx-pendo-demo",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -38,48 +41,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": [
-              "header-case",
-              "change-case",
-              "param-case",
-              "no-case",
-              "path-case",
-              "swap-case",
-              "camel-case",
-              "title-case",
-              "snake-case",
-              "dot-case",
-              "constant-case",
-              "pascal-case",
-              "is-upper-case",
-              "sentence-case",
-              "is-lower-case",
-              "lower-case-first",
-              "upper-case-first"
-            ],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -91,20 +56,28 @@
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "ngx-pendo-demo:build"
-          },
           "configurations": {
             "production": {
               "buildTarget": "ngx-pendo-demo:build:production"
+            },
+            "development": {
+              "buildTarget": "ngx-pendo-demo:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -115,10 +88,12 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -137,18 +112,6 @@
               "src/**/*.html"
             ]
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ngx-pendo-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngx-pendo-demo:serve:production"
-            }
-          }
         }
       }
     },
@@ -161,21 +124,26 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-pendo/tsconfig.lib.json",
             "project": "projects/ngx-pendo/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/ngx-pendo/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-pendo/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-pendo/src/test.ts",
             "tsConfig": "projects/ngx-pendo/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-pendo/karma.conf.js"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         },
         "lint": {

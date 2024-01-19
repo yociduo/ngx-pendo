@@ -61,7 +61,7 @@ export class NgxPendoSectionDirective implements IPendoDirective, AfterContentIn
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.pendoSection && !changes.pendoSection.firstChange) {
+    if (changes['pendoSection'] && !changes['pendoSection'].firstChange) {
       this.allIdDirectives.forEach(i => (i.parent = i.parent));
     }
   }
