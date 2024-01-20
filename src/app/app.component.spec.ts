@@ -1,4 +1,4 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { kebabCase } from 'change-case';
@@ -6,27 +6,21 @@ import { NgxPendoModule, NGX_PENDO_SETTINGS_TOKEN } from 'ngx-pendo';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
+  beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule,
-        NgxPendoModule.forChild(),
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule, FormsModule, NgxPendoModule.forChild()],
+      declarations: [AppComponent],
       providers: [
         {
           provide: NGX_PENDO_SETTINGS_TOKEN,
           useValue: {
             pendoApiKey: 'pendo-api-key',
-            pendoIdFormatter: kebabCase,
+            pendoIdFormatter: kebabCase
           }
         }
       ]
-    }).compileComponents();
-  }));
+    })
+  );
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -55,9 +49,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     expect(compiled.querySelector('h2').getAttribute('data-pendo-id')).toBe('tip');
-    compiled.querySelectorAll('li[data-pendo-id]').forEach((node: HTMLElement) =>
-      expect(node.getAttribute('data-pendo-id')).toBe(`link.${node.getAttribute('ngx-pendo-id')}`));
-    compiled.querySelectorAll('p[data-pendo-id]').forEach((node: HTMLElement) =>
-      expect(node.getAttribute('data-pendo-id')).toBe(node.textContent));
+    compiled
+      .querySelectorAll('li[data-pendo-id]')
+      .forEach((node: HTMLElement) =>
+        expect(node.getAttribute('data-pendo-id')).toBe(`link.${node.getAttribute('ngx-pendo-id')}`)
+      );
+    compiled
+      .querySelectorAll('p[data-pendo-id]')
+      .forEach((node: HTMLElement) => expect(node.getAttribute('data-pendo-id')).toBe(node.textContent));
   });
 });

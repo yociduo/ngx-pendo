@@ -6,9 +6,7 @@ describe('NgxPendoService', () => {
   let service: NgxPendoService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [NgxPendoService]
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(NgxPendoService);
   });
 

@@ -7,8 +7,7 @@ import { NgxPendoService } from './ngx-pendo.service';
   template: '<button ngx-pendo-id="click_test">Click Test</button>'
 })
 class TestComponent {
-
-  constructor() { }
+  constructor() {}
 }
 
 describe('NgxPendoIdDirective', () => {
@@ -16,16 +15,11 @@ describe('NgxPendoIdDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [TestComponent, NgxPendoIdDirective],
       providers: [NgxPendoService],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-      .createComponent(TestComponent);
-    fixture.detectChanges(); // initial binding
-  });
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

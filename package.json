@@ -7,9 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test-pkg": "ng test ngx-pendo",
     "test-schematics": "ts-node --project ./projects/ngx-pendo/schematics/tsconfig.json node_modules/jasmine/bin/jasmine.js ./projects/ngx-pendo/schematics/**/*.spec.ts",
     "lint": "ng lint",
-    "build-pkg": "ng build ngx-pendo --configuration production",
+    "build-pkg": "ng build ngx-pendo",
     "build-schematics": "tsc -p ./projects/ngx-pendo/schematics/tsconfig.json --outDir dist/ngx-pendo/schematics",
     "run-schematics": "schematics ./projects/ngx-pendo/schematics/dist/collection.json:ng-add",
     "gen-schema": "npx -p dtsgenerator dtsgen projects/ngx-pendo/schematics/ng-add/schema.json -o projects/ngx-pendo/schematics/ng-add/schema.d.ts",
@@ -18,9 +19,6 @@
     "cp-collection": "copyfiles -f ./projects/ngx-pendo/schematics/collection.json ./dist/ngx-pendo/schematics",
     "cp": "npm run cp-readme && npm run cp-schema && npm run cp-collection",
     "release": "cd ./projects/ngx-pendo && standard-version",
-    "release:patch": "cd ./projects/ngx-pendo && standard-version --release-as patch",
-    "release:minor": "cd ./projects/ngx-pendo && standard-version --release-as minor",
-    "release:major": "cd ./projects/ngx-pendo && standard-version --release-as major",
     "publish": "npm run build-pkg && npm run build-schematics && npm run cp && npm publish dist/ngx-pendo",
     "prepare": "husky install"
   },
@@ -29,7 +27,7 @@
   "private": true,
   "engines": {
     "yarn": "please-use-npm",
-    "node": ">=20.0.0",
+    "node": ">=18.0.0",
     "npm": ">=10.0.0"
   },
   "dependencies": {

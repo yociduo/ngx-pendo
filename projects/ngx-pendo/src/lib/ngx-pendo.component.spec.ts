@@ -6,14 +6,10 @@ describe('NgxPendoComponent', () => {
   let component: NgxPendoComponent;
   let fixture: ComponentFixture<NgxPendoComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ NgxPendoComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [NgxPendoComponent]
+    });
     fixture = TestBed.createComponent(NgxPendoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -23,19 +23,28 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
       - name: Install package
         run: npm ci
+
       - name: Lint check
         run: npm run lint
-      # - name: Unit Test check
-      #   run: npm run test
+
       - name: Building check
         run: npm run build-pkg && npm run build-schematics
+
+      - name: Unit Test check
+        run: npm run test -- --browsers=ChromeHeadless --watch=false
+
+      - name: Unit Test package check
+        run: npm run test-pkg -- --browsers=ChromeHeadless --watch=false
+
       - name: Unit Test Schematics check
         run: npm run test-schematics
