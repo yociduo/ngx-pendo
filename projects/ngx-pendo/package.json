@@ -28,5 +28,8 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "schematics": "./schematics/collection.json"
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": true
+  }
 }

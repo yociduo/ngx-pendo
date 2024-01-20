@@ -2,13 +2,13 @@
  * Ngx Pendo ng-add schematic
  * Generate a file of JavaScript
  */
-declare interface NgxPendoNgAddSchema {
+export interface NgxPendoNgAddSchema {
   /**
    * Name of the project.
    */
-  project?: string;
+  project: string;
   /**
    * Pendo Api Key
    */
-  pendoApiKey?: string;
+  pendoApiKey: string;
 }

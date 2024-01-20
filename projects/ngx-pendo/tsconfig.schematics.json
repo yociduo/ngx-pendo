@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "tsconfig",
+    "baseUrl": ".",
     "lib": [
       "es2018",
       "dom"
@@ -14,8 +14,8 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "noUnusedLocals": false,
-    "rootDir": "./",
-    "outDir": "dist",
+    "rootDir": "schematics",
+    "outDir": "../../dist/ngx-pendo/schematics",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
@@ -27,7 +27,9 @@
     ]
   },
   "include": [
-    "./**/*",
-    "**.json"
+    "schematics/**/*"
+  ],
+  "exclude": [
+    "schematics/*/files/**/*"
   ]
 }

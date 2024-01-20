@@ -1,3 +1,4 @@
+import * as ts from 'typescript';
 import { Path, workspaces } from '@angular-devkit/core';
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
@@ -7,39 +8,34 @@ import { SchematicsException } from '@angular-devkit/schematics';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
 import { ProjectType } from '@schematics/angular/utility/workspace-models';
 import { InsertChange } from '@schematics/angular/utility/change';
+import { NgxPendoNgAddSchema } from './schema';
 
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
-
-interface NgxPendoNgAddSchema {
-  project?: string;
-  pendoApiKey?: string;
-}
-
-export default function(options: NgxPendoNgAddSchema): Rule {
-  return async (_host: Tree, _context: SchematicContext) => {
-    const workspace = await getWorkspace(_host);
-    const projectName = options.project || workspace.extensions.defaultProject!.toString();
+export function ngAdd(options: NgxPendoNgAddSchema): Rule {
+  return async (host: Tree, context: SchematicContext) => {
+    const workspace = await getWorkspace(host);
+    const projectName =
+      options.project || workspace.extensions['defaultProject']?.toString() || Object.keys(workspace.projects)[0];
     const project = workspace.projects.get(projectName);
     if (!project) {
       throw new Error(`can not find ${projectName} angular project`);
     }
-    if (project.extensions.projectType === ProjectType.Application) {
-      addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
+    if (project.extensions['projectType'] === ProjectType.Application) {
+      addNgxPendoModule(project as workspaces.ProjectDefinition, host, options);
     }
-    // addPackageToPackageJson(_host, 'ngx-pendo', '～1.12.0');
-    _context.logger.log('info', '✅️ Added "ngx-pendo');
-    _context.addTask(new NodePackageInstallTask());
+    // addPackageToPackageJson(host, 'ngx-pendo', '~1.12.0');
+    context.logger.log('info', '✅️ Added "ngx-pendo');
+    context.addTask(new NodePackageInstallTask());
   };
 }
 
-function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, options: NgxPendoNgAddSchema): void {
+function addNgxPendoModule(project: workspaces.ProjectDefinition, host: Tree, options: NgxPendoNgAddSchema): void {
   if (!project) {
     return;
   }
-  const appModulePath = getAppModulePath(_host, getProjectMainFile(project));
-  const sourceFile = readIntoSourceFile(_host, appModulePath);
+  const appModulePath = getAppModulePath(host, getProjectMainFile(project));
+  const sourceFile = readIntoSourceFile(host, appModulePath);
   const importPath = 'ngx-pendo';
-  const recorder = _host.beginUpdate(appModulePath);
+  const recorder = host.beginUpdate(appModulePath);
   const moduleName = 'NgxPendoModule';
   const importChange = insertImport(sourceFile, appModulePath, moduleName, importPath);
   if (importChange instanceof InsertChange) {
@@ -55,7 +51,7 @@ function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, o
       recorder.insertLeft(change.pos, change.toAdd);
     }
   }
-  _host.commitUpdate(recorder);
+  host.commitUpdate(recorder);
 }
 
 function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
