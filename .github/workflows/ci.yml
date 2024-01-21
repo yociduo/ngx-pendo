@@ -41,10 +41,4 @@ jobs:
         run: npm run build-pkg && npm run build-schematics
 
       - name: Unit Test check
-        run: npm run test -- --browsers=ChromeHeadless --watch=false
-
-      - name: Unit Test package check
-        run: npm run test-pkg -- --browsers=ChromeHeadless --watch=false
-
-      - name: Unit Test Schematics check
-        run: npm run test-schematics
+        run: npm run test-ci && npm run test-schematics

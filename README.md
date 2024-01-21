@@ -2,7 +2,8 @@
 
 An easy implementation pendo on angular6+ apps.
 
-[![npm version](https://img.shields.io/npm/v/ngx-pendo.svg)](https://www.npmjs.com/package/ngx-pendo)
+[![NPM version](https://img.shields.io/npm/v/ngx-pendo.svg)](https://www.npmjs.com/package/ngx-pendo)
+[![NPM downloads](https://img.shields.io/npm/dm/ngx-pendo.svg?style=flat-square)](https://www.npmjs.com/package/ngx-pendo)
 [![Build Status](https://github.com/yociduo/ngx-pendo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yociduo/ngx-pendo/actions/workflows/ci.yml)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yociduo/ngx-pendo/blob/main/LICENSE)
 
