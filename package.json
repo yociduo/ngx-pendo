@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "build-pkg": "ng build ngx-pendo",
     "build-schematics": "tsc -p ./projects/ngx-pendo/tsconfig.schematics.json",
-    "run-schematics": "schematics ./projects/ngx-pendo/schematics/dist/collection.json:ng-add",
+    "run-schematics": "schematics ./dist/ngx-pendo/schematics/collection.json:ng-add",
     "gen-schema": "npx -p dtsgenerator dtsgen projects/ngx-pendo/schematics/ng-add/schema.json -o projects/ngx-pendo/schematics/ng-add/schema.d.ts",
     "cp-readme": "copyfiles ./README.md ./dist/ngx-pendo",
     "cp-schema": "copyfiles -f ./projects/ngx-pendo/schematics/ng-add/schema.json ./dist/ngx-pendo/schematics/ng-add",
@@ -39,7 +39,6 @@
     "@angular/platform-browser": "^17.1.0",
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
-    "change-case": "^5.3.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

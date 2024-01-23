@@ -1,24 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { kebabCase } from 'change-case';
-import { NgxPendoModule, NGX_PENDO_SETTINGS_TOKEN } from 'ngx-pendo';
+import { NgxPendoModule } from 'ngx-pendo';
 import { AppComponent } from './app.component';
+import { kebabCase } from './utils';
 
 describe('AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, NgxPendoModule.forChild()],
-      declarations: [AppComponent],
-      providers: [
-        {
-          provide: NGX_PENDO_SETTINGS_TOKEN,
-          useValue: {
-            pendoApiKey: 'pendo-api-key',
-            pendoIdFormatter: kebabCase
-          }
-        }
-      ]
+      imports: [
+        RouterTestingModule,
+        FormsModule,
+        NgxPendoModule.forRoot({
+          pendoApiKey: 'pendo-api-key',
+          pendoIdFormatter: kebabCase
+        })
+      ],
+      declarations: [AppComponent]
     })
   );
 
