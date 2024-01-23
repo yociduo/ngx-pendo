@@ -8,7 +8,7 @@ describe('NgxPendoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NgxPendoComponent]
+      imports: [NgxPendoComponent]
     });
     fixture = TestBed.createComponent(NgxPendoComponent);
     component = fixture.componentInstance;

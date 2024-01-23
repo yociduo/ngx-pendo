@@ -51,6 +51,8 @@ https://github.com/yociduo/ngx-pendo/issues
 
 ## Simple Configuration
 
+#### Module-based apps
+
 ```ts
 import { NgxPendoModule } from 'ngx-pendo';
 
@@ -62,13 +64,31 @@ import { NgxPendoModule } from 'ngx-pendo';
     BrowserModule,
     NgxPendoModule.forRoot({
       pendoApiKey: 'pendo-api-key',
-      pendoIdFormatter: (value: any) => value.toString().toLowerCase()
+      pendoIdFormatter: (pendoId: string) => pendoId.toLowerCase()
     })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+```
+
+#### Using the Standalone API
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideNgxPendo } from 'ngx-pendo';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideNgxPendo({
+      pendoApiKey: 'pendo-api-key',
+      pendoIdFormatter: (pendoId: string) => pendoId.toLowerCase()
+    })
+  ]
+});
+
 ```
 
 ## Call Initialization

@@ -4,7 +4,8 @@ import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 import { NgxPendoService } from './ngx-pendo.service';
 
 @Component({
-  template: '<button ngx-pendo-id="click_test">Click Test</button>'
+  template: '<button ngx-pendo-id="click_test">Click Test</button>',
+  standalone: true
 })
 class TestComponent {
   constructor() {}
@@ -16,7 +17,7 @@ describe('NgxPendoIdDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponent, NgxPendoIdDirective],
+      imports: [TestComponent, NgxPendoIdDirective],
       providers: [NgxPendoService],
       schemas: [NO_ERRORS_SCHEMA]
     });

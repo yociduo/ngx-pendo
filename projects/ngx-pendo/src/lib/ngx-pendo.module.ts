@@ -7,8 +7,7 @@ import { IPendoSettings } from './ngx-pendo.interfaces';
 import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 
 @NgModule({
-  declarations: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective],
-  imports: [],
+  imports: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective],
   exports: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective]
 })
 export class NgxPendoModule {

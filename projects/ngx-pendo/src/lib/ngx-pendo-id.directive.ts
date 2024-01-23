@@ -4,7 +4,8 @@ import { NgxPendoService } from './ngx-pendo.service';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
 
 @Directive({
-  selector: '[ngx-pendo-id]'
+  selector: '[ngx-pendo-id]',
+  standalone: true
 })
 export class NgxPendoIdDirective implements IPendoDirective {
   private _parent!: NgxPendoSectionDirective;

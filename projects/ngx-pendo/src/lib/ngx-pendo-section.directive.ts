@@ -15,7 +15,8 @@ import { IPendoDirective } from './ngx-pendo.interfaces';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 
 @Directive({
-  selector: '[ngx-pendo-section]'
+  selector: '[ngx-pendo-section]',
+  standalone: true
 })
 export class NgxPendoSectionDirective implements IPendoDirective, AfterContentInit, OnChanges, OnDestroy {
   @Input('ngx-pendo-section')
