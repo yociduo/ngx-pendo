@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.1](https://github.com/yociduo/ngx-pendo/compare/v1.14.0...v1.14.1) (2024-01-25)
+
+### Features
+
+- **schematics:** update schematics to support standalone ([5647aef](https://github.com/yociduo/ngx-pendo/commit/5647aefea6c16e613c96797c051c799631fe5a29))
+- **standalone:** update lib support standalone ([839263e](https://github.com/yociduo/ngx-pendo/commit/839263e1fcd8e9308e095ac825d2fb4439cd2342))
+
 ## [1.14.0](https://github.com/yociduo/ngx-pendo/compare/v1.13.0...v1.14.0) (2023-12-23)
 
 ### Features
