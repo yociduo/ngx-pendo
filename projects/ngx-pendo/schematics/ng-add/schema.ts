@@ -1,14 +1,11 @@
 /**
  * Ngx Pendo ng-add schematic
- * Generate a file of JavaScript
  */
-export interface NgxPendoNgAddSchema {
-  /**
-   * Name of the project.
-   */
+export interface Schema {
+  /** Whether to skip package.json install. */
+  skipPackageJson: boolean;
+  /** Name of the project. */
   project: string;
-  /**
-   * Pendo Api Key
-   */
+  /** Pendo Api Key */
   pendoApiKey: string;
 }

@@ -1,121 +1,79 @@
-import * as ts from 'typescript';
-import { Path, workspaces } from '@angular-devkit/core';
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, chain, noop } from '@angular-devkit/schematics';
+import { callsProvidersFunction } from '@schematics/angular/private/components';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
-import { getWorkspace } from '@schematics/angular/utility/workspace';
-import { SchematicsException } from '@angular-devkit/schematics';
+import { addRootProvider } from '@schematics/angular/utility';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
+import { getAppModulePath, isStandaloneApp } from '@schematics/angular/utility/ng-ast-utils';
+import { applyChangesToFile } from '@schematics/angular/utility/standalone/util';
+import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { ProjectType } from '@schematics/angular/utility/workspace-models';
-import { InsertChange } from '@schematics/angular/utility/change';
-import { NgxPendoNgAddSchema } from './schema';
+import { addPackageToPackageJson, getPackageVersionFromPackageJson } from './package-config';
+import { Schema } from './schema';
+import { parseSourceFile } from '../utils/ast';
+import { getProjectFromWorkspace, getProjectMainFile } from '../utils/project';
 
-export function ngAdd(options: NgxPendoNgAddSchema): Rule {
-  return async (host: Tree, context: SchematicContext) => {
-    const workspace = await getWorkspace(host);
-    const projectName =
-      options.project || workspace.extensions['defaultProject']?.toString() || Object.keys(workspace.projects)[0];
-    const project = workspace.projects.get(projectName);
-    if (!project) {
-      throw new Error(`can not find ${projectName} angular project`);
-    }
-    if (project.extensions['projectType'] === ProjectType.Application) {
-      addNgxPendoModule(project as workspaces.ProjectDefinition, host, options);
-    }
-    // addPackageToPackageJson(host, 'ngx-pendo', '~1.12.0');
-    context.logger.log('info', '✅️ Added "ngx-pendo');
-    context.addTask(new NodePackageInstallTask());
+function addImportToNgModule(mainFile: string, options: Schema): Rule {
+  return (host: Tree) => {
+    const appModulePath = getAppModulePath(host, mainFile);
+    const moduleSource = parseSourceFile(host, appModulePath);
+    const ngModuleName = `NgxPendoModule.forRoot({
+  pendoApiKey: '${options.pendoApiKey}',
+  pendoIdFormatter: (pendoId: string) => pendoId.toLowerCase()
+})`;
+
+    applyChangesToFile(host, appModulePath, [
+      insertImport(moduleSource, appModulePath, 'NgxPendoModule', 'ngx-pendo'),
+      ...addSymbolToNgModuleMetadata(moduleSource, appModulePath, 'imports', ngModuleName, null)
+    ]);
   };
 }
 
-function addNgxPendoModule(project: workspaces.ProjectDefinition, host: Tree, options: NgxPendoNgAddSchema): void {
-  if (!project) {
-    return;
-  }
-  const appModulePath = getAppModulePath(host, getProjectMainFile(project));
-  const sourceFile = readIntoSourceFile(host, appModulePath);
-  const importPath = 'ngx-pendo';
-  const recorder = host.beginUpdate(appModulePath);
-  const moduleName = 'NgxPendoModule';
-  const importChange = insertImport(sourceFile, appModulePath, moduleName, importPath);
-  if (importChange instanceof InsertChange) {
-    recorder.insertLeft(importChange.pos, importChange.toAdd);
-  }
-  const ngModuleName = `NgxPendoModule.forRoot({
-  pendoApiKey: '${options.pendoApiKey}',
-  pendoIdFormatter: (value: any) => value.toString().toLowerCase()
-})`;
-  const ngModuleChanges = addSymbolToNgModuleMetadata(sourceFile, appModulePath, 'imports', ngModuleName, null);
-  for (const change of ngModuleChanges) {
-    if (change instanceof InsertChange) {
-      recorder.insertLeft(change.pos, change.toAdd);
-    }
-  }
-  host.commitUpdate(recorder);
-}
+function addStandaloneConfig(mainFile: string, options: Schema): Rule {
+  return (host: Tree) => {
+    const providerFn = 'provideNgxPendo';
 
-function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
-  const text = host.read(modulePath);
-  if (text === null) {
-    throw new SchematicsException(`File ${modulePath} does noot exist`);
-  }
-
-  const sourceText = text.toString('utf-8');
-  return ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
-}
-
-function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree {
-  if (host.exists('package.json')) {
-    const sourceText = host.read('package.json')!.toString('utf-8');
-
-    const json = JSON.parse(sourceText);
-
-    if (!json.dependencies) {
-      json.dependencies = {};
+    if (callsProvidersFunction(host, mainFile, providerFn)) {
+      // exit because the store config is already provided
+      return host;
     }
 
-    if (!json.dependencies[pkg]) {
-      json.dependencies[pkg] = version;
-      json.dependencies = sortObjectByKeys(json.dependencies);
+    return addRootProvider(options.project, ({ code, external }) => {
+      return code`${external(providerFn, 'ngx-pendo')}({ pendoApiKey: '${options.pendoApiKey}', pendoIdFormatter: (pendoId: string) => pendoId.toLowerCase() })`;
+    });
+  };
+}
+
+function addNgxPendoToPackageJson(): Rule {
+  return (host: Tree, context: SchematicContext) => {
+    const ngxPendoVersionTag = getPackageVersionFromPackageJson(host, 'ngx-pendo') || `0.0.0`;
+    addPackageToPackageJson(host, 'ngx-pendo', ngxPendoVersionTag);
+    context.addTask(new NodePackageInstallTask());
+    return host;
+  };
+}
+
+export default function (options: Schema): Rule {
+  return chain([
+    options && options.skipPackageJson ? noop() : addNgxPendoToPackageJson(),
+    async (host: Tree, context: SchematicContext) => {
+      const workspace = await getWorkspace(host);
+      const project = getProjectFromWorkspace(workspace, options.project);
+      const mainFile = getProjectMainFile(project);
+      if (project.extensions['projectType'] === ProjectType.Application) {
+        if (isStandaloneApp(host, mainFile)) {
+          return addStandaloneConfig(mainFile, options);
+        } else {
+          return addImportToNgModule(mainFile, options);
+        }
+      }
+
+      context.logger.warn(
+        'ngx-pendo has been set up in your workspace. There is no additional setup ' +
+          'required for consuming ngx-pendo in your library project.\n\n' +
+          'If you intended to run the schematic on a different project, pass the `--project` ' +
+          'option.'
+      );
+      return;
     }
-
-    host.overwrite('package.json', JSON.stringify(json, null, 2));
-  }
-
-  return host;
-}
-
-function sortObjectByKeys(obj: any): any {
-  return Object.keys(obj)
-    .sort()
-    .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {});
-}
-
-// eslint-disable-next-line
-function getProjectTargetOptions(project: workspaces.ProjectDefinition, buildTarget: string) {
-  if (project?.targets?.get(buildTarget)?.options) {
-    return project!.targets!.get(buildTarget)!.options;
-  }
-
-  throw new Error(`Cannot determine project target configuration for: ${buildTarget}.`);
-}
-
-function getProjectMainFile(project: workspaces.ProjectDefinition): string {
-  const buildOptions = getProjectTargetOptions(project, 'build');
-  if (!buildOptions) {
-    throw new SchematicsException(
-      `Could not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
-    );
-  }
-
-  // `browser` is for the `@angular-devkit/build-angular:application` builder
-  // main is for `@angular-devkit/build-angular:browser` builder
-  const mainPath = (buildOptions['browser'] || buildOptions['main']) as Path | undefined;
-
-  if (!mainPath) {
-    throw new SchematicsException(
-      `Cloud not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`
-    );
-  }
-  return mainPath;
+  ]);
 }
