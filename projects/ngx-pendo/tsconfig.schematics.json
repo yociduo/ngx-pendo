@@ -13,7 +13,7 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "rootDir": "schematics",
     "outDir": "../../dist/ngx-pendo/schematics",
     "skipDefaultLibCheck": true,

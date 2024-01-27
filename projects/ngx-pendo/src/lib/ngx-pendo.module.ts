@@ -1,5 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { NgxPendoComponent } from './ngx-pendo.component';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
 import { NGX_PENDO_INITIALIZER_PROVIDER } from './ngx-pendo.injectors';
@@ -7,8 +6,8 @@ import { IPendoSettings } from './ngx-pendo.interfaces';
 import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 
 @NgModule({
-  imports: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective],
-  exports: [NgxPendoComponent, NgxPendoIdDirective, NgxPendoSectionDirective]
+  imports: [NgxPendoIdDirective, NgxPendoSectionDirective],
+  exports: [NgxPendoIdDirective, NgxPendoSectionDirective]
 })
 export class NgxPendoModule {
   static forRoot(settings: IPendoSettings): ModuleWithProviders<NgxPendoModule> {

@@ -47,8 +47,6 @@
   <button (click)="addSection()">section</button>
 </div>
 
-<router-outlet></router-outlet>
-
 <hr />
 
 <div ngx-pendo-section="dynamic">
@@ -92,3 +90,7 @@
     <p ngx-pendo-id="disable" [ngx-pendo-inherit]="false">disable</p>
   </div>
 </div>
+
+<hr />
+
+<router-outlet />

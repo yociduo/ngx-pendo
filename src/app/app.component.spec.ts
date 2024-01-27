@@ -43,7 +43,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 0));
     fixture.detectChanges();
     expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     expect(compiled.querySelector('h2').getAttribute('data-pendo-id')).toBe('tip');

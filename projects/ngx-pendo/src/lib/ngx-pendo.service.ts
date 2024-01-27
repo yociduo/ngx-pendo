@@ -2,13 +2,11 @@ import { Injectable, Inject } from '@angular/core';
 import { NGX_PENDO_CONTEXT, NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 import { IAccount, IPendo, IPendoOptions, IPendoSettings, IVisitor } from './ngx-pendo.interfaces';
 
-const DEFAULT_PENDO_ID_FORMATTER: (pendoId: string) => string = pendoId => pendoId;
-
 @Injectable({
   providedIn: 'root'
 })
 export class NgxPendoService {
-  private pendoIdFormatter: (pendoId: string) => string;
+  private pendoIdFormatter?: (pendoId: string) => string;
 
   /**
    * Constructor
@@ -19,7 +17,7 @@ export class NgxPendoService {
     @Inject(NGX_PENDO_SETTINGS_TOKEN) settings: IPendoSettings,
     @Inject(NGX_PENDO_CONTEXT) private pendo: IPendo
   ) {
-    this.pendoIdFormatter = settings.pendoIdFormatter || DEFAULT_PENDO_ID_FORMATTER;
+    this.pendoIdFormatter = settings.pendoIdFormatter;
   }
 
   /**
@@ -69,7 +67,7 @@ export class NgxPendoService {
    * @param ids string[]
    */
   formatPendoId(...ids: string[]): string {
-    return (this.pendoIdFormatter ? ids.map(id => this.pendoIdFormatter(id)) : ids).join('.');
+    return (this.pendoIdFormatter ? ids.map(id => this.pendoIdFormatter!(id)) : ids).join('.');
   }
 
   /**
