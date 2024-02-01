@@ -1,16 +1,17 @@
-import { Rule, SchematicContext, Tree, chain, noop } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { callsProvidersFunction } from '@schematics/angular/private/components';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { addRootProvider } from '@schematics/angular/utility';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
 import { getAppModulePath, isStandaloneApp } from '@schematics/angular/utility/ng-ast-utils';
-import { applyChangesToFile } from '@schematics/angular/utility/standalone/util';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { ProjectType } from '@schematics/angular/utility/workspace-models';
-import { addPackageToPackageJson, getPackageVersionFromPackageJson } from './package-config';
+import { addPackageToPackageJson } from './package-config';
 import { Schema } from './schema';
 import { parseSourceFile } from '../utils/ast';
+import { applyChangesToFile } from '../utils/change';
 import { getProjectFromWorkspace, getProjectMainFile } from '../utils/project';
+
+const packageJson = require('../../package.json');
 
 function addImportToNgModule(mainFile: string, options: Schema): Rule {
   return (host: Tree) => {
@@ -44,17 +45,15 @@ function addStandaloneConfig(mainFile: string, options: Schema): Rule {
 }
 
 function addNgxPendoToPackageJson(): Rule {
-  return (host: Tree, context: SchematicContext) => {
-    const ngxPendoVersionTag = getPackageVersionFromPackageJson(host, 'ngx-pendo') || `0.0.0`;
-    addPackageToPackageJson(host, 'ngx-pendo', ngxPendoVersionTag);
-    context.addTask(new NodePackageInstallTask());
+  return (host: Tree) => {
+    addPackageToPackageJson(host, 'ngx-pendo', `~${packageJson.version}`);
     return host;
   };
 }
 
 export default function (options: Schema): Rule {
   return chain([
-    options && options.skipPackageJson ? noop() : addNgxPendoToPackageJson(),
+    addNgxPendoToPackageJson(),
     async (host: Tree, context: SchematicContext) => {
       const workspace = await getWorkspace(host);
       const project = getProjectFromWorkspace(workspace, options.project);

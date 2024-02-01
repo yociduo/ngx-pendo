@@ -7,7 +7,6 @@ import { Schema as NgxPendoOptions } from './schema';
 describe('ng add ngx pendo', () => {
   const schematicRunner = new SchematicTestRunner('ngx-pendo', path.join(__dirname, '../collection.json'));
   const defaultOptions: NgxPendoOptions = {
-    skipPackageJson: false,
     project: 'bar',
     pendoApiKey: 'pendo-api-key'
   };
@@ -45,14 +44,7 @@ describe('ng add ngx pendo', () => {
     const options = { ...defaultOptions };
     const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
     const packageJson = JSON.parse(tree.readContent('/package.json'));
-    expect(packageJson.dependencies['ngx-pendo']).toBeDefined();
-  });
-
-  it('should skip package.json update', async () => {
-    const options = { ...defaultOptions, skipPackageJson: true };
-    const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
-    const packageJson = JSON.parse(tree.readContent('/package.json'));
-    expect(packageJson.dependencies['ngx-pendo']).toBeUndefined();
+    expect(packageJson.dependencies['ngx-pendo']).toBe(`~${require('../../package.json').version}`);
   });
 
   it('should update app module', async () => {

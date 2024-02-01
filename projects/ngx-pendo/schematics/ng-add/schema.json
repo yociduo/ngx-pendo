@@ -5,11 +5,6 @@
   "description": "Generate a file of JavaScript",
   "type": "object",
   "properties": {
-    "skipPackageJson": {
-      "type": "boolean",
-      "default": false,
-      "description": "Do not add @ngrx/store as dependency to package.json (e.g., --skipPackageJson)."
-    },
     "project": {
       "type": "string",
       "description": "Name of the project.",
