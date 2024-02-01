@@ -1,6 +1,5 @@
 import { workspaces } from '@angular-devkit/core';
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { SchematicsException } from '@angular-devkit/schematics';
@@ -9,6 +8,8 @@ import { ProjectType } from '@schematics/angular/utility/workspace-models';
 import { InsertChange } from '@schematics/angular/utility/change';
 
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+
+const packageJSON = require('../../package.json');
 
 export default function(options: NgxPednoNgAddSchema): Rule {
   return async (_host: Tree, _context: SchematicContext) => {
@@ -21,9 +22,8 @@ export default function(options: NgxPednoNgAddSchema): Rule {
     if (project.extensions.projectType === ProjectType.Application) {
       addNgxPendoModule(project as workspaces.ProjectDefinition, _host, options);
     }
-    addPackageToPackageJson(_host, 'ngx-pendo', '～1.8.0');
     _context.logger.log('info', '✅️ Added "ngx-pendo');
-    _context.addTask(new NodePackageInstallTask());
+    addPackageToPackageJson(_host, 'ngx-pendo', packageJSON.version);
   };
 }
 
@@ -40,10 +40,11 @@ function addNgxPendoModule(project: workspaces.ProjectDefinition, _host: Tree, o
   if (importChange instanceof InsertChange) {
     recorder.insertLeft(importChange.pos, importChange.toAdd);
   }
-  const ngModuleName = `NgxPendoModule.forRoot({
-        pendoApiKey: ${options.pendoApiKey},
-        pendoIdFormatter: (value: any) => value.toString().toLowerCase()
-      })`;
+  const ngModuleName =
+`NgxPendoModule.forRoot({
+  pendoApiKey: '${options.pendoApiKey}',
+  pendoIdFormatter: (value: any) => value.toString().toLowerCase()
+})`;
   const ngModuleChanges = addSymbolToNgModuleMetadata(sourceFile, appModulePath, 'imports', ngModuleName, null);
   for (const change of ngModuleChanges) {
     if (change instanceof InsertChange) {
@@ -68,17 +69,14 @@ function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree
   if (host.exists('package.json')) {
     const sourceText = host.read('package.json')!.toString('utf-8');
 
-
     const json = JSON.parse(sourceText);
 
     if (!json.dependencies) {
       json.dependencies = {};
     }
 
-    if (!json.dependencies[pkg]) {
-      json.dependencies[pkg] = version;
-      json.dependencies = sortObjectByKeys(json.dependencies);
-    }
+    json.dependencies[pkg] = version;
+    json.dependencies = sortObjectByKeys(json.dependencies);
 
     host.overwrite('package.json', JSON.stringify(json, null, 2));
   }
