@@ -18,10 +18,10 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm run lint
-      - run: npm run build-pkg
-      - run: npm run build-schematics
-      - run: npm run test-ci
-      - run: npm run test-schematics
+      - run: npm run build:lib
+      - run: npm run build:schematics
+      - run: npm run test:ci
+      - run: npm run test:schematics
 
   publish-npm:
     needs: tests
@@ -33,10 +33,9 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm install
-      - run: npm run build-pkg
-      - run: npm run build-schematics
-      - run: npm run cp
-      - run: cd dist/ngx-pendo && npm publish
+      - run: npm run build:lib
+      - run: npm run build:schematics
+      - run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   release:
