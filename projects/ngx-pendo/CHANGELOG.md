@@ -35,6 +35,12 @@ All notable changes to this project will be documented in this file. See [standa
 - bump angular 16 ([#73](https://github.com/yociduo/ngx-pendo/issues/73)) ([d0c0047](https://github.com/yociduo/ngx-pendo/commit/d0c0047d07b459b3e68b422499acc6f669a939e4))
 - **schematic:** ng-add schematic will support angular 16 ([0c777bb](https://github.com/yociduo/ngx-pendo/commit/0c777bb4d87ebdbb3c5d6e0bb961ce4d8f9a5ad3))
 
+### [1.11.1](https://github.com/yociduo/ngx-pendo/compare/v1.11.0...v1.11.1) (2024-02-08)
+
+### Bug Fixes
+
+- **schematics:** lock the version for the package ([95f2a61](https://github.com/yociduo/ngx-pendo/commit/95f2a615619626ae0a0e9b2bf523b53fb7842ade))
+
 ## [1.11.0](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.11.0) (2023-05-08)
 
 ### Features
@@ -47,9 +53,27 @@ All notable changes to this project will be documented in this file. See [standa
 
 - bump angular 15 ([#60](https://github.com/yociduo/ngx-pendo/issues/60)) ([f6d0a22](https://github.com/yociduo/ngx-pendo/commit/f6d0a222f2392639c9d2a1a0a60b8dad42cb8039))
 
+### [1.10.1](https://github.com/yociduo/ngx-pendo/compare/v1.10.0...v1.10.1) (2024-02-07)
+
+### Bug Fixes
+
+- **schematics:** lock the version for the package ([0f0bac7](https://github.com/yociduo/ngx-pendo/commit/0f0bac748383b4c715e7e335fe9d1ec13d4aa226))
+
 ## [1.10.0](https://github.com/yociduo/ngx-pendo/compare/v1.9.0...v1.10.0) (2022-07-27)
 
+### [1.9.1](https://github.com/yociduo/ngx-pendo/compare/v1.9.0...v1.9.1) (2024-02-07)
+
+### Bug Fixes
+
+- **schematics:** lock the version for the package ([d249112](https://github.com/yociduo/ngx-pendo/commit/d24911270f2acabeca7910fd6c805542d2adbb7e))
+
 ## [1.9.0](https://github.com/yociduo/ngx-pendo/compare/v1.8.0...v1.9.0) (2022-02-01)
+
+### [1.8.1](https://github.com/yociduo/ngx-pendo/compare/v1.8.0...v1.8.1) (2024-02-06)
+
+### Bug Fixes
+
+- **schematics:** lock the version for the package ([6e3b432](https://github.com/yociduo/ngx-pendo/commit/6e3b432e83683228964ce46349174289542758f9))
 
 ## [1.8.0](https://github.com/yociduo/ngx-pendo/compare/v1.7.1...v1.8.0) (2021-11-10)
 
@@ -60,6 +84,12 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 - **schematics:** ng add commaend will install 1.7.x, not 1.6.0 ([8d92ad3](https://github.com/yociduo/ngx-pendo/commit/8d92ad35837e208298abde8b7be5ee441aad1051))
+
+### [1.7.4](https://github.com/yociduo/ngx-pendo/compare/v1.7.1...v1.7.4) (2024-02-05)
+
+### Bug Fixes
+
+- **schematics:** lock the version for the package ([5b82ce7](https://github.com/yociduo/ngx-pendo/commit/5b82ce728e38c637d72d2d303d1796cae98d4def))
 
 ### [1.7.1](https://github.com/yociduo/ngx-pendo/compare/v1.7.0...v1.7.1) (2021-01-04)
 

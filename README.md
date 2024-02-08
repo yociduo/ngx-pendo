@@ -9,6 +9,17 @@ An easy implementation pendo on angular6+ apps.
 
 ## Install
 
+### compatibility
+
+ Angular       | ngx-pendo
+ ------------- |-------------
+ 16+           | 1.14.x
+ 15            | 1.11.x
+ 14            | 1.10.x
+ 13            | 1.9.x
+ 9/10/11/12    | 1.8.x
+ 6/7/8         | 1.2.x
+
 ### npm
 
 If you use npm:
@@ -42,8 +53,7 @@ The `ng add` command will additionally perform the following configurations:
 * Add `ngx-pendo` to *package.json*
 * Auto import `NgxPendoModule` with *pendoApiKey* into `AppModule`
 
-
-> This feature need angular 11+.
+> This feature need angular 9+.
 
 ## Feedbacks
 
