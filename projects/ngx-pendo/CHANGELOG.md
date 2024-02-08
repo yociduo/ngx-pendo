@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.2](https://github.com/yociduo/ngx-pendo/compare/v1.14.1...v1.14.2) (2024-02-08)
+
+### Bug Fixes
+
+- **schematics:** lock the version for the package ([6ebf046](https://github.com/yociduo/ngx-pendo/commit/6ebf046c9056241a72320e775c6ad227e17e18e4))
+
 ### [1.14.1](https://github.com/yociduo/ngx-pendo/compare/v1.14.0...v1.14.1) (2024-01-25)
 
 ### Features

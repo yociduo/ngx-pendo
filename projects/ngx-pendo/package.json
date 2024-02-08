@@ -1,6 +1,6 @@
 {
   "name": "ngx-pendo",
-  "version": "1.14.1",
+  "version": "1.14.2",
   "description": "A simple wrapper to load Pendo by angular way",
   "contributors": [
     {
