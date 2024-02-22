@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
-import { callsProvidersFunction } from '@schematics/angular/private/components';
+import { callsProvidersFunction } from '@schematics/angular/private/standalone';
 import { addRootProvider } from '@schematics/angular/utility';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
 import { getAppModulePath, isStandaloneApp } from '@schematics/angular/utility/ng-ast-utils';
@@ -34,7 +34,7 @@ function addStandaloneConfig(mainFile: string, options: Schema): Rule {
     const providerFn = 'provideNgxPendo';
 
     if (callsProvidersFunction(host, mainFile, providerFn)) {
-      // exit because the store config is already provided
+      // exit because the ngx-pendo config is already provided
       return host;
     }
 

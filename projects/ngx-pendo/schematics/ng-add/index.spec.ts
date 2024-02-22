@@ -49,22 +49,39 @@ describe('ng add ngx pendo', () => {
 
   it('should update app module', async () => {
     const options = { ...defaultOptions };
-    const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
-    const content = tree.readContent('/projects/bar/src/app/app.module.ts');
-    expect(content).toMatch(
-      /NgxPendoModule.forRoot\({\n\W{2,}pendoApiKey: 'pendo-api-key',\n\W{2,}pendoIdFormatter: \(pendoId: string\) => pendoId.toLowerCase\(\)\n\W{2,}\}\)/
-    );
-    expect(content).toMatch(/import { NgxPendoModule } from 'ngx-pendo';/);
+
+    const importRegex = /import { NgxPendoModule } from 'ngx-pendo';/gm;
+    const providerRegex =
+      /NgxPendoModule.forRoot\({\n\W{2,}pendoApiKey: 'pendo-api-key',\n\W{2,}pendoIdFormatter: \(pendoId: string\) => pendoId.toLowerCase\(\)\n\W{2,}\}\)/gm;
+
+    for (let i = 0; i < 2; i++) {
+      const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
+      const content = tree.readContent('/projects/bar/src/app/app.module.ts');
+      const importMatches = content.match(importRegex);
+      const providerMatches = content.match(providerRegex);
+
+      // check config import and not duplicated
+      expect(importMatches?.length).toBe(1);
+      expect(providerMatches?.length).toBe(1);
+    }
   });
 
   it('should update app config for standalone', async () => {
     const options = { ...defaultOptions, project: 'bar-standalone' };
     const projectPath = '/projects/bar-standalone';
-    const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
-    const content = tree.readContent(`${projectPath}/src/app/app.config.ts`);
-    expect(content).toMatch(
-      /provideNgxPendo\(\{ pendoApiKey: 'pendo-api-key', pendoIdFormatter: \(pendoId: string\) => pendoId.toLowerCase\(\) \}\)/
-    );
-    expect(content).toMatch(/import { provideNgxPendo } from 'ngx-pendo';/);
+    const importRegex = /import { provideNgxPendo } from 'ngx-pendo';/gm;
+    const providerRegex =
+      /provideNgxPendo\(\{ pendoApiKey: 'pendo-api-key', pendoIdFormatter: \(pendoId: string\) => pendoId.toLowerCase\(\) \}\)/gm;
+
+    for (let i = 0; i < 2; i++) {
+      const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
+      const content = tree.readContent(`${projectPath}/src/app/app.config.ts`);
+      const importMatches = content.match(importRegex);
+      const providerMatches = content.match(providerRegex);
+
+      // check config import and not duplicated
+      expect(importMatches?.length).toBe(1);
+      expect(providerMatches?.length).toBe(1);
+    }
   });
 });
