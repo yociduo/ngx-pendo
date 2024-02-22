@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.3](https://github.com/yociduo/ngx-pendo/compare/v1.14.2...v1.14.3) (2024-02-22)
+
+### Bug Fixes
+
+- **schematics:** update import path for callsProvidersFunction ([cf3ca74](https://github.com/yociduo/ngx-pendo/commit/cf3ca74c21bd0bd88cc1027078360bb89fb36414))
+
 ### [1.14.2](https://github.com/yociduo/ngx-pendo/compare/v1.14.1...v1.14.2) (2024-02-08)
 
 ### Bug Fixes
