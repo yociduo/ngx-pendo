@@ -1,5 +1,4 @@
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
-import { callsProvidersFunction } from '@schematics/angular/private/standalone';
 import { addRootProvider } from '@schematics/angular/utility';
 import { addSymbolToNgModuleMetadata, insertImport } from '@schematics/angular/utility/ast-utils';
 import { getAppModulePath, isStandaloneApp } from '@schematics/angular/utility/ng-ast-utils';
@@ -10,6 +9,7 @@ import { Schema } from './schema';
 import { parseSourceFile } from '../utils/ast';
 import { applyChangesToFile } from '../utils/change';
 import { getProjectFromWorkspace, getProjectMainFile } from '../utils/project';
+import { callsProvidersFunction } from '../utils/standalone';
 
 const packageJson = require('../../package.json');
 
