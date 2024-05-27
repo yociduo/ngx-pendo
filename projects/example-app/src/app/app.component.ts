@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
     return { visitor: this.visitor, account: this.account };
   }
 
-  constructor(@Inject(NGX_PENDO_CONTEXT) private pendo: IPendo, private ngxPendoService: NgxPendoService) {}
+  constructor(
+    @Inject(NGX_PENDO_CONTEXT) private pendo: IPendo,
+    private ngxPendoService: NgxPendoService
+  ) {}
 
   ngOnInit(): void {
     if (this.pendo) {

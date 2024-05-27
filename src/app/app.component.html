@@ -1,11 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center" ngx-pendo-section="head">
-  <h1 ngx-pendo-id="text">
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div style="text-align: center" ngx-pendo-section="head">
+  <h1 ngx-pendo-id="text">Welcome to {{ title }}!</h1>
+  <img
+    width="300"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
 </div>
-<h2 ngx-pendo-id="tip">Here are some links to help you start: </h2>
+<h2 ngx-pendo-id="tip">Here are some links to help you start:</h2>
 <ul ngx-pendo-section="link">
   <li ngx-pendo-id="tutorial">
     <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
@@ -32,8 +34,7 @@
   <label>Account Id</label>&nbsp;&nbsp;<input [(ngModel)]="account.id" /><br />
   <button (click)="enableDebugging()">enableDebugging</button>&nbsp;
   <button (click)="disableDebugging()">disableDebugging</button>&nbsp;
-  <button (click)="identify()">identify</button>&nbsp;
-  <button (click)="updateOptions()">updateOptions</button>&nbsp;
+  <button (click)="identify()">identify</button>&nbsp; <button (click)="updateOptions()">updateOptions</button>&nbsp;
 </div>
 
 <hr />
@@ -60,8 +61,8 @@
     </div>
   </div>
   <div ngx-pendo-section="list">
-    <div *ngFor="let item of list; let i = index;" [ngx-pendo-section]="i.toString()">
-      <p [ngx-pendo-id]="i.toString()">dynamic.list.{{i}}.{{i}}</p>
+    <div *ngFor="let item of list; let i = index" [ngx-pendo-section]="i.toString()">
+      <p [ngx-pendo-id]="i.toString()">dynamic.list.{{ i }}.{{ i }}</p>
     </div>
     <button (click)="addItem()">add</button>&nbsp;
     <button (click)="removeItem()">remove</button>

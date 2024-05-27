@@ -11,14 +11,14 @@ An easy implementation pendo on angular6+ apps.
 
 ### compatibility
 
- Angular       | ngx-pendo
- ------------- |-------------
- 16+           | 1.14.x
- 15            | 1.11.x
- 14            | 1.10.x
- 13            | 1.9.x
- 9/10/11/12    | 1.8.x
- 6/7/8         | 1.2.x
+| Angular    | ngx-pendo |
+| ---------- | --------- |
+| 16+        | 1.14.x    |
+| 15         | 1.11.x    |
+| 14         | 1.10.x    |
+| 13         | 1.9.x     |
+| 9/10/11/12 | 1.8.x     |
+| 6/7/8      | 1.2.x     |
 
 ### npm
 
@@ -50,8 +50,8 @@ The `ng add` command will install [ngx-pendo](https://www.npmjs.com/package/ngx-
 
 The `ng add` command will additionally perform the following configurations:
 
-* Add `ngx-pendo` to *package.json*
-* Auto import `NgxPendoModule` with *pendoApiKey* into `AppModule`
+- Add `ngx-pendo` to _package.json_
+- Auto import `NgxPendoModule` with _pendoApiKey_ into `AppModule`
 
 > This feature need angular 9+.
 
@@ -67,9 +67,7 @@ https://github.com/yociduo/ngx-pendo/issues
 import { NgxPendoModule } from 'ngx-pendo';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NgxPendoModule.forRoot({
@@ -80,7 +78,7 @@ import { NgxPendoModule } from 'ngx-pendo';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 #### Using the Standalone API
@@ -98,7 +96,6 @@ bootstrapApplication(AppComponent, {
     })
   ]
 });
-
 ```
 
 ## Call Initialization
