@@ -1,74 +1,38 @@
-import {
-  Directive,
-  Input,
-  HostBinding,
-  ContentChildren,
-  QueryList,
-  AfterContentInit,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
-import { merge, Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { Directive, input, computed, signal, contentChildren, effect } from '@angular/core';
 import { IPendoDirective } from './ngx-pendo.interfaces';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 
 @Directive({
   selector: '[ngx-pendo-section]',
-  standalone: true
+  standalone: true,
+  host: {
+    '[attr.data-pendo-section]': 'pendoSection()',
+    '[attr.ngx-pendo-disable-inherit]': 'disableInherit()'
+  }
 })
-export class NgxPendoSectionDirective implements IPendoDirective, AfterContentInit, OnChanges, OnDestroy {
-  @Input('ngx-pendo-section')
-  @HostBinding('attr.ngx-pendo-section')
-  pendoSection!: string;
+export class NgxPendoSectionDirective implements IPendoDirective {
+  pendoSection = input<string>('', { alias: 'ngx-pendo-section' });
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ngx-pendo-inherit')
-  inherit = true;
+  inherit = input<boolean>(true, { alias: 'ngx-pendo-inherit' });
 
-  @HostBinding('attr.ngx-pendo-disable-inherit')
-  get disableInherit(): boolean | undefined {
-    return this.inherit ? undefined : true;
-  }
+  parent = signal<NgxPendoSectionDirective | undefined>(undefined);
 
-  parent!: NgxPendoSectionDirective;
+  idDirectives = contentChildren(NgxPendoIdDirective, { descendants: false });
 
-  @ContentChildren(NgxPendoIdDirective, { descendants: false })
-  idDirectives!: QueryList<NgxPendoIdDirective>;
+  sectionDirectivs = contentChildren(NgxPendoSectionDirective, { descendants: false });
 
-  @ContentChildren(NgxPendoSectionDirective, { descendants: false })
-  sectionDirectives!: QueryList<NgxPendoSectionDirective>;
+  disableInherit = computed<boolean | undefined>(() => (this.inherit() ? undefined : true));
 
-  @ContentChildren(NgxPendoIdDirective, { descendants: true })
-  allIdDirectives!: QueryList<NgxPendoIdDirective>;
-
-  private subscriptions: Subscription[] = [];
-
-  ngAfterContentInit(): void {
-    // set all child parent
-    this.subscriptions.push(
-      merge(
-        this.sectionDirectives.changes.pipe(startWith(this.sectionDirectives)),
-        this.idDirectives.changes.pipe(startWith(this.idDirectives))
-      ).subscribe((items: QueryList<IPendoDirective>) =>
-        items.forEach(item => {
+  constructor() {
+    effect(
+      () => {
+        [...this.idDirectives(), ...this.sectionDirectivs()].forEach(item => {
           if (item !== this) {
-            item.parent = this;
+            item.parent.set(this);
           }
-        })
-      )
+        });
+      },
+      { allowSignalWrites: true }
     );
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pendoSection'] && !changes['pendoSection'].firstChange) {
-      this.allIdDirectives.forEach(i => (i.parent = i.parent));
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
-    this.subscriptions = [];
   }
 }

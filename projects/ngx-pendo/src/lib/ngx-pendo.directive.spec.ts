@@ -64,8 +64,17 @@ import { provideNgxPendo } from './ngx-pendo.provide';
   `
 })
 class TestComponent {
+  list = new Array(10).fill(null);
   id = 'variable-id';
   section = 'variable-section';
+
+  addItem(): void {
+    this.list.push(null);
+  }
+
+  removeItem(): void {
+    this.list.pop();
+  }
 
   addId(): void {
     this.id += '-id';
@@ -76,7 +85,7 @@ class TestComponent {
   }
 }
 
-describe('NgxPendoIdDirective', () => {
+describe('NgxPendoDirective', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
@@ -106,6 +115,7 @@ describe('NgxPendoIdDirective', () => {
     const compiled = fixture.nativeElement;
     await new Promise(resolve => setTimeout(resolve, 0));
     fixture.detectChanges();
+
     compiled
       .querySelectorAll('li[data-pendo-id]')
       .forEach((node: HTMLElement) =>
@@ -124,9 +134,6 @@ describe('NgxPendoIdDirective', () => {
     component.addId();
     fixture.detectChanges();
 
-    await new Promise(resolve => setTimeout(resolve, 0));
-    fixture.detectChanges();
-
     compiled
       .querySelectorAll('div[ngx-pendo-section*="variable"] p[data-pendo-id]')
       .forEach((node: HTMLElement) =>
@@ -136,5 +143,33 @@ describe('NgxPendoIdDirective', () => {
             .replace('variable-id', 'variable-id-id')
         )
       );
+  });
+
+  it('should get correct pendo id after add or remove list', async () => {
+    const compiled = fixture.nativeElement;
+    fixture.detectChanges();
+
+    const doCheck = async (len: number) => {
+      // TODO: find way to implement without timeout
+      await new Promise(resolve => setTimeout(resolve, 0));
+      fixture.detectChanges();
+
+      expect(compiled.querySelectorAll('div[ngx-pendo-section*="list"] p[data-pendo-id]').length).toBe(len);
+      compiled
+        .querySelectorAll('div[ngx-pendo-section*="list"] p[data-pendo-id]')
+        .forEach((node: HTMLElement) => expect(node.getAttribute('data-pendo-id')).toBe(node.textContent));
+    };
+
+    await doCheck(10);
+
+    component.addItem();
+    fixture.detectChanges();
+
+    await doCheck(11);
+
+    component.removeItem();
+    fixture.detectChanges();
+
+    await doCheck(10);
   });
 });

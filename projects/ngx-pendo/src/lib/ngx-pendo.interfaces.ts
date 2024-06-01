@@ -1,3 +1,5 @@
+import { InputSignal, WritableSignal } from '@angular/core';
+
 export interface IPendoSettings {
   pendoApiKey: string;
   pendoScriptOrigin?: string;
@@ -5,8 +7,8 @@ export interface IPendoSettings {
 }
 
 export interface IPendoDirective {
-  inherit: boolean;
-  parent?: IPendoDirective;
+  inherit: InputSignal<boolean>;
+  parent: WritableSignal<IPendoDirective | undefined>;
 }
 
 export interface IVisitor {

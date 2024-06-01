@@ -39,7 +39,7 @@ describe('NgxPendoService', () => {
     ids.forEach(id => expect(spyOnFormatter).toHaveBeenCalledWith(id));
   });
 
-  it('should call formatter methods', () => {
+  it('should not call formatter methods when override', () => {
     TestBed.overrideProvider(NGX_PENDO_SETTINGS_TOKEN, { useValue: {} });
 
     const service = TestBed.inject(NgxPendoService);
