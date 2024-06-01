@@ -13,7 +13,8 @@ An easy implementation pendo on angular6+ apps.
 
 | Angular    | ngx-pendo |
 | ---------- | --------- |
-| 16+        | 1.14.x    |
+| 17+        | 2.0.x     |
+| 16         | 1.14.x    |
 | 15         | 1.11.x    |
 | 14         | 1.10.x    |
 | 13         | 1.9.x     |

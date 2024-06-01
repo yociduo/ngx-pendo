@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "lts/*"
+  - 'lts/*'
 dist: xenial
 
 services:
@@ -10,6 +10,6 @@ addons:
   chrome: stable
 
 script:
-   - npm run lint ngx-pendo
+  - npm run lint ngx-pendo
   #  - npm run test ngx-pendo
-   - npm run build ngx-pendo
+  - npm run build ngx-pendo
