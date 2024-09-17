@@ -12,6 +12,7 @@ export class NgxPendoService {
    * Constructor
    *
    * @param settings IPendoSettings
+   * @param pendo IPendo
    */
   constructor(
     @Inject(NGX_PENDO_SETTINGS_TOKEN) settings: IPendoSettings,
@@ -30,9 +31,9 @@ export class NgxPendoService {
   initialize(visitor: IVisitor, account?: IAccount): void;
   initialize(optionsOrVisitor: IPendoOptions | IVisitor, account?: IAccount): void {
     if ('id' in optionsOrVisitor) {
-      this.pendo.initialize({ visitor: optionsOrVisitor, account });
+      this.pendo?.initialize({ visitor: optionsOrVisitor, account });
     } else {
-      this.pendo.initialize(optionsOrVisitor);
+      this.pendo?.initialize(optionsOrVisitor);
     }
   }
 
@@ -46,9 +47,9 @@ export class NgxPendoService {
   identify(visitor: IVisitor, account?: IAccount): void;
   identify(visitor: IVisitor | string, account?: IAccount | string): void {
     if (typeof visitor === 'string' && (!account || typeof account === 'string')) {
-      this.pendo.identify(visitor, account);
+      this.pendo?.identify(visitor, account);
     } else {
-      this.pendo.identify({ visitor: <IVisitor>visitor, account: <IAccount>account });
+      this.pendo?.identify({ visitor: <IVisitor>visitor, account: <IAccount>account });
     }
   }
 
@@ -58,7 +59,7 @@ export class NgxPendoService {
    * @param options IPendoOptions
    */
   updateOptions(options: IPendoOptions): void {
-    this.pendo.updateOptions(options);
+    this.pendo?.updateOptions(options);
   }
 
   /**
@@ -74,20 +75,36 @@ export class NgxPendoService {
    * Shuts down the agent and cleans up all timers and listeners.
    */
   teardown(): void {
-    this.pendo.teardown();
+    this.pendo?.teardown();
+  }
+
+  /**
+   * Checks if a given visitor id string is anonymous.
+   * If no argument is given, calls with pendo.getVisitorId() to check current visitor status.
+   */
+  isAnonymousVisitor(visitorId?: string): boolean {
+    return this.pendo?.isAnonymousVisitor(visitorId);
+  }
+
+  /**
+   * Removes current visitor id and account id.
+   * Triggers an identify event and reloads with a new anonymous visitor.
+   */
+  clearSession(): void {
+    this.pendo?.clearSession();
   }
 
   /**
    * Loads Pendo Debugger and extends the global pendo object with additional functionality for debugging purposes.
    */
   enableDebugging(): void {
-    this.pendo.enableDebugging();
+    this.pendo?.enableDebugging();
   }
 
   /**
    * Removes Pendo Debugger extension.
    */
   disableDebugging(): void {
-    this.pendo.disableDebugging();
+    this.pendo?.disableDebugging();
   }
 }

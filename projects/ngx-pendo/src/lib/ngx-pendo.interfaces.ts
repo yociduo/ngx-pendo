@@ -1,9 +1,10 @@
-import { InputSignal, WritableSignal } from '@angular/core';
+import { InputSignal, WritableSignal, Provider } from '@angular/core';
 
 export interface IPendoSettings {
   pendoApiKey: string;
   pendoScriptOrigin?: string;
   pendoIdFormatter?: (pendoId: string) => string;
+  pendoInitializerProvider?: Provider;
 }
 
 export interface IPendoDirective {

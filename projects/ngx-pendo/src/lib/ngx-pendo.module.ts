@@ -18,7 +18,7 @@ export class NgxPendoModule {
           provide: NGX_PENDO_SETTINGS_TOKEN,
           useValue: settings
         },
-        NGX_PENDO_INITIALIZER_PROVIDER
+        settings.pendoInitializerProvider || NGX_PENDO_INITIALIZER_PROVIDER
       ]
     };
   }

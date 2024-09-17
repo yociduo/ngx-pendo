@@ -19,6 +19,8 @@ describe('NgxPendoService', () => {
       'identify',
       'updateOptions',
       'teardown',
+      'isAnonymousVisitor',
+      'clearSession',
       'enableDebugging',
       'disableDebugging'
     ]);
@@ -69,6 +71,14 @@ describe('NgxPendoService', () => {
 
     service.teardown();
     expect(spyOnPendo.teardown).toHaveBeenCalledOnceWith();
+
+    service.isAnonymousVisitor(visitor.id);
+    service.isAnonymousVisitor();
+    expect(spyOnPendo.isAnonymousVisitor).toHaveBeenCalledTimes(2);
+    expect(spyOnPendo.isAnonymousVisitor).toHaveBeenCalledWith(visitor.id);
+
+    service.clearSession();
+    expect(spyOnPendo.clearSession).toHaveBeenCalledOnceWith();
 
     service.enableDebugging();
     expect(spyOnPendo.enableDebugging).toHaveBeenCalledOnceWith();
