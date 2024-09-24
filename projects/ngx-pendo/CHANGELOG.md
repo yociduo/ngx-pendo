@@ -2,13 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [2.0.0](https://github.com/yociduo/ngx-pendo/compare/v1.14.3...v2.0.0) (2024-06-01)
+## [2.1.0](https://github.com/yociduo/ngx-pendo/compare/v2.0.0...v2.1.0) (2024-09-24)
 
+### Features
+
+- **service:** add service methods, extend settings ([e7bf295](https://github.com/yociduo/ngx-pendo/commit/e7bf2950b9229677bb60ec1585a0e1d9e1695409))
+
+## [2.0.0](https://github.com/yociduo/ngx-pendo/compare/v1.14.3...v2.0.0) (2024-06-01)
 
 ### Bug Fixes
 
-* **schematics:** update missing function after ng updated ([ab57b90](https://github.com/yociduo/ngx-pendo/commit/ab57b907530ed4f50dd78e07fdc5cf3f022ef731))
-* **signal:** using signal to refactor the logical ([b7c748f](https://github.com/yociduo/ngx-pendo/commit/b7c748f326e22a39e96e4b62190ed28d9e3c26c4))
+- **schematics:** update missing function after ng updated ([ab57b90](https://github.com/yociduo/ngx-pendo/commit/ab57b907530ed4f50dd78e07fdc5cf3f022ef731))
+- **signal:** using signal to refactor the logical ([b7c748f](https://github.com/yociduo/ngx-pendo/commit/b7c748f326e22a39e96e4b62190ed28d9e3c26c4))
 
 ### [1.14.3](https://github.com/yociduo/ngx-pendo/compare/v1.14.2...v1.14.3) (2024-02-22)
 
