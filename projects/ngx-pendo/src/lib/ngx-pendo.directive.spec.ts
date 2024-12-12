@@ -6,7 +6,6 @@ import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
 import { provideNgxPendo } from './ngx-pendo.provide';
 
 @Component({
-  standalone: true,
   imports: [NgFor, NgxPendoSectionDirective, NgxPendoIdDirective],
   template: `
     <div ngx-pendo-section="variable">

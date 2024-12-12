@@ -8,18 +8,24 @@ import { NgxPendoService } from './ngx-pendo.service';
 import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 
 @Component({
-  template: `<router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet>`,
+  standalone: false
 })
 class RootComponent {}
 
 @Component({
   selector: 'ngx-pendo-lazy-loaded-parent',
-  template: 'lazy-loaded-parent [<router-outlet></router-outlet>]'
+  template: 'lazy-loaded-parent [<router-outlet></router-outlet>]',
+  standalone: false
 })
 class ParentLazyLoadedComponent {}
 
 function getLazyLoadedModule(importedModule: ModuleWithProviders<{}>) {
-  @Component({ selector: 'ngx-pendo-lazy-loaded-child', template: 'lazy-loaded-child' })
+  @Component({
+    selector: 'ngx-pendo-lazy-loaded-child',
+    template: 'lazy-loaded-child',
+    standalone: false
+  })
   class ChildLazyLoadedComponent {}
 
   @NgModule({
