@@ -1,9 +1,10 @@
-import { JsonValue, Path, workspaces } from '@angular-devkit/core';
+import { JsonValue, Path } from '@angular-devkit/core';
 import { SchematicsException } from '@angular-devkit/schematics';
+import { WorkspaceDefinition, ProjectDefinition, TargetDefinition } from '@schematics/angular/utility/workspace';
 
 /** Resolves the architect options for the build target of the given project. */
 export function getProjectTargetOptions(
-  project: workspaces.ProjectDefinition,
+  project: ProjectDefinition,
   buildTarget: string
 ): Record<string, JsonValue | undefined> {
   const options = project.targets?.get(buildTarget)?.options;
@@ -16,7 +17,7 @@ export function getProjectTargetOptions(
 }
 
 /** Gets all of the default CLI-provided build targets in a project. */
-export function getProjectBuildTargets(project: workspaces.ProjectDefinition): workspaces.TargetDefinition[] {
+export function getProjectBuildTargets(project: ProjectDefinition): TargetDefinition[] {
   return getTargetsByBuilderName(
     project,
     builder =>
@@ -27,22 +28,22 @@ export function getProjectBuildTargets(project: workspaces.ProjectDefinition): w
 }
 
 /** Gets all of the default CLI-provided testing targets in a project. */
-export function getProjectTestTargets(project: workspaces.ProjectDefinition): workspaces.TargetDefinition[] {
+export function getProjectTestTargets(project: ProjectDefinition): TargetDefinition[] {
   return getTargetsByBuilderName(project, builder => builder === '@angular-devkit/build-angular:karma');
 }
 
 /** Gets all targets from the given project that pass a predicate check. */
 function getTargetsByBuilderName(
-  project: workspaces.ProjectDefinition,
+  project: ProjectDefinition,
   predicate: (name: string | undefined) => boolean
-): workspaces.TargetDefinition[] {
+): TargetDefinition[] {
   return Array.from(project.targets.keys())
     .filter(name => predicate(project.targets.get(name)?.builder))
     .map(name => project.targets.get(name)!);
 }
 
 /** Looks for the main TypeScript file in the given project and returns its path. */
-export function getProjectMainFile(project: workspaces.ProjectDefinition): Path {
+export function getProjectMainFile(project: ProjectDefinition): Path {
   const buildOptions = getProjectTargetOptions(project, 'build');
 
   // `browser` is for the `@angular-devkit/build-angular:application` builder while
@@ -63,9 +64,9 @@ export function getProjectMainFile(project: workspaces.ProjectDefinition): Path 
  * couldn't be found.
  */
 export function getProjectFromWorkspace(
-  workspace: workspaces.WorkspaceDefinition,
+  workspace: WorkspaceDefinition,
   projectName: string | undefined
-): workspaces.ProjectDefinition {
+): ProjectDefinition {
   if (!projectName) {
     // TODO(crisbeto): some schematics APIs have the project name as optional so for now it's
     // simpler to allow undefined and checking it at runtime. Eventually we should clean this up.

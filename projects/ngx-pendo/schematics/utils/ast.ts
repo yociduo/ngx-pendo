@@ -5,7 +5,7 @@ import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { findModuleFromOptions as internalFindModule } from '@schematics/angular/utility/find-module';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
-import { workspaces } from '@angular-devkit/core';
+import { ProjectDefinition } from '@schematics/angular/utility/workspace';
 import * as ts from 'typescript';
 import { getProjectMainFile } from './project';
 
@@ -19,12 +19,7 @@ export function parseSourceFile(host: Tree, path: string): ts.SourceFile {
 }
 
 /** Import and add module to root app module. */
-export function addModuleImportToRootModule(
-  host: Tree,
-  moduleName: string,
-  src: string,
-  project: workspaces.ProjectDefinition
-) {
+export function addModuleImportToRootModule(host: Tree, moduleName: string, src: string, project: ProjectDefinition) {
   const modulePath = getAppModulePath(host, getProjectMainFile(project));
   addModuleImportToModule(host, modulePath, moduleName, src);
 }

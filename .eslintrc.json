@@ -37,7 +37,8 @@
         ],
         "@angular-eslint/no-empty-lifecycle-method": [
           "warn"
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {

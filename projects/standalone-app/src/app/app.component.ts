@@ -16,7 +16,6 @@ declare var pendo: IPendo;
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [NgForOf, RouterOutlet, FormsModule, NgxPendoSectionDirective, NgxPendoIdDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
