@@ -24,15 +24,12 @@ export class NgxPendoSectionDirective implements IPendoDirective {
   disableInherit = computed<boolean | undefined>(() => (this.inherit() ? undefined : true));
 
   constructor() {
-    effect(
-      () => {
-        [...this.idDirectives(), ...this.sectionDirectivs()].forEach(item => {
-          if (item !== this) {
-            item.parent.set(this);
-          }
-        });
-      },
-      { allowSignalWrites: true }
-    );
+    effect(() => {
+      [...this.idDirectives(), ...this.sectionDirectivs()].forEach(item => {
+        if (item !== this) {
+          item.parent.set(this);
+        }
+      });
+    });
   }
 }
