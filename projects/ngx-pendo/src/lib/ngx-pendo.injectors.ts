@@ -29,7 +29,7 @@ export function pendoInitializer($settings: IPendoSettings, window: PendoWindow)
       document.head.appendChild(script);
       script.onerror = async () => {
         // The script may have been blocked by an ad blocker
-        console.error('The pendo script may have been blocked,');
+        console.error('The pendo script may have been blocked.');
         resolve();
       };
       script.onload = async () => {
