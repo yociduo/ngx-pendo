@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/yociduo/ngx-pendo/compare/v2.2.0...v2.2.1) (2024-12-18)
+
+### Bug Fixes
+
+- **initializer:** keep the `APP_INITIALIZER` to support 17 and 18 ([3bb5f91](https://github.com/yociduo/ngx-pendo/commit/3bb5f91c754ab76b8a2f25180558827e94482658))
+
 ## [2.2.0](https://github.com/yociduo/ngx-pendo/compare/v2.1.0...v2.2.0) (2024-12-18)
 
 ## [2.1.0](https://github.com/yociduo/ngx-pendo/compare/v2.0.0...v2.1.0) (2024-09-24)
