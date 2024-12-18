@@ -3,7 +3,7 @@
   "cli": {
     "analytics": false,
     "schematicCollections": [
-      "@angular-eslint/schematics"
+      "angular-eslint"
     ]
   },
   "version": 1,
@@ -152,7 +152,8 @@
             "lintFilePatterns": [
               "projects/ngx-pendo/**/*.ts",
               "projects/ngx-pendo/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/ngx-pendo/eslint.config.js"
           }
         }
       }
@@ -262,7 +263,8 @@
             "lintFilePatterns": [
               "projects/example-app/**/*.ts",
               "projects/example-app/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/example-app/eslint.config.js"
           }
         }
       }
@@ -365,18 +367,11 @@
             "lintFilePatterns": [
               "projects/standalone-app/**/*.ts",
               "projects/standalone-app/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/standalone-app/eslint.config.js"
           }
         }
       }
-    }
-  },
-  "schematics": {
-    "@angular-eslint/schematics:application": {
-      "setParserOptionsProject": true
-    },
-    "@angular-eslint/schematics:library": {
-      "setParserOptionsProject": true
     }
   }
 }

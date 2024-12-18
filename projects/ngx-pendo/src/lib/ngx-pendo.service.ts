@@ -49,7 +49,7 @@ export class NgxPendoService {
     if (typeof visitor === 'string' && (!account || typeof account === 'string')) {
       this.pendo?.identify(visitor, account);
     } else {
-      this.pendo?.identify({ visitor: <IVisitor>visitor, account: <IAccount>account });
+      this.pendo?.identify({ visitor: visitor as IVisitor, account: account as IAccount });
     }
   }
 

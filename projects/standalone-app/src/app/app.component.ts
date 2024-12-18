@@ -12,7 +12,7 @@ import {
   NgxPendoSectionDirective,
   NgxPendoService
 } from 'ngx-pendo';
-declare var pendo: IPendo;
+declare const pendo: IPendo;
 
 @Component({
   selector: 'app-root',

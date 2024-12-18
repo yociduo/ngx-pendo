@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ModuleWithProviders, NgModule } from '@angular/core';
+import { Component, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxPendoModule } from './ngx-pendo.module';
@@ -20,7 +20,7 @@ class RootComponent {}
 })
 class ParentLazyLoadedComponent {}
 
-function getLazyLoadedModule(importedModule: ModuleWithProviders<{}>) {
+function getLazyLoadedModule(importedModule: ModuleWithProviders<NgxPendoModule>) {
   @Component({
     selector: 'ngx-pendo-lazy-loaded-child',
     template: 'lazy-loaded-child',
@@ -32,11 +32,11 @@ function getLazyLoadedModule(importedModule: ModuleWithProviders<{}>) {
     declarations: [ParentLazyLoadedComponent, ChildLazyLoadedComponent],
     imports: [
       RouterModule.forChild([
-        <Route>{
+        {
           path: 'loaded',
           component: ParentLazyLoadedComponent,
           children: [{ path: 'child', component: ChildLazyLoadedComponent }]
-        }
+        } as Route
       ]),
       importedModule
     ]
@@ -46,12 +46,12 @@ function getLazyLoadedModule(importedModule: ModuleWithProviders<{}>) {
   return LoadedModule;
 }
 
-function advance(fixture: ComponentFixture<any>): void {
+function advance<T>(fixture: ComponentFixture<T>): void {
   tick();
   fixture.detectChanges();
 }
 
-function createRoot(router: Router, type: any): ComponentFixture<any> {
+function createRoot<T>(router: Router, type: Type<T>): ComponentFixture<T> {
   const f = TestBed.createComponent(type);
   advance(f);
   router.initialNavigation();

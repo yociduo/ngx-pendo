@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 import { InputSignal, WritableSignal, Provider } from '@angular/core';
 
 export interface IPendoSettings {

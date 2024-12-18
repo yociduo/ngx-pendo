@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { IAccount, IPendo, IPendoOptions, IVisitor, NGX_PENDO_CONTEXT, NgxPendoService } from 'ngx-pendo';
-declare var pendo: IPendo;
+declare const pendo: IPendo;
 
 @Component({
   selector: 'app-root',
