@@ -1,4 +1,4 @@
-import { isDevMode, inject, provideAppInitializer } from '@angular/core';
+import { APP_INITIALIZER, isDevMode, Provider } from '@angular/core';
 import { interval } from 'rxjs';
 import { IPendoSettings } from './ngx-pendo.interfaces';
 import { NGX_PENDO_WINDOW, NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
@@ -6,10 +6,18 @@ import { PendoWindow } from './ngx-pendo.types';
 
 const DEFAULT_PENDO_SCRIPT_ORIGIN = 'https://cdn.pendo.io';
 
-export const NGX_PENDO_INITIALIZER_PROVIDER = provideAppInitializer(() => {
-  const initializerFn = pendoInitializer(inject(NGX_PENDO_SETTINGS_TOKEN), inject(NGX_PENDO_WINDOW));
-  return initializerFn();
-});
+// export const NGX_PENDO_INITIALIZER_PROVIDER = provideAppInitializer(() => {
+//   const initializerFn = pendoInitializer(inject(NGX_PENDO_SETTINGS_TOKEN), inject(NGX_PENDO_WINDOW));
+//   return initializerFn();
+// });
+
+// Keep the `APP_INITIALIZER` to support angular 17 and 18 version
+export const NGX_PENDO_INITIALIZER_PROVIDER: Provider = {
+  provide: APP_INITIALIZER,
+  multi: true,
+  useFactory: pendoInitializer,
+  deps: [NGX_PENDO_SETTINGS_TOKEN, NGX_PENDO_WINDOW]
+};
 
 export function pendoInitializer($settings: IPendoSettings, window: PendoWindow): () => Promise<void> {
   return async () => {
