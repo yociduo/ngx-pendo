@@ -1,5 +1,4 @@
-import { NgForOf } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import {
@@ -16,7 +15,7 @@ declare const pendo: IPendo;
 
 @Component({
   selector: 'app-root',
-  imports: [NgForOf, RouterOutlet, FormsModule, NgxPendoSectionDirective, NgxPendoIdDirective],
+  imports: [RouterOutlet, FormsModule, NgxPendoSectionDirective, NgxPendoIdDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -36,10 +35,8 @@ export class AppComponent implements OnInit {
     return { visitor: this.visitor, account: this.account };
   }
 
-  constructor(
-    @Inject(NGX_PENDO_CONTEXT) private pendo: IPendo,
-    private ngxPendoService: NgxPendoService
-  ) {}
+  private pendo = inject(NGX_PENDO_CONTEXT);
+  private ngxPendoService = inject(NgxPendoService);
 
   ngOnInit(): void {
     if (this.pendo) {
