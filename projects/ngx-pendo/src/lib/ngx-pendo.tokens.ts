@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { InjectionToken, inject } from '@angular/core';
+import { InjectionToken, inject, DOCUMENT } from '@angular/core';
 import { PendoWindow } from './ngx-pendo.types';
 import { IPendo, IPendoSettings } from './ngx-pendo.interfaces';
 

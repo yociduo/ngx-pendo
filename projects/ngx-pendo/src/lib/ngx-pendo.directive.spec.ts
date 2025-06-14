@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
@@ -6,7 +5,7 @@ import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
 import { provideNgxPendo } from './ngx-pendo.provide';
 
 @Component({
-  imports: [NgFor, NgxPendoSectionDirective, NgxPendoIdDirective],
+  imports: [NgxPendoSectionDirective, NgxPendoIdDirective],
   template: `
     <div ngx-pendo-section="variable">
       <p [ngx-pendo-id]="id">variable.variable-id</p>
@@ -30,9 +29,11 @@ import { provideNgxPendo } from './ngx-pendo.provide';
         </div>
       </div>
       <div ngx-pendo-section="list">
-        <div *ngFor="let item of list; let i = index" [ngx-pendo-section]="i.toString()">
-          <p [ngx-pendo-id]="i.toString()">dynamic.list.{{ i }}.{{ i }}</p>
-        </div>
+        @for (item of list; track item; let i = $index) {
+          <div [ngx-pendo-section]="i.toString()">
+            <p [ngx-pendo-id]="i.toString()">dynamic.list.{{ i }}.{{ i }}</p>
+          </div>
+        }
         <button (click)="addItem()">add</button>&nbsp;
         <button (click)="removeItem()">remove</button>
       </div>
