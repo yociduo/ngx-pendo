@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IAccount, IPendo, IPendoOptions, IVisitor, NGX_PENDO_CONTEXT, NgxPendoService } from 'ngx-pendo';
 declare const pendo: IPendo;
 
@@ -24,10 +24,8 @@ export class AppComponent implements OnInit {
     return { visitor: this.visitor, account: this.account };
   }
 
-  constructor(
-    @Inject(NGX_PENDO_CONTEXT) private pendo: IPendo,
-    private ngxPendoService: NgxPendoService
-  ) {}
+  pendo = inject(NGX_PENDO_CONTEXT) as IPendo;
+  ngxPendoService = inject(NgxPendoService);
 
   ngOnInit(): void {
     if (this.pendo) {
