@@ -1,6 +1,6 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NGX_PENDO_CONTEXT, NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
-import { IAccount, IPendo, IPendoOptions, IPendoSettings, IVisitor } from './ngx-pendo.interfaces';
+import { IAccount, IPendoOptions, IVisitor } from './ngx-pendo.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +8,13 @@ import { IAccount, IPendo, IPendoOptions, IPendoSettings, IVisitor } from './ngx
 export class NgxPendoService {
   private pendoIdFormatter?: (pendoId: string) => string;
 
+  private pendo = inject(NGX_PENDO_CONTEXT);
+
   /**
    * Constructor
-   *
-   * @param settings IPendoSettings
-   * @param pendo IPendo
    */
-  constructor(
-    @Inject(NGX_PENDO_SETTINGS_TOKEN) settings: IPendoSettings,
-    @Inject(NGX_PENDO_CONTEXT) private pendo: IPendo
-  ) {
+  constructor() {
+    const settings = inject(NGX_PENDO_SETTINGS_TOKEN);
     this.pendoIdFormatter = settings.pendoIdFormatter;
   }
 

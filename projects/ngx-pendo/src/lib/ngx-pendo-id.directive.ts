@@ -1,4 +1,4 @@
-import { Directive, input, computed, signal } from '@angular/core';
+import { Directive, inject, input, computed, signal } from '@angular/core';
 import { IPendoDirective } from './ngx-pendo.interfaces';
 import { NgxPendoService } from './ngx-pendo.service';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
@@ -32,5 +32,5 @@ export class NgxPendoIdDirective implements IPendoDirective {
 
   disableInherit = computed<boolean | undefined>(() => (this.inherit() ? undefined : true));
 
-  constructor(private service: NgxPendoService) {}
+  service = inject(NgxPendoService);
 }
