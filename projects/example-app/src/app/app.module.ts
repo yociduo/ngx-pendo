@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPendoModule } from 'ngx-pendo';
@@ -18,7 +18,7 @@ import { kebabCase } from './utils';
       pendoIdFormatter: kebabCase
     })
   ],
-  providers: [],
+  providers: [provideZonelessChangeDetection()],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
