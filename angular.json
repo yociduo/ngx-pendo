@@ -29,9 +29,7 @@
             "outputPath": "dist/ngx-pendo-demo",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -88,10 +86,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -140,10 +135,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ngx-pendo/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": []
           }
         },
         "lint": {
@@ -182,9 +174,7 @@
             "outputPath": "dist/example-app",
             "index": "projects/example-app/src/index.html",
             "browser": "projects/example-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/example-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -241,10 +231,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/example-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -286,9 +273,7 @@
             "outputPath": "dist/standalone-app",
             "index": "projects/standalone-app/src/index.html",
             "browser": "projects/standalone-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/standalone-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -345,10 +330,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/standalone-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
