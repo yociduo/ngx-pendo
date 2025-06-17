@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideNgxPendo } from 'ngx-pendo';
 import { AppComponent } from './app.component';
@@ -8,6 +9,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
+        provideZonelessChangeDetection(),
         provideNgxPendo({
           pendoApiKey: 'pendo-api-key',
           pendoIdFormatter: kebabCase
@@ -28,9 +30,9 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('standalone-app');
   });
 
-  it('should render title', () => {
+  it('should render title', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, standalone-app');
   });
@@ -38,9 +40,7 @@ describe('AppComponent', () => {
   it('should render correct pendo id', async () => {
     const fixture = TestBed.createComponent(AppComponent);
     const compiled = fixture.nativeElement;
-    fixture.detectChanges();
-    await new Promise(resolve => setTimeout(resolve, 0));
-    fixture.detectChanges();
+    await fixture.whenStable();
     expect(compiled.querySelector('main').getAttribute('data-pendo-id')).toBe('main');
     expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     compiled

@@ -1,9 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, ModuleWithProviders, NgModule, Type } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgxPendoModule } from './ngx-pendo.module';
+import { Component, ModuleWithProviders, NgModule, provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { Route, Router, RouterModule } from '@angular/router';
+import { NgxPendoModule } from './ngx-pendo.module';
 import { NgxPendoService } from './ngx-pendo.service';
 import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 
@@ -46,19 +45,6 @@ function getLazyLoadedModule(importedModule: ModuleWithProviders<NgxPendoModule>
   return LoadedModule;
 }
 
-function advance<T>(fixture: ComponentFixture<T>): void {
-  tick();
-  fixture.detectChanges();
-}
-
-function createRoot<T>(router: Router, type: Type<T>): ComponentFixture<T> {
-  const f = TestBed.createComponent(type);
-  advance(f);
-  router.initialNavigation();
-  advance(f);
-  return f;
-}
-
 describe('NgxPendoModule', () => {
   let spyOnConsole: jasmine.Spy;
   let spyOnFormatter: jasmine.Spy;
@@ -71,10 +57,11 @@ describe('NgxPendoModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         NgxPendoModule.forRoot({ pendoApiKey: 'pendo-api-key', pendoIdFormatter: spyOnFormatter })
       ],
-      declarations: [RootComponent]
+      declarations: [RootComponent],
+      providers: [provideZonelessChangeDetection()]
     });
   });
 
@@ -100,27 +87,29 @@ describe('NgxPendoModule', () => {
     expect(spyOnConsole).toHaveBeenCalled();
   });
 
-  it('should work when lazy loaded using forChild', fakeAsync(
-    inject([Router, Location], (router: Router, location: Location) => {
-      const LoadedModule = getLazyLoadedModule(NgxPendoModule.forChild());
+  it('should work when lazy loaded using forChild', async () => {
+    const router = TestBed.inject(Router);
+    const location = TestBed.inject(Location);
+    const service = TestBed.inject(NgxPendoService);
 
-      const fixture = createRoot(router, RootComponent);
-      const service = TestBed.inject(NgxPendoService);
+    const fixture = TestBed.createComponent(RootComponent);
+    router.initialNavigation();
+    await fixture.whenStable();
 
-      const ids = ['a', 'b', 'c'];
-      service.formatPendoId(...ids);
-      expect(spyOnFormatter).toHaveBeenCalledTimes(ids.length);
-      ids.forEach(id => expect(spyOnFormatter).toHaveBeenCalledWith(id));
+    const ids = ['a', 'b', 'c'];
+    service.formatPendoId(...ids);
+    expect(spyOnFormatter).toHaveBeenCalledTimes(ids.length);
+    ids.forEach(id => expect(spyOnFormatter).toHaveBeenCalledWith(id));
 
-      router.resetConfig([{ path: 'lazy', loadChildren: () => LoadedModule }]);
-      router.navigateByUrl('/lazy/loaded/child');
-      advance(fixture);
+    const LoadedModule = getLazyLoadedModule(NgxPendoModule.forChild());
+    router.resetConfig([{ path: 'lazy', loadChildren: () => LoadedModule }]);
+    router.navigateByUrl('/lazy/loaded/child');
+    await fixture.whenStable();
 
-      expect(location.path()).toEqual('/lazy/loaded/child');
+    expect(location.path()).toEqual('/lazy/loaded/child');
 
-      spyOnFormatter.calls.reset();
-      service.formatPendoId(...ids);
-      expect(spyOnFormatter).toHaveBeenCalledTimes(ids.length);
-    })
-  ));
+    spyOnFormatter.calls.reset();
+    service.formatPendoId(...ids);
+    expect(spyOnFormatter).toHaveBeenCalledTimes(ids.length);
+  });
 });

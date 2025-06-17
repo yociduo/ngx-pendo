@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
@@ -64,12 +64,12 @@ import { provideNgxPendo } from './ngx-pendo.provide';
   `
 })
 class TestComponent {
-  list = new Array(10).fill(null);
+  list = new Array(10).fill(null).map((_, i) => i);
   id = 'variable-id';
   section = 'variable-section';
 
   addItem(): void {
-    this.list.push(null);
+    this.list.push(Math.max(...this.list) + 1);
   }
 
   removeItem(): void {
@@ -89,9 +89,10 @@ describe('NgxPendoDirective', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
+        provideZonelessChangeDetection(),
         provideNgxPendo({
           pendoApiKey: 'pendo-api-key',
           pendoIdFormatter: str =>
@@ -104,7 +105,7 @@ describe('NgxPendoDirective', () => {
     });
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create an instance', () => {
@@ -113,8 +114,7 @@ describe('NgxPendoDirective', () => {
 
   it('should render correct pendo id', async () => {
     const compiled = fixture.nativeElement;
-    await new Promise(resolve => setTimeout(resolve, 0));
-    fixture.detectChanges();
+    await fixture.whenStable();
 
     compiled
       .querySelectorAll('li[data-pendo-id]')
@@ -128,11 +128,12 @@ describe('NgxPendoDirective', () => {
 
   it('should get correct pendo id after changes', async () => {
     const compiled = fixture.nativeElement;
-    fixture.detectChanges();
+    await fixture.whenStable();
 
     component.addSection();
     component.addId();
-    fixture.detectChanges();
+    fixture.changeDetectorRef.markForCheck();
+    await fixture.whenStable();
 
     compiled
       .querySelectorAll('div[ngx-pendo-section*="variable"] p[data-pendo-id]')
@@ -147,12 +148,11 @@ describe('NgxPendoDirective', () => {
 
   it('should get correct pendo id after add or remove list', async () => {
     const compiled = fixture.nativeElement;
-    fixture.detectChanges();
+    await fixture.whenStable();
 
     const doCheck = async (len: number) => {
-      // TODO: find way to implement without timeout
-      await new Promise(resolve => setTimeout(resolve, 0));
-      fixture.detectChanges();
+      fixture.changeDetectorRef.markForCheck();
+      await fixture.whenStable();
 
       expect(compiled.querySelectorAll('div[ngx-pendo-section*="list"] p[data-pendo-id]').length).toBe(len);
       compiled
@@ -163,13 +163,9 @@ describe('NgxPendoDirective', () => {
     await doCheck(10);
 
     component.addItem();
-    fixture.detectChanges();
-
     await doCheck(11);
 
     component.removeItem();
-    fixture.detectChanges();
-
     await doCheck(10);
   });
 });
