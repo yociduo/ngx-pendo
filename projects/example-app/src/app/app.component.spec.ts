@@ -1,6 +1,7 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { NgxPendoModule } from 'ngx-pendo';
 import { AppComponent } from './app.component';
 import { kebabCase } from './utils';
@@ -9,14 +10,15 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         FormsModule,
         NgxPendoModule.forRoot({
           pendoApiKey: 'pendo-api-key',
           pendoIdFormatter: kebabCase
         })
       ],
-      declarations: [AppComponent]
+      declarations: [AppComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
   });
 
@@ -32,9 +34,9 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('example-app');
   });
 
-  it('should render title', () => {
+  it('should render title', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, example-app');
   });
@@ -42,9 +44,7 @@ describe('AppComponent', () => {
   it('should render correct pendo id', async () => {
     const fixture = TestBed.createComponent(AppComponent);
     const compiled = fixture.nativeElement;
-    fixture.detectChanges();
-    await new Promise(resolve => setTimeout(resolve, 0));
-    fixture.detectChanges();
+    await fixture.whenStable();
     expect(compiled.querySelector('main').getAttribute('data-pendo-id')).toBe('main');
     expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     compiled

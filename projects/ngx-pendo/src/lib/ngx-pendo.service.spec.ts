@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { NgxPendoService } from './ngx-pendo.service';
@@ -29,7 +30,8 @@ describe('NgxPendoService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NgxPendoModule.forRoot({ pendoApiKey: 'pendo-api-key', pendoIdFormatter: spyOnFormatter })]
+      imports: [NgxPendoModule.forRoot({ pendoApiKey: 'pendo-api-key', pendoIdFormatter: spyOnFormatter })],
+      providers: [provideZonelessChangeDetection()]
     });
   });
 
