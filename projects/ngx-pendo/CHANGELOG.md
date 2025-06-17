@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/yociduo/ngx-pendo/compare/v2.2.1...v2.3.0) (2025-06-17)
+
+### Features
+
+- **zoneless:** enable zoneless ([565ee0e](https://github.com/yociduo/ngx-pendo/commit/565ee0eb3c67a4845e02f657cb3458f9ae9e03a9))
+
+### Bug Fixes
+
+- remove node 18 and lint support ([8473e5f](https://github.com/yociduo/ngx-pendo/commit/8473e5f10b44bcbb872e069c592dd32981acb956))
+- **schematics:** update test case to fix ng20 ([4a9a882](https://github.com/yociduo/ngx-pendo/commit/4a9a882cbccc3a5965cda3e253af6578ecbc9de5))
+
 ### [2.2.1](https://github.com/yociduo/ngx-pendo/compare/v2.2.0...v2.2.1) (2024-12-18)
 
 ### Bug Fixes
