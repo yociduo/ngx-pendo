@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
 import { InputSignal, WritableSignal, Provider } from '@angular/core';
@@ -16,6 +15,8 @@ export interface IPendoDirective {
   parent: WritableSignal<IPendoDirective | undefined>;
 }
 
+// The following interfaces and types are based on the Pendo documentation.
+// Please according to the Pendo documentation, here's the link: https://agent.pendo.io/
 export interface IVisitor {
   id: string;
   [key: string]: string;
@@ -26,9 +27,12 @@ export interface IAccount {
   [key: string]: string;
 }
 
-export interface IPendoOptions {
+export interface IPendoIdentity {
   visitor?: IVisitor;
   account?: IAccount;
+}
+
+export interface IPendoOptions extends IPendoIdentity {
   // Core
   additionalApiKeys?: string[];
   annotateUrl?: Function;
@@ -89,53 +93,59 @@ export interface IPendoOptions {
   preventCodeInjection?: boolean;
 }
 
-export interface ISerializedMetadata {}
-
 export interface IPendo {
   // Agent
   additionalApiKeys: string[];
   apiKey: string;
-  getVersion: () => string;
-  initialize: (options: IPendoOptions) => void;
-  isReady: () => boolean;
-  teardown: () => void;
+  getVersion(): string;
+  initialize(options: IPendoOptions): void;
+  isReady(): boolean;
+  teardown(): void;
 
   // Classic Guides
-  hideLauncher: () => void;
-  removeLauncher: () => void;
-  showLauncher: () => void;
-  toggleLauncher: () => void;
-
-  // TODO: DOM
-
-  // TODO: DOMQuery
+  hideLauncher(): void;
+  removeLauncher(): void;
+  showLauncher(): void;
+  toggleLauncher(): void;
 
   // Debugging
-  addDebuggingFunctions: () => void;
-  disableDebugging: () => void;
-  disableLogging: () => void;
-  enableDebugging: () => void;
-  enableLogging: () => void;
-  isDebuggingEnabled: () => void;
-  logPublic: () => void;
+  addDebuggingFunctions(): void;
+  disableDebugging(): void;
+  disableLogging(): void;
+  enableDebugging(): void;
+  enableLogging(): void;
+  isDebuggingEnabled(): void;
+  logPublic(): void;
 
-  // TODO: Events
+  // DOM
+  dom(input: string): HTMLElement;
+
+  // Events
+  attachEvent(element: HTMLElement, evt: string, fn: (event: Event) => void, useCapture?: boolean): void;
+  detachEvent(element: HTMLElement, evt: string, fn: (event: Event) => void, useCapture?: boolean): void;
+  doNotProcess: string;
+  flushNow(force?: boolean): void;
+  isSendingEvents(): boolean;
+  startSendingEvents(): boolean;
+  stopSendingEvents(): boolean;
+  stopSendingEvents(): boolean;
+  track(trackType: string, metadata?: any): void;
 
   // TODO: Guides
 
   // Identity
-  clearSession: () => void;
-  generate_unique_id: (prefix?: string) => string;
-  getAccountId: () => string | null;
-  get_account_id: () => string | null;
-  getSerializedMetadata: () => ISerializedMetadata;
-  getVisitorId: () => string;
-  get_visitor_id: () => string;
-  identify: (options: Pick<IPendoOptions, 'visitor' | 'account'> | string, accountId?: string) => void;
-  isAnonymousVisitor: (visitorId?: string) => boolean;
-  set_account_id: (newAccountId?: string) => void;
-  set_visitor_id: (newVisitorId?: string) => void;
-  updateOptions: (options: IPendoOptions) => void;
+  clearSession(): void;
+  generate_unique_id(prefix?: string): string;
+  getAccountId(): string | null;
+  get_account_id(): string | null;
+  getSerializedMetadata(): any;
+  getVisitorId(): string;
+  get_visitor_id(): string;
+  identify(options: IPendoIdentity | string, accountId?: string): void;
+  isAnonymousVisitor(visitorId?: string): boolean;
+  set_account_id(newAccountId?: string): void;
+  set_visitor_id(newVisitorId?: string): void;
+  updateOptions(options: IPendoOptions): void;
 
   // URL
   url: {

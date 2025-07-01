@@ -104,4 +104,11 @@ export class NgxPendoService {
   disableDebugging(): void {
     this.pendo?.disableDebugging();
   }
+
+  /**
+   * Method to manually track events. Requires a non-empty name string to collect event.
+   */
+  track(trackType: string, metadata?: Record<string, string | number | boolean | string[] | null>): void {
+    this.pendo?.track(trackType, metadata);
+  }
 }
