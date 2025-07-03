@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
     return { visitor: this.visitor, account: this.account };
   }
 
-  pendo = inject(NGX_PENDO_CONTEXT) as IPendo;
-  ngxPendoService = inject(NgxPendoService);
+  private pendo = inject(NGX_PENDO_CONTEXT);
+  private ngxPendoService = inject(NgxPendoService);
 
   ngOnInit(): void {
     if (this.pendo) {

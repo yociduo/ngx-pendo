@@ -6,17 +6,8 @@ import { IAccount, IPendoOptions, IVisitor } from './ngx-pendo.interfaces';
   providedIn: 'root'
 })
 export class NgxPendoService {
-  private pendoIdFormatter?: (pendoId: string) => string;
-
   private pendo = inject(NGX_PENDO_CONTEXT);
-
-  /**
-   * Constructor
-   */
-  constructor() {
-    const settings = inject(NGX_PENDO_SETTINGS_TOKEN);
-    this.pendoIdFormatter = settings.pendoIdFormatter;
-  }
+  private pendoIdFormatter = inject(NGX_PENDO_SETTINGS_TOKEN).pendoIdFormatter;
 
   /**
    * Completely re-initialize the Agent with new options

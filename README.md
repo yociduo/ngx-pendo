@@ -110,8 +110,7 @@ import { NgxPendoService } from 'ngx-pendo';
 @Component( ... )
 export class AppComponent implements OnInit {
 
-  constructor(private ngxPendoService: NgxPendoService) {
-  }
+  private ngxPendoService = inject(NgxPendoService);
 
   ngOnInit() {
     this.ngxPendoService.initialize({
@@ -132,13 +131,12 @@ export class AppComponent implements OnInit {
 
 ```ts
 import { Component, OnInit } from '@angular/core';
-import { NGX_PENDO_CONTEXT, IPendo } from 'ngx-pendo';
+import { NGX_PENDO_CONTEXT } from 'ngx-pendo';
 
 @Component( ... )
 export class AppComponent implements OnInit {
 
-  constructor(@Inject(NGX_PENDO_CONTEXT) private pendo: IPendo) {
-  }
+  private pendo = inject(NGX_PENDO_CONTEXT);
 
   ngOnInit() {
     this.pendo.initialize({
