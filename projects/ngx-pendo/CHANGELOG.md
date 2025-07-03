@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/yociduo/ngx-pendo/compare/v2.3.0...v2.3.1) (2025-07-03)
+
+### Features
+
+- **agent:** add pendo event related ([1085c13](https://github.com/yociduo/ngx-pendo/commit/1085c13eb41e27f3edc2f67103e1f2f629851e16))
+
 ## [2.3.0](https://github.com/yociduo/ngx-pendo/compare/v2.2.1...v2.3.0) (2025-06-17)
 
 ### Features
