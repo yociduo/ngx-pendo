@@ -52,7 +52,7 @@ describe('ng add ngx pendo', () => {
     const projectPath = '/projects/bar';
     const importRegex = /import { NgxPendoModule } from 'ngx-pendo';/gm;
     const providerRegex =
-      /NgxPendoModule.forRoot\({\n\W{2,}pendoApiKey: 'pendo-api-key',\n\W{2,}pendoIdFormatter: \(pendoId: string\) => pendoId.toLowerCase\(\)\n\W{2,}\}\)/gm;
+      /NgxPendoModule.forRoot\({\n\W*pendoApiKey: 'pendo-api-key',\n\W*pendoIdFormatter: \(pendoId: string\) => pendoId.toLowerCase\(\)\n\W*\}\)/gm;
 
     for (let i = 0; i < 2; i++) {
       const tree = await schematicRunner.runSchematic('ng-add', options, appTree);
