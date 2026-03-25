@@ -1,12 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false,
-    "schematicCollections": [
-      "angular-eslint"
-    ]
-  },
   "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": false,
+    "schematicCollections": ["angular-eslint"]
+  },
   "newProjectRoot": "projects",
   "projects": {
     "ngx-pendo-demo": {
@@ -26,33 +25,29 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/ngx-pendo-demo",
-            "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "styles": ["src/styles.scss"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -77,22 +72,12 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "ngx-pendo-demo:build"
-          }
-        },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
             "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
             "styles": [
               "src/styles.scss"
             ],
@@ -102,10 +87,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -118,9 +100,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/ngx-pendo/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/ngx-pendo/tsconfig.lib.prod.json"
@@ -134,17 +113,13 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/ngx-pendo/tsconfig.spec.json",
-            "polyfills": []
+            "tsConfig": "projects/ngx-pendo/tsconfig.spec.json"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/ngx-pendo/**/*.ts",
-              "projects/ngx-pendo/**/*.html"
-            ],
+            "lintFilePatterns": ["projects/ngx-pendo/**/*.ts", "projects/ngx-pendo/**/*.html"],
             "eslintConfig": "projects/ngx-pendo/eslint.config.js"
           }
         }
@@ -171,33 +146,29 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/example-app",
-            "index": "projects/example-app/src/index.html",
             "browser": "projects/example-app/src/main.ts",
-            "polyfills": [],
             "tsConfig": "projects/example-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/example-app/src/favicon.ico",
-              "projects/example-app/src/assets"
+              {
+                "glob": "**/*",
+                "input": "projects/example-app/public"
+              }
             ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
-            "scripts": []
+            "styles": ["projects/example-app/src/styles.scss"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -222,35 +193,21 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "example-app:build"
-          }
-        },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
             "polyfills": [],
             "tsConfig": "projects/example-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/example-app/src/favicon.ico",
-              "projects/example-app/src/assets"
-            ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
+            "assets": ["projects/example-app/src/favicon.ico", "projects/example-app/src/assets"],
+            "styles": ["projects/example-app/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/example-app/**/*.ts",
-              "projects/example-app/**/*.html"
-            ],
+            "lintFilePatterns": ["projects/example-app/**/*.ts", "projects/example-app/**/*.html"],
             "eslintConfig": "projects/example-app/eslint.config.js"
           }
         }
@@ -270,33 +227,29 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/standalone-app",
-            "index": "projects/standalone-app/src/index.html",
             "browser": "projects/standalone-app/src/main.ts",
-            "polyfills": [],
             "tsConfig": "projects/standalone-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/standalone-app/src/favicon.ico",
-              "projects/standalone-app/src/assets"
+              {
+                "glob": "**/*",
+                "input": "projects/standalone-app/public"
+              }
             ],
-            "styles": [
-              "projects/standalone-app/src/styles.scss"
-            ],
-            "scripts": []
+            "styles": ["projects/standalone-app/src/styles.scss"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -321,35 +274,21 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "standalone-app:build"
-          }
-        },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
             "polyfills": [],
             "tsConfig": "projects/standalone-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/standalone-app/src/favicon.ico",
-              "projects/standalone-app/src/assets"
-            ],
-            "styles": [
-              "projects/standalone-app/src/styles.scss"
-            ],
+            "assets": ["projects/standalone-app/src/favicon.ico", "projects/standalone-app/src/assets"],
+            "styles": ["projects/standalone-app/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/standalone-app/**/*.ts",
-              "projects/standalone-app/**/*.html"
-            ],
+            "lintFilePatterns": ["projects/standalone-app/**/*.ts", "projects/standalone-app/**/*.html"],
             "eslintConfig": "projects/standalone-app/eslint.config.js"
           }
         }
