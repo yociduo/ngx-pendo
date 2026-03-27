@@ -1,14 +1,15 @@
 import { Location } from '@angular/common';
-import { Component, ModuleWithProviders, NgModule, provideZonelessChangeDetection } from '@angular/core';
+import { Component, NgModule, provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Route, Router, RouterModule } from '@angular/router';
+import type { Mock } from 'vitest';
 import { NgxPendoModule } from './ngx-pendo.module';
 import { NgxPendoService } from './ngx-pendo.service';
 import { NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
 
 @Component({
   template: `<router-outlet></router-outlet>`,
-  standalone: false
+  imports: [RouterModule]
 })
 class RootComponent {}
 
@@ -19,50 +20,46 @@ class RootComponent {}
 })
 class ParentLazyLoadedComponent {}
 
-function getLazyLoadedModule(importedModule: ModuleWithProviders<NgxPendoModule>) {
-  @Component({
-    selector: 'ngx-pendo-lazy-loaded-child',
-    template: 'lazy-loaded-child',
-    standalone: false
-  })
-  class ChildLazyLoadedComponent {}
+@Component({
+  selector: 'ngx-pendo-lazy-loaded-child',
+  template: 'lazy-loaded-child',
+  standalone: false
+})
+class ChildLazyLoadedComponent {}
 
-  @NgModule({
-    declarations: [ParentLazyLoadedComponent, ChildLazyLoadedComponent],
-    imports: [
-      RouterModule.forChild([
-        {
-          path: 'loaded',
-          component: ParentLazyLoadedComponent,
-          children: [{ path: 'child', component: ChildLazyLoadedComponent }]
-        } as Route
-      ]),
-      importedModule
-    ]
-  })
-  class LoadedModule {}
-
-  return LoadedModule;
-}
+@NgModule({
+  declarations: [ParentLazyLoadedComponent, ChildLazyLoadedComponent],
+  imports: [
+    RouterModule.forChild([
+      {
+        path: 'loaded',
+        component: ParentLazyLoadedComponent,
+        children: [{ path: 'child', component: ChildLazyLoadedComponent }]
+      } as Route
+    ]),
+    NgxPendoModule.forChild()
+  ]
+})
+class LoadedModule {}
 
 describe('NgxPendoModule', () => {
-  let spyOnConsole: jasmine.Spy;
-  let spyOnFormatter: jasmine.Spy;
+  let spyOnConsole: Mock;
+  let spyOnFormatter: Mock;
 
   beforeEach(() => {
-    spyOnConsole = spyOn(console, 'error');
-    spyOnFormatter = jasmine.createSpy<(pendoId: string) => string>();
+    spyOnConsole = vi.spyOn(console, 'error');
+    spyOnFormatter = vi.fn();
   });
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        NgxPendoModule.forRoot({ pendoApiKey: 'pendo-api-key', pendoIdFormatter: spyOnFormatter })
+        NgxPendoModule.forRoot({ pendoApiKey: 'pendo-api-key', pendoIdFormatter: spyOnFormatter }),
+        RootComponent
       ],
-      declarations: [RootComponent],
       providers: [provideZonelessChangeDetection()]
-    });
+    }).compileComponents();
   });
 
   it('should work when passed the normal options', () => {
@@ -101,14 +98,13 @@ describe('NgxPendoModule', () => {
     expect(spyOnFormatter).toHaveBeenCalledTimes(ids.length);
     ids.forEach(id => expect(spyOnFormatter).toHaveBeenCalledWith(id));
 
-    const LoadedModule = getLazyLoadedModule(NgxPendoModule.forChild());
     router.resetConfig([{ path: 'lazy', loadChildren: () => LoadedModule }]);
     router.navigateByUrl('/lazy/loaded/child');
     await fixture.whenStable();
 
     expect(location.path()).toEqual('/lazy/loaded/child');
 
-    spyOnFormatter.calls.reset();
+    spyOnFormatter.mockClear();
     service.formatPendoId(...ids);
     expect(spyOnFormatter).toHaveBeenCalledTimes(ids.length);
   });

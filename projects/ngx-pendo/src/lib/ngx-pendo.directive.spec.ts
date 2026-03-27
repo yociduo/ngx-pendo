@@ -90,7 +90,7 @@ describe('NgxPendoDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
         provideNgxPendo({
@@ -102,7 +102,8 @@ describe('NgxPendoDirective', () => {
               .toLowerCase()
         })
       ]
-    });
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();

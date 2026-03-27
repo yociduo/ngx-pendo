@@ -8,10 +8,11 @@ describe('TestPageAComponent', () => {
   let fixture: ComponentFixture<TestPageAComponent>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [TestPageAComponent],
       providers: [provideZonelessChangeDetection()]
-    });
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TestPageAComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
