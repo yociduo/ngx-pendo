@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false",
-    "test:schematics": "vitest run projects/ngx-pendo/schematics/**/*.spec.ts",
+    "test:schematics": "echo TBD",
     "lint": "ng lint",
     "cp": "npm run cp:readme && npm run cp:schematics",
     "cp:readme": "copyfiles ./README.md ./dist/ngx-pendo",

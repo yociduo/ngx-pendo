@@ -38,6 +38,9 @@
       "path": "./projects/ngx-pendo/tsconfig.lib.json"
     },
     {
+      "path": "./projects/ngx-pendo/tsconfig.schematics.json",
+    },
+    {
       "path": "./projects/ngx-pendo/tsconfig.spec.json"
     },
     {
