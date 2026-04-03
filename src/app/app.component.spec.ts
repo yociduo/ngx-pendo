@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { kebabCase } from './utils';
 
 describe('AppComponent', () => {
-  beforeEach(() =>
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
         FormsModule,
@@ -19,31 +19,31 @@ describe('AppComponent', () => {
       ],
       declarations: [AppComponent],
       providers: [provideZonelessChangeDetection()]
-    })
-  );
+    }).compileComponents();
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'ngx-pendo-demo'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    const app = fixture.componentInstance;
     expect(app.title).toEqual('ngx-pendo-demo');
   });
 
   it('should render title in a h1 tag', async () => {
     const fixture = TestBed.createComponent(AppComponent);
     await fixture.whenStable();
-    const compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to ngx-pendo-demo!');
   });
 
   it('should render correct pendo id', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.nativeElement;
     await fixture.whenStable();
     expect(compiled.querySelector('h1').getAttribute('data-pendo-id')).toBe('head.text');
     expect(compiled.querySelector('h2').getAttribute('data-pendo-id')).toBe('tip');

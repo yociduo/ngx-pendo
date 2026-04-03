@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import type { Mock } from 'vitest';
 
 import { NgxPendoService } from './ngx-pendo.service';
 import { NgxPendoModule } from './ngx-pendo.module';
@@ -10,29 +11,29 @@ describe('NgxPendoService', () => {
   const visitor: IVisitor = { id: 'visitor-id' };
   const account: IAccount = { id: 'account-id' };
   const ids = ['a', 'b', 'c'];
-  let spyOnFormatter: jasmine.Spy;
-  let spyOnPendo: jasmine.SpyObj<IPendo>;
+  let spyOnFormatter: Mock;
+  let spyOnPendo: Partial<IPendo>;
 
   beforeEach(() => {
-    spyOnFormatter = jasmine.createSpy<(pendoId: string) => string>();
-    spyOnPendo = jasmine.createSpyObj<IPendo>([
-      'initialize',
-      'identify',
-      'updateOptions',
-      'teardown',
-      'isAnonymousVisitor',
-      'clearSession',
-      'enableDebugging',
-      'disableDebugging'
-    ]);
+    spyOnFormatter = vi.fn();
+    spyOnPendo = {
+      initialize: vi.fn(),
+      identify: vi.fn(),
+      updateOptions: vi.fn(),
+      teardown: vi.fn(),
+      isAnonymousVisitor: vi.fn(),
+      clearSession: vi.fn(),
+      enableDebugging: vi.fn(),
+      disableDebugging: vi.fn()
+    };
     Object.assign(window, { pendo: spyOnPendo });
   });
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [NgxPendoModule.forRoot({ pendoApiKey: 'pendo-api-key', pendoIdFormatter: spyOnFormatter })],
       providers: [provideZonelessChangeDetection()]
-    });
+    }).compileComponents();
   });
 
   it('should call formatter methods', () => {
@@ -69,10 +70,12 @@ describe('NgxPendoService', () => {
     expect(spyOnPendo.identify).toHaveBeenCalledWith({ visitor, account });
 
     service.updateOptions({});
-    expect(spyOnPendo.updateOptions).toHaveBeenCalledOnceWith({});
+    expect(spyOnPendo.updateOptions).toHaveBeenCalledTimes(1);
+    expect(spyOnPendo.updateOptions).toHaveBeenCalledWith({});
 
     service.teardown();
-    expect(spyOnPendo.teardown).toHaveBeenCalledOnceWith();
+    expect(spyOnPendo.teardown).toHaveBeenCalledTimes(1);
+    expect(spyOnPendo.teardown).toHaveBeenCalledWith();
 
     service.isAnonymousVisitor(visitor.id);
     service.isAnonymousVisitor();
@@ -80,12 +83,15 @@ describe('NgxPendoService', () => {
     expect(spyOnPendo.isAnonymousVisitor).toHaveBeenCalledWith(visitor.id);
 
     service.clearSession();
-    expect(spyOnPendo.clearSession).toHaveBeenCalledOnceWith();
+    expect(spyOnPendo.clearSession).toHaveBeenCalledTimes(1);
+    expect(spyOnPendo.clearSession).toHaveBeenCalledWith();
 
     service.enableDebugging();
-    expect(spyOnPendo.enableDebugging).toHaveBeenCalledOnceWith();
+    expect(spyOnPendo.enableDebugging).toHaveBeenCalledTimes(1);
+    expect(spyOnPendo.enableDebugging).toHaveBeenCalledWith();
 
     service.disableDebugging();
-    expect(spyOnPendo.disableDebugging).toHaveBeenCalledOnceWith();
+    expect(spyOnPendo.disableDebugging).toHaveBeenCalledTimes(1);
+    expect(spyOnPendo.disableDebugging).toHaveBeenCalledWith();
   });
 });
