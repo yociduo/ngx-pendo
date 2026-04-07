@@ -1,38 +1,59 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "ngx-pendo": [
+        "./dist/ngx-pendo"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "paths": {
-      "ngx-pendo": [
-        "./dist/ngx-pendo"
-      ]
-    },
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
+    "isolatedModules": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "module": "preserve"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ngx-pendo/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngx-pendo/tsconfig.schematics.json",
+    },
+    {
+      "path": "./projects/ngx-pendo/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/example-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/example-app/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/standalone-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/standalone-app/tsconfig.spec.json"
+    }
+  ]
 }

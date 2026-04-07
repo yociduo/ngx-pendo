@@ -13,6 +13,12 @@
   "endOfLine": "lf",
   "overrides": [
     {
+      "files": "*.html",
+      "options": {
+        "parser": "angular"
+      }
+    },
+    {
       "files": "*.scss",
       "options": {
         "singleQuote": false
