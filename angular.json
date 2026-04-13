@@ -77,7 +77,10 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runnerConfig": true
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -108,7 +111,9 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/ngx-pendo/tsconfig.spec.json"
+            "coverage": true,
+            "tsConfig": "projects/ngx-pendo/tsconfig.spec.json",
+            "runnerConfig": true
           }
         },
         "lint": {

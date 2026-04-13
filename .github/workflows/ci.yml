@@ -9,27 +9,26 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x, 26.x]
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          cache: 'npm'
 
       - name: Install package
         run: npm ci
@@ -42,3 +41,21 @@ jobs:
 
       - name: Unit Test check
         run: npm run test:ci && npm run test:schematics
+
+      - name: ngx-pendo Library Coverage Report
+        if: matrix.node-version == '22.x' && github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: 'ngx-pendo (Lib)'
+          json-summary-path: './coverage/ngx-pendo/coverage-summary.json'
+          json-final-path: './coverage/ngx-pendo/coverage-final.json'
+          vite-config-path: './vitest-base.config.ts'
+
+      - name: ngx-pendo Schematics Coverage Report
+        if: matrix.node-version == '22.x' && github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: 'ngx-pendo (Schematics)'
+          json-summary-path: './coverage/ngx-pendo-schematics/coverage-summary.json'
+          json-final-path: './coverage/ngx-pendo-schematics/coverage-final.json'
+          vite-config-path: './projects/ngx-pendo/vitest.schematics.config.ts'
