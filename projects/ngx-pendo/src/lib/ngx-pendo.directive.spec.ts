@@ -1,4 +1,4 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NgxPendoIdDirective } from './ngx-pendo-id.directive';
 import { NgxPendoSectionDirective } from './ngx-pendo-section.directive';
@@ -8,9 +8,9 @@ import { provideNgxPendo } from './ngx-pendo.provide';
   imports: [NgxPendoSectionDirective, NgxPendoIdDirective],
   template: `
     <div ngx-pendo-section="variable">
-      <p [ngx-pendo-id]="id">variable.variable-id</p>
-      <div [ngx-pendo-section]="section">
-        <p [ngx-pendo-id]="id">variable.variable-section.variable-id</p>
+      <p [ngx-pendo-id]="id()">variable.variable-id</p>
+      <div [ngx-pendo-section]="section()">
+        <p [ngx-pendo-id]="id()">variable.variable-section.variable-id</p>
       </div>
       <button (click)="addId()">id</button>&nbsp;
       <button (click)="addSection()">section</button>
@@ -29,7 +29,7 @@ import { provideNgxPendo } from './ngx-pendo.provide';
         </div>
       </div>
       <div ngx-pendo-section="list">
-        @for (item of list; track item; let i = $index) {
+        @for (item of list(); track item; let i = $index) {
           <div [ngx-pendo-section]="i.toString()">
             <p [ngx-pendo-id]="i.toString()">dynamic.list.{{ i }}.{{ i }}</p>
           </div>
@@ -64,24 +64,24 @@ import { provideNgxPendo } from './ngx-pendo.provide';
   `
 })
 class TestComponent {
-  list = new Array(10).fill(null).map((_, i) => i);
-  id = 'variable-id';
-  section = 'variable-section';
+  list = signal(new Array(10).fill(null).map((_, i) => i));
+  id = signal('variable-id');
+  section = signal('variable-section');
 
   addItem(): void {
-    this.list.push(Math.max(...this.list) + 1);
+    this.list.update(items => [...items, Math.max(...items) + 1]);
   }
 
   removeItem(): void {
-    this.list.pop();
+    this.list.update(items => items.slice(0, -1));
   }
 
   addId(): void {
-    this.id += '-id';
+    this.id.update(v => v + '-id');
   }
 
   addSection(): void {
-    this.section += '-section';
+    this.section.update(v => v + '-section');
   }
 }
 
@@ -133,7 +133,6 @@ describe('NgxPendoDirective', () => {
 
     component.addSection();
     component.addId();
-    fixture.changeDetectorRef.markForCheck();
     await fixture.whenStable();
 
     compiled
@@ -152,7 +151,6 @@ describe('NgxPendoDirective', () => {
     await fixture.whenStable();
 
     const doCheck = async (len: number) => {
-      fixture.changeDetectorRef.markForCheck();
       await fixture.whenStable();
 
       expect(compiled.querySelectorAll('div[ngx-pendo-section*="list"] p[data-pendo-id]').length).toBe(len);

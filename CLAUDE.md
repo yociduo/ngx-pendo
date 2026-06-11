@@ -49,7 +49,7 @@ Key internal flow:
 - `NGX_PENDO_SETTINGS_TOKEN` — Injection token for `IPendoSettings` (apiKey, optional formatter, optional script origin, optional initializer provider).
 - `NGX_PENDO_WINDOW` — Injects the browser window (typed as `PendoWindow`).
 - `NGX_PENDO_CONTEXT` — Injects the `window.pendo` object (typed as `IPendo`), used by `NgxPendoService`.
-- `NGX_PENDO_INITIALIZER_PROVIDER` — `APP_INITIALIZER` that dynamically loads the Pendo SDK script from CDN. Still uses `APP_INITIALIZER` (not `provideAppInitializer`) to support Angular 17–18.
+- `NGX_PENDO_INITIALIZER_PROVIDER` — `APP_INITIALIZER` that dynamically loads the Pendo SDK script from CDN. Still uses `APP_INITIALIZER` (not `provideAppInitializer`) to support Angular 17–22.
 - `NgxPendoService` — Facade over the raw `IPendo` context. Provides `initialize`, `identify`, `track`, `formatPendoId`, `teardown`, etc. Uses optional `pendoIdFormatter` from settings.
 
 ### Directives (both are standalone)
@@ -81,7 +81,7 @@ Library tests use **Vitest** (configured via `types: ["vitest/globals"]` in `tsc
 ## Conventions
 
 - **Package manager**: npm only (yarn is explicitly disallowed via `engines`).
-- **Node**: ≥20.0.0 (see `.nvmrc` for 20.11.0).
+- **Node**: ≥22.22.3 (see `.nvmrc` for 22.22.3).
 - **Commit messages**: Conventional Commits enforced via commitlint + husky `commit-msg` hook.
 - **Pre-commit**: lint-staged runs ESLint, stylelint, and prettier on staged files.
 - **Directive selector prefix**: `ngx-pendo` (kebab-case attribute selector).
