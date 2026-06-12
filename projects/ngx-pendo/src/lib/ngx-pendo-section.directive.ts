@@ -19,13 +19,14 @@ export class NgxPendoSectionDirective implements IPendoDirective {
 
   idDirectives = contentChildren(NgxPendoIdDirective, { descendants: false });
 
-  sectionDirectivs = contentChildren(NgxPendoSectionDirective, { descendants: false });
+  sectionDirectives = contentChildren(NgxPendoSectionDirective, { descendants: false });
 
   disableInherit = computed<boolean | undefined>(() => (this.inherit() ? undefined : true));
 
   constructor() {
     effect(() => {
-      [...this.idDirectives(), ...this.sectionDirectivs()].forEach(item => {
+      const directives = [...this.idDirectives(), ...this.sectionDirectives()];
+      directives.forEach(item => {
         if (item !== this) {
           item.parent.set(this);
         }
