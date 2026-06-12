@@ -11,16 +11,16 @@ An easy implementation pendo on angular6+ apps.
 
 ### compatibility
 
-| Angular    | ngx-pendo |
-| ---------- | --------- |
-| 22+        | 2.5.x     |
-| 17–21      | 2.4.x     |
-| 16         | 1.14.x    |
-| 15         | 1.11.x    |
-| 14         | 1.10.x    |
-| 13         | 1.9.x     |
-| 9/10/11/12 | 1.8.x     |
-| 6/7/8      | 1.2.x     |
+| Angular    | ngx-pendo | Notes                                      |
+| ---------- | --------- | ------------------------------------------ |
+| 22+        | 2.5.x     | ✅ 支持新 `provideAppInitializer` API       |
+| 17–21      | 2.4.x     | ✅ 与 Angular 22 完全向后兼容               |
+| 16         | 1.14.x    |                                            |
+| 15         | 1.11.x    |                                            |
+| 14         | 1.10.x    |                                            |
+| 13         | 1.9.x     |                                            |
+| 9/10/11/12 | 1.8.x     |                                            |
+| 6/7/8      | 1.2.x     |                                            |
 
 ### npm
 
@@ -93,6 +93,24 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, {
   providers: [
     provideNgxPendo({
+      pendoApiKey: 'pendo-api-key',
+      pendoIdFormatter: (pendoId: string) => pendoId.toLowerCase()
+    })
+  ]
+});
+```
+
+#### Using the Standalone API with Angular 22+ new initializer
+For Angular 22 and higher, you can use the new `provideNgxPendoWithV2Initializer` API which uses the modern `provideAppInitializer` API:
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideNgxPendoWithV2Initializer } from 'ngx-pendo';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideNgxPendoWithV2Initializer({
       pendoApiKey: 'pendo-api-key',
       pendoIdFormatter: (pendoId: string) => pendoId.toLowerCase()
     })

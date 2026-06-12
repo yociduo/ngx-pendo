@@ -1,4 +1,12 @@
-import { APP_INITIALIZER, isDevMode, Provider } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  inject,
+  isDevMode,
+  Provider,
+  EnvironmentProviders,
+  provideAppInitializer,
+  VERSION
+} from '@angular/core';
 import { interval } from 'rxjs';
 import { IPendoSettings } from './ngx-pendo.interfaces';
 import { NGX_PENDO_WINDOW, NGX_PENDO_SETTINGS_TOKEN } from './ngx-pendo.tokens';
@@ -11,13 +19,29 @@ const DEFAULT_PENDO_SCRIPT_ORIGIN = 'https://cdn.pendo.io';
 //   return initializerFn();
 // });
 
-// Keep the `APP_INITIALIZER` to support angular 17 and 18 version
+// Keep the `APP_INITIALIZER` to support angular 17-21 version
 export const NGX_PENDO_INITIALIZER_PROVIDER: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
   useFactory: pendoInitializer,
   deps: [NGX_PENDO_SETTINGS_TOKEN, NGX_PENDO_WINDOW]
 };
+
+/**
+ * Angular 22+ initializer using new `provideAppInitializer` API
+ * For use with Angular 22 and higher only
+ */
+export const NGX_PENDO_INITIALIZER_PROVIDER_V2: EnvironmentProviders = provideAppInitializer(() => {
+  const settings = inject(NGX_PENDO_SETTINGS_TOKEN);
+  const window = inject(NGX_PENDO_WINDOW);
+  return pendoInitializer(settings, window)();
+});
+
+/**
+ * Current Angular major version
+ * @internal
+ */
+export const NGX_PENDO_ANGULAR_MAJOR_VERSION = parseInt(VERSION.major, 10);
 
 export function pendoInitializer($settings: IPendoSettings, window: PendoWindow): () => Promise<void> {
   return async () => {
