@@ -9,23 +9,23 @@ ngx-pendo is an Angular library that wraps the [Pendo](https://agent.pendo.io/) 
 ## Development Commands
 
 ```bash
-npm start                        # Serve the root demo app
-npm run start:example            # Serve the module-based example app
-npm run start:standalone         # Serve the standalone API example app
+pnpm start                       # Serve the root demo app
+pnpm run start:example           # Serve the module-based example app
+pnpm run start:standalone        # Serve the standalone API example app
 
-npm run build:lib                # Build the library (ng-packagr → dist/ngx-pendo)
-npm run build:schematics         # Compile schematics TypeScript and copy schema.json/collection.json to dist
+pnpm run build:lib               # Build the library (ng-packagr → dist/ngx-pendo)
+pnpm run build:schematics        # Compile schematics TypeScript and copy schema.json/collection.json to dist
 
-npm test                         # Run all tests (watch mode)
-npm run test:ci                  # Run all tests (single run, for CI)
+pnpm test                        # Run all tests (watch mode)
+pnpm run test:ci                 # Run all tests (single run, for CI)
 ng test ngx-pendo                # Run library tests only
 ng test ngx-pendo --watch=false  # Run library tests (single run)
 
-npm run lint                     # Lint all projects
+pnpm lint                        # Lint all projects
 ng lint ngx-pendo                # Lint library only
 
-npm run version                  # Bump version via standard-version (in projects/ngx-pendo)
-npm run publish                  # Publish from dist/ngx-pendo to npm
+pnpm run version                 # Bump version via standard-version (in projects/ngx-pendo)
+pnpm run publish                 # Publish from dist/ngx-pendo to npm
 ```
 
 ## Architecture
@@ -67,7 +67,7 @@ The directives produce dot-separated `data-pendo-id` values by concatenating anc
 - For standalone apps: adds `provideNgxPendo(...)` to `app.config.ts`
 - Detects standalone vs module-based using `isStandaloneApp()` from `@schematics/angular`
 
-Build: `npm run build:schematics` compiles TypeScript via `tsconfig.schematics.json` then copies schema/collection JSON files to `dist/ngx-pendo/schematics/`.
+Build: `pnpm run build:schematics` compiles TypeScript via `tsconfig.schematics.json` then copies schema/collection JSON files to `dist/ngx-pendo/schematics/`.
 
 ## Testing
 
@@ -80,7 +80,7 @@ Library tests use **Vitest** (configured via `types: ["vitest/globals"]` in `tsc
 
 ## Conventions
 
-- **Package manager**: npm only (yarn is explicitly disallowed via `engines`).
+- **Package manager**: pnpm only.
 - **Node**: ≥22.22.3 (see `.nvmrc` for 22.22.3).
 - **Commit messages**: Conventional Commits enforced via commitlint + husky `commit-msg` hook.
 - **Pre-commit**: lint-staged runs ESLint, stylelint, and prettier on staged files.

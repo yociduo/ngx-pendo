@@ -14,7 +14,7 @@ Run `ng build ngx-pendo` to build the project. The build artifacts will be store
 
 ## Publishing
 
-After building your library with `ng build ngx-pendo`, go to the dist folder `cd dist/ngx-pendo` and run `npm publish`.
+After building your library with `ng build ngx-pendo`, go to the dist folder `cd dist/ngx-pendo` and run `pnpm publish`.
 
 ## Running unit tests
 
