@@ -30,6 +30,14 @@ If you use npm:
 npm install ngx-pendo
 ```
 
+### pnpm
+
+If you use pnpm:
+
+```
+pnpm add ngx-pendo
+```
+
 ### yarn
 
 If you use yarn:
