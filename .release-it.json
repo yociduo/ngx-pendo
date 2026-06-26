@@ -1,0 +1,28 @@
+{
+  "$schema": "https://unpkg.com/release-it@20/schema/release-it.json",
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "projects/ngx-pendo/CHANGELOG.md",
+      "header": "# Changelog",
+      "preset": {
+        "name": "angular"
+      }
+    },
+    "@release-it/bumper": {
+      "out": {
+        "file": "projects/ngx-pendo/package.json"
+      }
+    }
+  },
+  "git": {
+    "tagName": "v${version}",
+    "commitMessage": "chore(release): v${version}"
+  },
+  "npm": false,
+  "github": {
+    "release": true
+  },
+  "hooks": {
+    "after:bump": "pnpm run build:lib"
+  }
+}

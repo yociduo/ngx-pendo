@@ -24,8 +24,8 @@ ng test ngx-pendo --watch=false  # Run library tests (single run)
 pnpm lint                        # Lint all projects
 ng lint ngx-pendo                # Lint library only
 
-pnpm run version                 # Bump version via standard-version (in projects/ngx-pendo)
-pnpm run publish                 # Publish from dist/ngx-pendo to npm
+pnpm run release                # Bump version and generate changelog via release-it
+pnpm run publish                # Publish from dist/ngx-pendo to npm
 ```
 
 ## Architecture
