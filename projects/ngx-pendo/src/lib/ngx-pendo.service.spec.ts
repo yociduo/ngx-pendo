@@ -53,6 +53,21 @@ describe('NgxPendoService', () => {
     expect(spyOnFormatter).not.toHaveBeenCalled();
   });
 
+  it('should call track method', () => {
+    spyOnPendo.track = vi.fn();
+
+    const service = TestBed.inject(NgxPendoService);
+    expect(service).toBeTruthy();
+
+    service.track('trackType');
+    expect(spyOnPendo.track).toHaveBeenCalledTimes(1);
+    expect(spyOnPendo.track).toHaveBeenCalledWith('trackType', undefined);
+
+    service.track('trackType', { key: 'value' });
+    expect(spyOnPendo.track).toHaveBeenCalledTimes(2);
+    expect(spyOnPendo.track).toHaveBeenCalledWith('trackType', { key: 'value' });
+  });
+
   it('should call pendo methods', () => {
     const service = TestBed.inject(NgxPendoService);
     expect(service).toBeTruthy();
