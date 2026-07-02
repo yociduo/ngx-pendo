@@ -82,9 +82,9 @@ describe('pendoInitializer', () => {
 
 describe('NGX_PENDO_INITIALIZER_PROVIDER', () => {
   it('should be a valid APP_INITIALIZER provider', () => {
-    expect(NGX_PENDO_INITIALIZER_PROVIDER).toBeTruthy();
-    expect((NGX_PENDO_INITIALIZER_PROVIDER as Record<string, unknown>).provide).toBe(APP_INITIALIZER);
-    expect((NGX_PENDO_INITIALIZER_PROVIDER as Record<string, unknown>).multi).toBe(true);
+    const provider = NGX_PENDO_INITIALIZER_PROVIDER as unknown as { provide: unknown; multi: boolean };
+    expect(provider.provide).toBe(APP_INITIALIZER);
+    expect(provider.multi).toBe(true);
   });
 });
 
