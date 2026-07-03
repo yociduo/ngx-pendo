@@ -2,21 +2,20 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { Mock } from 'vitest';
 import { NgxPendoService } from './ngx-pendo.service';
-import { provideNgxPendoWithV2Initializer } from './ngx-pendo.provide';
-import { NGX_PENDO_ANGULAR_MAJOR_VERSION } from './ngx-pendo.injectors';
+import { provideNgxPendo } from './ngx-pendo.provide';
 
-describe('provideNgxPendoWithV2Initializer', () => {
+describe('provideNgxPendo', () => {
   let spyOnFormatter: Mock;
 
   beforeEach(() => {
     spyOnFormatter = vi.fn();
   });
 
-  it('should provide NgxPendoService using v2 initializer', async () => {
+  it('should provide NgxPendoService using provideAppInitializer', async () => {
     await TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
-        provideNgxPendoWithV2Initializer({ pendoApiKey: 'test-api-key', pendoIdFormatter: spyOnFormatter })
+        provideNgxPendo({ pendoApiKey: 'test-api-key', pendoIdFormatter: spyOnFormatter })
       ]
     }).compileComponents();
 
@@ -36,10 +35,10 @@ describe('provideNgxPendoWithV2Initializer', () => {
     await TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
-        provideNgxPendoWithV2Initializer({
+        provideNgxPendo({
           pendoApiKey: 'test-api-key',
           pendoInitializerProvider: customProvider as unknown as Parameters<
-            typeof provideNgxPendoWithV2Initializer
+            typeof provideNgxPendo
           >[0]['pendoInitializerProvider']
         })
       ]
@@ -47,12 +46,5 @@ describe('provideNgxPendoWithV2Initializer', () => {
 
     const service = TestBed.inject(NgxPendoService);
     expect(service).toBeTruthy();
-  });
-});
-
-describe('NGX_PENDO_ANGULAR_MAJOR_VERSION', () => {
-  it('should be a number representing current Angular major version', () => {
-    expect(NGX_PENDO_ANGULAR_MAJOR_VERSION).toBeGreaterThan(0);
-    expect(typeof NGX_PENDO_ANGULAR_MAJOR_VERSION).toBe('number');
   });
 });
