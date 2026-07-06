@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.5.1](https://github.com/yociduo/ngx-pendo/compare/v2.5.0...v2.5.1) (2026-07-06)
+
+### Bug Fixes
+
+- **ci:** use pnpm/action-setup v6 and remove version param ([457e61b](https://github.com/yociduo/ngx-pendo/commit/457e61be42a41cbb16be3d8888eb37001746f073))
+- **test:** fix TS type cast in injectors spec for CI ([44e398d](https://github.com/yociduo/ngx-pendo/commit/44e398dcdccefe914059fb4acc967666b2f1ae8f))
+
+### Features
+
+- angular 22 enhancements ([326628a](https://github.com/yociduo/ngx-pendo/commit/326628aacf369d5e86d66709e1030f5474ccb853))
+
 All notable changes to this project will be documented in this file. See [release-it](https://github.com/release-it/release-it) and [@release-it/conventional-changelog](https://github.com/release-it/conventional-changelog) for commit guidelines.
 
 ## [2.5.0](https://github.com/yociduo/ngx-pendo/compare/v2.4.0...v2.5.0) (2026-06-22)
