@@ -18,7 +18,7 @@
     "cp:readme": "copyfiles ./README.md ./dist/ngx-pendo",
     "cp:schematics": "cd projects/ngx-pendo && copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../dist/ngx-pendo/",
     "release": "release-it",
-    "publish": "cd dist/ngx-pendo && pnpm publish",
+    "publish": "cd dist/ngx-pendo && pnpm publish --no-git-checks",
     "prepare": "husky"
   },
   "author": "Eden Wang",

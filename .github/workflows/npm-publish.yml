@@ -45,7 +45,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:lib
       - run: pnpm build:schematics
-      - run: pnpm publish
+      - run: pnpm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   release:
