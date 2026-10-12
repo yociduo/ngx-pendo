@@ -1,0 +1,52 @@
+version: 2
+updates:
+  # Angular packages must always move together: a split version between
+  # e.g. @angular/compiler and @angular/compiler-cli fails the build with
+  # "this.tcb.boundTarget.getForeignComponent is not a function".
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      angular:
+        patterns:
+          - '@angular/*'
+          - '@angular-devkit/*'
+          - '@schematics/angular'
+          - 'angular-eslint'
+          - 'ng-packagr'
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - 'jsdom'
+      linting:
+        patterns:
+          - 'eslint'
+          - 'typescript-eslint'
+          - 'prettier'
+          - 'stylelint*'
+      # Catch-all for transitive dev tooling security patches. Without this,
+      # each transitive advisory opens its own PR.
+      dev-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      actions:
+        patterns:
+          - '*'
