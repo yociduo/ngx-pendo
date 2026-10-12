@@ -54,7 +54,7 @@
     "@release-it/conventional-changelog": "^11.0.1",
     "@schematics/angular": "~22.1.8",
     "@types/node": "^20.11.5",
-    "@vitest/coverage-v8": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.11",
     "angular-eslint": "^22.0.0",
     "copyfiles": "^2.3.0",
     "eslint": "^9.28.0",
@@ -69,7 +69,7 @@
     "ts-node": "~10.9.2",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.46.4",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.11"
   },
   "commitlint": {
     "extends": [
