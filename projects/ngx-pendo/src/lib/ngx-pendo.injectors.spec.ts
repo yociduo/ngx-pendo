@@ -74,6 +74,52 @@ describe('pendoInitializer', () => {
     spyError.mockRestore();
     script.remove();
   });
+
+  it('should resolve and warn when the agent never becomes available', async () => {
+    vi.useFakeTimers();
+    const spyError = vi.spyOn(console, 'error');
+    const initFn = pendoInitializer({ pendoApiKey: 'stuck-key', pendoLoadTimeout: 500 }, mockWindow);
+    const promise = initFn();
+
+    const script = document.querySelector('script[src*="stuck-key"]') as HTMLScriptElement;
+    // Script loads, but window.pendo is never assigned.
+    script.dispatchEvent(new Event('load'));
+
+    await vi.advanceTimersByTimeAsync(600);
+    await expect(promise).resolves.toBeUndefined();
+
+    expect(spyError).toHaveBeenCalledWith(
+      'Pendo agent did not become available within 500ms. Application will continue without Pendo.'
+    );
+
+    // The polling interval must have been torn down, not left running.
+    expect(vi.getTimerCount()).toBe(0);
+
+    spyError.mockRestore();
+    vi.useRealTimers();
+    script.remove();
+  });
+
+  it('should not emit the timeout warning when the agent arrives in time', async () => {
+    vi.useFakeTimers();
+    const spyError = vi.spyOn(console, 'error');
+    const initFn = pendoInitializer({ pendoApiKey: 'fast-key', pendoLoadTimeout: 5000 }, mockWindow);
+    const promise = initFn();
+
+    const script = document.querySelector('script[src*="fast-key"]') as HTMLScriptElement;
+    script.dispatchEvent(new Event('load'));
+
+    mockWindow.pendo = {} as NonNullable<PendoWindow['pendo']>;
+    await vi.advanceTimersByTimeAsync(150);
+    await expect(promise).resolves.toBeUndefined();
+
+    expect(spyError).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
+
+    spyError.mockRestore();
+    vi.useRealTimers();
+    script.remove();
+  });
 });
 
 describe('NGX_PENDO_INITIALIZER_PROVIDER', () => {

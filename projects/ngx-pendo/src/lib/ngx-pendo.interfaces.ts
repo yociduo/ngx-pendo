@@ -6,6 +6,12 @@ import { InputSignal, WritableSignal, Provider } from '@angular/core';
 export interface IPendoSettings {
   pendoApiKey: string;
   pendoScriptOrigin?: string;
+  /**
+   * Milliseconds to wait for `window.pendo` to become available after the agent
+   * script reports `load`. Defaults to 10000. When exceeded, application
+   * bootstrap continues without Pendo instead of hanging indefinitely.
+   */
+  pendoLoadTimeout?: number;
   pendoIdFormatter?: (pendoId: string) => string;
   pendoInitializerProvider?: Provider;
 }
